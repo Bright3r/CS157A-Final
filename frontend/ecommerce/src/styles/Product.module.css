@@ -1,0 +1,41 @@
+.productCard {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    max-width: 300px;
+    margin: 16px auto;
+    background-color: #fff;
+    font-family: Arial, sans-serif;
+    transition: transform 0.2s ease-in-out;
+}
+
+.productCard:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.productTitle {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.productBrand,
+.productPrice,
+.productRating {
+    font-size: 1rem;
+    color: #555;
+    margin: 8px 0;
+}
+
+.productPrice {
+    color: green;
+    font-weight: bold;
+}
+
+.productRating {
+    color: darkgoldenrod;
+}
+

@@ -1,0 +1,47 @@
+.reviewCard {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    max-width: 500px;
+    margin: 16px auto;
+    background-color: #fcfcfc;
+    font-family: Arial, sans-serif;
+    transition: transform 0.2s ease-in-out;
+}
+
+.reviewCard:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.reviewTitle {
+    font-size: 1.5rem;
+    color: #444;
+    margin-bottom: 12px;
+    text-align: center;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 8px;
+}
+
+.reviewDetail {
+    font-size: 1rem;
+    color: #555;
+    margin: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    line-height: 1.5;
+}
+
+.reviewComment {
+    font-size: 1rem;
+    color: #444;
+    margin: 8px 0;
+    font-style: italic;
+    line-height: 1.5;
+}
+
+.label {
+    font-weight: bold;
+    color: #333;
+}

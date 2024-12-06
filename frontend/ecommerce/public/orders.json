@@ -1,0 +1,11 @@
+[
+    {
+        "product": {
+            "name": "Vacuum", 
+            "brand": "Sony",
+            "price": 50.00,
+            "rating": 4.7
+        },
+        "orderDate": "2024-12-06T14:30:00.000Z"
+    }
+]
