@@ -1,6 +1,9 @@
 package com.ecommerce.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -10,16 +13,23 @@ import javax.persistence.JoinColumn;
 @Table(name = "app_user")
 public class User {
 
-    @Id
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "\"userID\"")
     private Integer userID;
-
+	@Column(name = "\"userName\"")
     private String userName;
 
     @ManyToOne
     @JoinColumn(name = "addressID")
     private Address address;
+    
+    
+    @Column(name = "\"password\"")
     private String password; 
+    @Column(name = "email")
     private String email;
+    @Column(name = "\"phoneNumber\"")
     private String phoneNumber;
     
     public User() {}

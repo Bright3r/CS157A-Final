@@ -1,9 +1,14 @@
 package com.ecommerce.service;
 
+import com.ecommerce.model.LoginRequest;
 import com.ecommerce.model.User;
 import com.ecommerce.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,26 +45,29 @@ public class UserService {
      
         return userRepository.save(user);
     }
-    public User updateUser(Integer userID, User updatedUser) {
-        
+    public User updateUserDetails(Integer userID, User updatedUser) {
+    	
         User existingUser = userRepository.findById(userID)
                                           .orElseThrow(() -> new RuntimeException("User not found"));
 
-        
         existingUser.setUserName(updatedUser.getUserName());
         existingUser.setEmail(updatedUser.getEmail());
         existingUser.setPhoneNumber(updatedUser.getPhoneNumber());
         
         return userRepository.save(existingUser);
     }
-    public User loginUser(String email, String password) {
-  
-        User user = userRepository.findByEmail(email);
-        
-        if (user != null && user.getPassword().equals(password)) {
-            return user; 
-        } else {
-            throw new RuntimeException("Invalid email or password"); 
-        }
+
+    public User loginUser(String username, String password) {
+        Optional<User> optionalUser = userRepository.findByUserName(username); 
+        return optionalUser.filter(user -> user.getPassword().equals(password))
+                           .orElseThrow(() -> new RuntimeException("Invalid username or password"));
     }
+
+    public boolean authenticate(String username, String password) {
+        Optional<User> optionalUser = userRepository.findByUserName(username);
+        optionalUser.ifPresent(user -> System.out.println("Found user: " + user.getUserName() + ", Password: " + user.getPassword()));
+        return optionalUser.map(user -> user.getPassword().equals(password))
+                           .orElse(false);
+    }
+
 }

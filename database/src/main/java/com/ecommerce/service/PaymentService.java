@@ -5,6 +5,8 @@ import com.ecommerce.model.Payment;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+@Service
 public class PaymentService {
 
     private Map<Integer, Payment> paymentDatabase = new HashMap<>();

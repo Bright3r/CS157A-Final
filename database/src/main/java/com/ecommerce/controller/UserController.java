@@ -1,14 +1,15 @@
 package com.ecommerce.controller;
 
+import com.ecommerce.model.LoginRequest;
 import com.ecommerce.model.User;
 import com.ecommerce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
-
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/auth")
 public class UserController {
 
     @Autowired
@@ -32,9 +33,14 @@ public class UserController {
         return userService.updateUser(userID, updatedUser);
     }
 
-    // Login a user
-    @PostMapping("/login")
-    public User loginUser(@RequestParam String email, @RequestParam String password) {
-        return userService.loginUser(email, password);
+    @PostMapping("/api/users/login")
+    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+        try {
+            User user = userService.loginUser(loginRequest.getUsername(), loginRequest.getPassword());
+            // If login is successful, return a success message (you can also return a JWT token here)
+            return ResponseEntity.ok("Login successful");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(401).body("Invalid username or password");
+        }
     }
 }

@@ -19,22 +19,23 @@ INSERT INTO "Products" ("productID", "productName", "brand", "price", "quantity"
 (15, 'Smart Home Hub', 'Google', 149.99, 70, '2024-11-10', NULL);
 
 -- Inserting users
-INSERT INTO "Users" ("userID", "userName", "addressID", "email", "phoneNumber") VALUES
-(1, 'Alice Smith', 1, 'alice.smith@gmail.com', '123-456-7890'),
-(2, 'Bob Johnson', 2, 'bob.johnson@gmail.com', '234-567-8901'),
-(3, 'Charlie Brown', 3, 'charlie.brown@gmail.com', '345-678-9012'),
-(4, 'Diana Prince', 4, 'diana.prince@gmail.com', '456-789-0123'),
-(5, 'Eve Davis', 5, 'eve.davis@gmail.com', '567-890-1234'),
-(6, 'Frank Wright', 6, 'frank.wright@gmail.com', '678-901-2345'),
-(7, 'Grace Hall', 7, 'grace.hall@gmail.com', '789-012-3456'),
-(8, 'Henry Wilson', 8, 'henry.wilson@gmail.com', '890-123-4567'),
-(9, 'Ivy Adams', 9, 'ivy.adams@gmail.com', '901-234-5678'),
-(10, 'Jack White', 10, 'jack.white@gmail.com', '012-345-6789'),
-(11, 'Karen Black', 11, 'karen.black@gmail.com', '111-222-3333'),
-(12, 'Leo Green', 12, 'leo.green@gmail.com', '222-333-4444'),
-(13, 'Mia Blue', 13, 'mia.blue@gmail.com', '333-444-5555'),
-(14, 'Nina Red', 14, 'nina.red@gmail.com', '444-555-6666'),
-(15, 'Oscar Yellow', 15, 'oscar.yellow@gmail.com', '555-666-7777');
+INSERT INTO "Users" ("userID", "userName", "addressID", "email", "phoneNumber", "password") VALUES
+(1, 'alice_smith', 1, 'alice.smith@gmail.com', '123-456-7890', 'password123'),
+(2, 'bob_johnson', 2, 'bob.johnson@gmail.com', '234-567-8901', 'password456'),
+(3, 'charlie_brown', 3, 'charlie.brown@gmail.com', '345-678-9012', 'password789'),
+(4, 'diana_prince', 4, 'diana.prince@gmail.com', '456-789-0123', 'password101'),
+(5, 'eve_davis', 5, 'eve.davis@gmail.com', '567-890-1234', 'password202'),
+(6, 'frank_wright', 6, 'frank.wright@gmail.com', '678-901-2345', 'password303'),
+(7, 'grace_hall', 7, 'grace.hall@gmail.com', '789-012-3456', 'password404'),
+(8, 'henry_wilson', 8, 'henry.wilson@gmail.com', '890-123-4567', 'password505'),
+(9, 'ivy_adams', 9, 'ivy.adams@gmail.com', '901-234-5678', 'password606'),
+(10, 'jack_white', 10, 'jack.white@gmail.com', '012-345-6789', 'password707'),
+(11, 'karen_black', 11, 'karen.black@gmail.com', '111-222-3333', 'password808'),
+(12, 'leo_green', 12, 'leo.green@gmail.com', '222-333-4444', 'password909'),
+(13, 'mia_blue', 13, 'mia.blue@gmail.com', '333-444-5555', 'password010'),
+(14, 'nina_red', 14, 'nina.red@gmail.com', '444-555-6666', 'password111'),
+(15, 'oscar_yellow', 15, 'oscar.yellow@gmail.com', '555-666-7777', 'password121');
+
 
 -- Inserting addresses
 INSERT INTO "Addresses" ("addrID", "country", "state", "city", "street", "houseNumber", "zipcode") VALUES

@@ -19,7 +19,7 @@ public class Address {
     private String zipcode;
 
     @ManyToOne
-    @JoinColumn(name = "userID", referencedColumnName = "userID")  
+    @JoinColumn(name = "user_id")
     private User user;
     
     // Getters and setters
