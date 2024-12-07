@@ -18,7 +18,7 @@ export default function Home() {
 
         setProducts(data);
       } catch (error) {
-        console.error("Error fetching data: ", error);
+        console.error("Error fetching products: ", error);
       }
     };
 
@@ -28,10 +28,10 @@ export default function Home() {
         const data = await req.json();
 
         let cleanedData: review_t[] = data;
-        cleanedData.forEach((review) => review.date = new Date(review.date));
+        cleanedData.forEach((review) => review.datePosted = new Date(review.datePosted));
         setReviews(cleanedData);
       } catch (error) {
-        console.error("Error fetching data: ", error);
+        console.error("Error fetching reviews: ", error);
       }
     };
 
@@ -41,10 +41,10 @@ export default function Home() {
         const data = await req.json();
 
         let cleanedData: order_t[] = data;
-        cleanedData.forEach((order) => order.orderDate = new Date(order.orderDate));
+        cleanedData.forEach((order) => order.dateOrdered = new Date(order.dateOrdered));
         setOrders(cleanedData);
       } catch (error) {
-        console.error("Error fetching data: ", error);
+        console.error("Error fetching orders: ", error);
       }
     };
 
@@ -57,15 +57,15 @@ export default function Home() {
     <>
       <h1> SHOP </h1>
       {products.length > 0 && (
-        products.map((product) => <Product key={product.name} {...product} />)
+        products.map((product) => <Product key={product.productID} {...product} />)
       )}
 
       {reviews.length > 0 && (
-        reviews.map((review) => <Review key={review.username} {...review} />)
+        reviews.map((review) => <Review key={review.reviewID} {...review} />)
       )}
 
       {orders.length > 0 && (
-        orders.map((order) => <Order key={order.product.name} {...order} />)
+        orders.map((order) => <Order key={order.orderID} {...order} />)
       )}
     </>
   );

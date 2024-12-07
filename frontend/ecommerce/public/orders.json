@@ -1,11 +1,93 @@
 [
     {
-        "product": {
-            "name": "Vacuum", 
-            "brand": "Sony",
-            "price": 50.00,
-            "rating": 4.7
+      "orderID": 1,
+      "numProductsOrdered": 2,
+      "dateOrdered": "2024-03-10T10:30:00.000Z",
+      "total": 220.99,
+      "products": [
+        {
+          "productID": 1,
+          "productName": "Vacuum Cleaner",
+          "brand": "Sony",
+          "price": 120.99,
+          "quantity": 1,
+          "rating": 4.5,
+          "listingDate": "2024-01-15"
         },
-        "orderDate": "2024-12-06T14:30:00.000Z"
+        {
+          "productID": 3,
+          "productName": "Blender",
+          "brand": "Ninja",
+          "price": 79.99,
+          "quantity": 1,
+          "rating": 4.8,
+          "listingDate": "2024-02-20"
+        }
+      ],
+      "shippingAddress": {
+        "addrID": 1,
+        "country": "USA",
+        "state": "California",
+        "city": "Los Angeles",
+        "street": "123 Elm St",
+        "houseNumber": "10",
+        "zipcode": "90001"
+      },
+      "user": {
+        "userID": 1,
+        "userName": "John Doe",
+        "email": "johndoe@example.com",
+        "phoneNumber": "123-456-7890",
+        "adress": {
+          "addrID": 1,
+          "country": "USA",
+          "state": "California",
+          "city": "Los Angeles",
+          "street": "123 Elm St",
+          "houseNumber": "10",
+          "zipcode": "90001"
+        }
+      }
+    },
+    {
+      "orderID": 2,
+      "numProductsOrdered": 1,
+      "dateOrdered": "2024-03-12T15:45:00.000Z",
+      "total": 450.50,
+      "products": [
+        {
+          "productID": 4,
+          "productName": "Washing Machine",
+          "brand": "LG",
+          "price": 450.50,
+          "quantity": 1,
+          "rating": 4.3,
+          "listingDate": "2024-03-05"
+        }
+      ],
+      "shippingAddress": {
+        "addrID": 2,
+        "country": "USA",
+        "state": "New York",
+        "city": "Brooklyn",
+        "street": "456 Oak St",
+        "houseNumber": "5",
+        "zipcode": "11201"
+      },
+      "user": {
+        "userID": 2,
+        "userName": "Jane Smith",
+        "email": "janesmith@example.com",
+        "phoneNumber": "987-654-3210",
+        "adress": {
+          "addrID": 2,
+          "country": "USA",
+          "state": "New York",
+          "city": "Brooklyn",
+          "street": "456 Oak St",
+          "houseNumber": "5",
+          "zipcode": "11201"
+        }
+      }
     }
-]
+]  

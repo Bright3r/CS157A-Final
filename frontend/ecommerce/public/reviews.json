@@ -1,8 +1,60 @@
 [
-    {
-        "rating": 2.0,
-        "comment": "very bad product",
-        "username": "mario",
-        "date": "2024-12-06T14:30:00.000Z"
+  {
+    "reviewID": 1,
+    "reviewComment": "Great vacuum! It has amazing suction power and is very easy to use.",
+    "datePosted": "2024-01-10T14:30:00.000Z",
+    "product": {
+      "productID": 1,
+      "productName": "Vacuum Cleaner",
+      "brand": "Sony",
+      "price": 120.99,
+      "quantity": 15,
+      "rating": 4.5,
+      "listingDate": "2024-01-15"
+    },
+    "user": {
+      "userID": 1,
+      "userName": "John Doe",
+      "email": "johndoe@example.com",
+      "phoneNumber": "123-456-7890",
+      "adress": {
+        "addrID": 1,
+        "country": "USA",
+        "state": "California",
+        "city": "Los Angeles",
+        "street": "123 Elm St",
+        "houseNumber": "10",
+        "zipcode": "90001"
       }
+    }
+  },
+  {
+    "reviewID": 2,
+    "reviewComment": "Not bad, but could be more powerful. For the price, it's decent.",
+    "datePosted": "2024-02-05T09:15:00.000Z",
+    "product": {
+      "productID": 2,
+      "productName": "Microwave Oven",
+      "brand": "Samsung",
+      "price": 99.99,
+      "quantity": 30,
+      "rating": 4.2,
+      "listingDate": "2023-11-01"
+    },
+    "user": {
+      "userID": 2,
+      "userName": "Jane Smith",
+      "email": "janesmith@example.com",
+      "phoneNumber": "987-654-3210",
+      "adress": {
+        "addrID": 2,
+        "country": "USA",
+        "state": "New York",
+        "city": "Brooklyn",
+        "street": "456 Oak St",
+        "houseNumber": "5",
+        "zipcode": "11201"
+      }
+    }
+  }
 ]
