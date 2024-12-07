@@ -48,3 +48,8 @@ type order_t = {
     shippingAddress: address_t;
     user: user_t;
 };
+
+type cart_product_t = {
+    product: product_t;
+    purchaseQuantity: number;
+}

@@ -1,33 +1,37 @@
 
 
 .navbar {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-  }
+}
   
-  .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
   
-  .navLinks {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-  }
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+}
   
-  .navLinks li {
-    font-size: 1rem;
-  }
+.navLinks li {
+  font-size: 1rem;
+}
+
+.navLinks a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.navLinks a:hover {
+  text-decoration: underline;
+}
   
-  .navLinks a {
-    color: var(--primary);
-    text-decoration: none;
-  }
-  
-  .navLinks a:hover {
-    text-decoration: underline;
-  }
-  
+.cartButton {
+ margin-top: 4px; 
+}
