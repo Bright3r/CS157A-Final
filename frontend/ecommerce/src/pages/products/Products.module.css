@@ -1,0 +1,13 @@
+
+.header {
+    max-width: fit-content;
+    margin: 1rem auto;
+}
+
+.productList {
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 1rem;
+}

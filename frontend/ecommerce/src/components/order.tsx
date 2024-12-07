@@ -10,17 +10,24 @@ export default function Order(
     return (
         <div className={styles.orderCard}>
             <h2 className={styles.orderTitle}>Order Summary</h2>
-            <p className={styles.orderDetail}>
-                <span className={styles.label}>Product Name:</span> {prod?.productName}
-            </p>
-            <p className={styles.orderDetail}>
-                <span className={styles.label}>Brand:</span> {prod?.brand}
-            </p>
-            <p className={styles.orderDetail}>
-                <span className={styles.label}>Price:</span> ${prod?.price.toFixed(2)}
-            </p>
+            {products.map((product) =>
+                <>
+                    <p className={styles.orderDetail}>
+                        <span className={styles.label}>Product Name:</span> {prod?.productName}
+                    </p>
+                    <p className={styles.orderDetail}>
+                        <span className={styles.label}>Brand:</span> {prod?.brand}
+                    </p>
+                    <p className={styles.orderDetail}>
+                        <span className={styles.label}>Price:</span> ${prod?.price.toFixed(2)}
+                    </p>
+                </>
+            )}
             <p className={styles.orderDetail}>
                 <span className={styles.label}>Order Date:</span> {dateOrdered.toDateString()}
+            </p>
+            <p className={styles.orderDetail}>
+                <span className={styles.label}>Total:</span> ${total.toFixed(2)}
             </p>
         </div>
     );

@@ -1,13 +1,18 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --background: #232946;
+  --headline: #fffffe;
+  --paragraph: #b8c1ec;
+  --button: #eebbc3;
+  --buttontext: #232946;
+  --primary: #b8c1ec;
+  --secondary: #fffffe;
+  --tertiary: #eebbc3;
+  --highlight: #eebbc3;
+
+  --cardbg: #fffffe;
+  --cardheader: #232946;
+  --cardparagraph: #232946;
 }
 
 html,
@@ -17,7 +22,7 @@ body {
 }
 
 body {
-  color: var(--foreground);
+  color: var(--headline);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -30,13 +35,16 @@ body {
   margin: 0;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+p {
+  color: var(--paragraph);
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+.button {
+  background-color: var(--button);
+  color: var(--buttontext);
+}
+
+a {
+  color: var(--highlight);
+  text-decoration: none;
 }
