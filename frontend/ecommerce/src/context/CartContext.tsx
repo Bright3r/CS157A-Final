@@ -4,6 +4,7 @@ interface CartContextType {
     cartProducts: cart_product_t[];
     addCartProduct: (cartProduct: cart_product_t) => void;
     removeCartProduct: (productID: number) => void;
+    updateCartProduct: (cartProduct: cart_product_t) => void;
 }
 
 const CartContext = createContext<CartContextType | null>(null);
@@ -25,7 +26,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         let alreadyInCart = false;
         newCart.forEach((cartProduct) => {
             if (cartProduct.product.productID === newCartProduct.product.productID) {
-                cartProduct.purchaseQuantity++;
+                cartProduct.purchaseQuantity += newCartProduct.purchaseQuantity;
                 alreadyInCart = true;
             }
         })
@@ -41,9 +42,25 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setCartProducts(newProducts);
     }
 
+    const updateCartProduct = (updatedCartProduct: cart_product_t) => {
+        const newProducts = cartProducts;
+        const oldProduct = newProducts.find((cartProduct) => {
+            return (cartProduct.product.productID === updatedCartProduct.product.productID);
+        });
+
+        if (oldProduct) {
+            oldProduct.purchaseQuantity = updatedCartProduct.purchaseQuantity;
+        }
+        else {
+            newProducts.push(updatedCartProduct);
+        }
+
+        setCartProducts(newProducts);
+    }
+
     return (
         <CartContext.Provider 
-            value={{ cartProducts, addCartProduct, removeCartProduct }}
+            value={{ cartProducts, addCartProduct, removeCartProduct, updateCartProduct }}
         >
             {children}
         </CartContext.Provider>

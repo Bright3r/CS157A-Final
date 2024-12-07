@@ -25,9 +25,7 @@ export default function Products() {
     <>
       <h1 className={styles.header}> Products </h1>
       <div className={styles.productList}>
-        {products.length > 0 && (
-            products.map((product) => <Product key={product.productID} {...product} />)
-        )}
+        {products.map((product) => <Product key={product.productID} {...product} />)}
       </div>
     </>
   );

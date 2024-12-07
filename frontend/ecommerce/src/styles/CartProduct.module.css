@@ -45,3 +45,12 @@
     color: var(--background);
     margin: 8px 0;
 }
+
+.purhcaseQuantitySelector {
+    display: inline-block;
+}
+
+.quantityContainer {
+    display: flex;
+    gap: 1rem;
+}

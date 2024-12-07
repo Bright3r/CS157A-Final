@@ -1,14 +1,26 @@
 import "../types";
 import { useCart } from "../context/CartContext";
+import { useState } from "react";
 import styles from "@/styles/CartProduct.module.css";
 
 export default function CartProduct({ product, purchaseQuantity }: cart_product_t) {
     const { productID, productName, brand, price, rating, listingDate } = product;
-    const { addCartProduct, removeCartProduct } = useCart();
+
+    let [localQuantity, setLocalQuantity] = useState<number>(purchaseQuantity);
+
+    const { removeCartProduct, updateCartProduct } = useCart();
+
 
     const handleRemoveFromCart = () => {
         removeCartProduct(productID);
     };
+
+    const handleUpdateQuantity = (newQuantity: number) => {
+        setLocalQuantity(newQuantity);
+
+        const updatedProduct: cart_product_t = { product, purchaseQuantity: newQuantity };
+        updateCartProduct(updatedProduct);
+    }
 
     return (
         <div className={styles.productCard}>
@@ -20,8 +32,20 @@ export default function CartProduct({ product, purchaseQuantity }: cart_product_
             </p>
 
             <div className={styles.purchaseDetails}>
-                <p className={styles.purchaseQuantity}>Purchase Qty: <strong>{purchaseQuantity}</strong></p>
-                <p className={styles.total}>Total: <strong>${(purchaseQuantity * price).toFixed(2)}</strong></p>
+                <div className={styles.quantityContainer}>
+                    <p className={styles.purchaseQuantity}>Purchase Qty: </p>
+                    <input
+                        className={styles.purchaseQuantitySelector}
+                        type="number"
+                        id="quantity"
+                        name="purchaseQuantity"
+                        min="0"
+                        max="99"
+                        value={localQuantity}
+                        onChange={(e) => handleUpdateQuantity(Number(e.target.value))}
+                    />
+                </div>
+                <p className={styles.total}>Total: <strong>${(localQuantity * price).toFixed(2)}</strong></p>
             </div>
             <button className="button" onClick={() => handleRemoveFromCart()}>Remove</button>
         </div>

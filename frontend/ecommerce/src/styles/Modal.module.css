@@ -1,0 +1,99 @@
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+  
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+  
+.modalContent {
+    background: var(--background);
+    color: var(--secondary);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 400px;
+    max-width: 90%;
+}
+  
+.modalHeader {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+  
+.modalBody {
+    margin-bottom: 20px;
+    color: var(--secondary);
+}
+
+.buttons {
+    width: fit-content;
+    margin: auto;
+    display: flex;
+    gap: 2rem;
+}
+  
+.buyButton, .closeModalButton {
+    padding: 10px 20px;
+    background-color: var(--background);
+    color: var(--background);
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buyButton {
+    background-color: var(--primary);
+}
+
+.closeModalButton {
+    background-color: var(--tertiary);
+}
+
+.buyButton:hover {
+    background-color: var(--secondary);
+    color: var(--primary);
+}
+
+.closeModalButton:hover {
+    background-color: var(--secondary);
+    color: var(--highlight);
+}
+
+.purchaseDetails {
+    background-color: var(--primary);
+    padding: 2rem 0rem;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.purchaseDetail {
+    font-size: 1.1rem;
+    color: var(--background);
+    margin: 8px 0;
+}
+
+.quantityContainer {
+    display: flex;
+    gap: 1rem;
+    width: fit-content;
+    margin: 1rem auto;
+}

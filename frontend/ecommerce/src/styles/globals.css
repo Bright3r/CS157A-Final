@@ -53,6 +53,6 @@ p {
 }
 
 a {
-  color: var(--highlight);
+  color: var(--secondary);
   text-decoration: none;
 }

@@ -1,37 +1,51 @@
-
-
 .navbar {
   display: flex;
   justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
+  align-items: center;
+  padding: 1rem 2rem;
 }
-  
+
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 5px;
 }
-  
+
+.logo:hover {
+  background-color: var(--primary);
+}
+
 .navLinks {
   display: flex;
   align-items: center;
   gap: 2rem;
   list-style: none;
 }
-  
+
 .navLinks li {
   font-size: 1rem;
+  display: flex;
+  align-items: center;
 }
 
 .navLinks a {
-  color: var(--primary);
+  color: var(--secondary);
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .navLinks a:hover {
-  text-decoration: underline;
+  background-color: var(--primary);
 }
-  
+
 .cartButton {
- margin-top: 4px; 
+  width: 30px;
+  height: 30px;
 }
