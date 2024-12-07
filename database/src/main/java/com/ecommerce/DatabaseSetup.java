@@ -36,19 +36,26 @@ public class DatabaseSetup {
             String line;
             StringBuilder sql = new StringBuilder();
 
-            // Add search_path to specify the schema
             sql.append("SET search_path TO sales, public;\n");
+
+            System.out.println("Reading SQL file: " + filePath);
 
             while ((line = br.readLine()) != null) {
                 sql.append(line);
                 sql.append("\n");
             }
 
+            System.out.println("Executing SQL:");
+            System.out.println(sql.toString());
+
             try (Statement stmt = conn.createStatement()) {
                 stmt.execute(sql.toString());
+                System.out.println("SQL execution completed for: " + filePath);
             }
         } catch (IOException | SQLException e) {
+            System.err.println("Error executing SQL file: " + filePath);
             e.printStackTrace();
         }
     }
+
 }

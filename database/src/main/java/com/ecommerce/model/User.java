@@ -10,14 +10,14 @@ import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 
 @Entity
-@Table(name = "app_user")
+@Table(name = "Users")
 public class User {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "\"userID\"")
     private Integer userID;
-	@Column(name = "\"userName\"")
+	@Column(name = "userName")
     private String userName;
 
     @ManyToOne

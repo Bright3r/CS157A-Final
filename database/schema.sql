@@ -1,5 +1,8 @@
 SET search_path = public;
 
+
+GRANT USAGE ON SCHEMA public TO admin;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO admin;
 -- PostgreSQL database dump
 --
 DROP TABLE IF EXISTS public."Addresses" CASCADE;
