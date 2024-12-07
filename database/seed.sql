@@ -1,22 +1,22 @@
 -- seed.sql
 
 -- Inserting products
-INSERT INTO "Products" ("productID", "productName", "brand", "price", "quantity", "listingDate") VALUES
-(1, 'Iphone 15', 'Apple', 800.00, 50, '2024-11-01'),
-(2, 'Airpods Pro', 'Apple', 125.00, 200, '2024-11-02'),
-(3, 'Surface Pro', 'Microsoft', 1299.99, 30, '2024-10-20'),
-(4, 'Gaming Console', 'Nintendo', 499.99, 100, '2024-10-01'),
-(5, 'Smartwatch', 'Apple', 259.99, 150, '2024-11-25'),
-(6, '4K TV', 'Sony', 899.99, 20, '2024-10-05'),
-(7, 'Bluetooth Speaker', 'Bose', 59.99, 300, '2024-10-18'),
-(8, 'Electric Kettle', 'HomeTech', 29.99, 50, '2024-10-22'),
-(9, 'Vacuum Cleaner', 'Roborock', 899.94, 40, '2024-10-08'),
-(10, 'Fitness Tracker', 'FitGear', 99.99, 120, '2024-10-27'),
-(11, 'DSLR Camera', 'Canon', 799.99, 15, '2024-10-03'),
-(12, 'Wireless Router', 'NetGear', 129.99, 80, '2024-11-17'),
-(13, 'Gaming Headset', 'Razer', 69.99, 150, '2024-11-28'),
-(14, 'External Hard Drive', 'StorageBrand', 89.99, 60, '2024-11-29'),
-(15, 'Smart Home Hub', 'Google', 149.99, 70, '2024-11-10');
+INSERT INTO "Products" ("productID", "productName", "brand", "price", "quantity", "listingDate", "image_url") VALUES
+(1, 'Iphone 15', 'Apple', 800.00, 50, '2024-11-01', NULL),
+(2, 'Airpods Pro', 'Apple', 125.00, 200, '2024-11-02', NULL),
+(3, 'Surface Pro', 'Microsoft', 1299.99, 30, '2024-10-20', NULL),
+(4, 'Gaming Console', 'Nintendo', 499.99, 100, '2024-10-01', NULL),
+(5, 'Smartwatch', 'Apple', 259.99, 150, '2024-11-25', NULL),
+(6, '4K TV', 'Sony', 899.99, 20, '2024-10-05', NULL),
+(7, 'Bluetooth Speaker', 'Bose', 59.99, 300, '2024-10-18', NULL),
+(8, 'Electric Kettle', 'HomeTech', 29.99, 50, '2024-10-22', NULL),
+(9, 'Vacuum Cleaner', 'Roborock', 899.94, 40, '2024-10-08', NULL),
+(10, 'Fitness Tracker', 'FitGear', 99.99, 120, '2024-10-27', NULL),
+(11, 'DSLR Camera', 'Canon', 799.99, 15, '2024-10-03', NULL),
+(12, 'Wireless Router', 'NetGear', 129.99, 80, '2024-11-17', NULL),
+(13, 'Gaming Headset', 'Razer', 69.99, 150, '2024-11-28', NULL),
+(14, 'External Hard Drive', 'StorageBrand', 89.99, 60, '2024-11-29', NULL),
+(15, 'Smart Home Hub', 'Google', 149.99, 70, '2024-11-10', NULL);
 
 -- Inserting users
 INSERT INTO "Users" ("userID", "userName", "addressID", "email", "phoneNumber") VALUES

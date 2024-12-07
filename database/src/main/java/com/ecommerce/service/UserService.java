@@ -33,4 +33,33 @@ public class UserService {
     public void deleteUser(Integer userId) {
         userRepository.deleteById(userId);
     }
+    public User registerUser(User user) {
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw new RuntimeException("User with this email already exists");
+        }
+     
+        return userRepository.save(user);
+    }
+    public User updateUser(Integer userID, User updatedUser) {
+        
+        User existingUser = userRepository.findById(userID)
+                                          .orElseThrow(() -> new RuntimeException("User not found"));
+
+        
+        existingUser.setUserName(updatedUser.getUserName());
+        existingUser.setEmail(updatedUser.getEmail());
+        existingUser.setPhoneNumber(updatedUser.getPhoneNumber());
+        
+        return userRepository.save(existingUser);
+    }
+    public User loginUser(String email, String password) {
+  
+        User user = userRepository.findByEmail(email);
+        
+        if (user != null && user.getPassword().equals(password)) {
+            return user; 
+        } else {
+            throw new RuntimeException("Invalid email or password"); 
+        }
+    }
 }

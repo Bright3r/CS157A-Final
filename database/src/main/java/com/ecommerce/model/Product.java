@@ -9,6 +9,8 @@ import java.util.Date;
 @Entity
 public class Product {
 	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	
     private Integer productID;
 
     private String productName;
@@ -16,7 +18,8 @@ public class Product {
     private Double price;
     private Integer quantity;
     private Date listingDate;
-
+    private String imageUrl;
+    
     // Getters and setters
     public Integer getProductID() {
         return productID;
@@ -64,5 +67,12 @@ public class Product {
 
     public void setListingDate(Date listingDate) {
         this.listingDate = listingDate;
+    }
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

@@ -2,6 +2,8 @@ package com.ecommerce.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Address {
@@ -16,6 +18,10 @@ public class Address {
     private String houseNumber;
     private String zipcode;
 
+    @ManyToOne
+    @JoinColumn(name = "userID", referencedColumnName = "userID")  
+    private User user;
+    
     // Getters and setters
     public Integer getAddrID() {
         return addrID;
@@ -71,5 +77,12 @@ public class Address {
 
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
+    }
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

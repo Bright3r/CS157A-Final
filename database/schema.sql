@@ -1,6 +1,14 @@
---
+SET search_path = public;
+
 -- PostgreSQL database dump
 --
+DROP TABLE IF EXISTS public."Addresses" CASCADE;
+DROP TABLE IF EXISTS public."Orders" CASCADE;
+DROP TABLE IF EXISTS public."OrdersDetails" CASCADE;
+DROP TABLE IF EXISTS public."Products" CASCADE;
+DROP TABLE IF EXISTS public."Reviews" CASCADE;
+DROP TABLE IF EXISTS public."UserAddresses" CASCADE;
+DROP TABLE IF EXISTS public."Users" CASCADE;
 
 -- Dumped from database version 14.15 (Homebrew)
 -- Dumped by pg_dump version 14.15 (Homebrew)
@@ -24,7 +32,7 @@ SET default_table_access_method = heap;
 -- Name: Addresses; Type: TABLE; Schema: public; Owner: minhtruongnguyen
 --
 
-CREATE TABLE public."Addresses" (
+CREATE TABLE IF NOT EXISTS public."Addresses" (
     "addrID" integer NOT NULL,
     country character varying(100),
     state character varying(100),
@@ -41,7 +49,7 @@ ALTER TABLE public."Addresses" OWNER TO minhtruongnguyen;
 -- Name: Orders; Type: TABLE; Schema: public; Owner: minhtruongnguyen
 --
 
-CREATE TABLE public."Orders" (
+CREATE TABLE IF NOT EXISTS public."Orders" (
     "orderID" integer NOT NULL,
     "userID" integer,
     "numProductsOrdered" integer,
@@ -56,7 +64,7 @@ ALTER TABLE public."Orders" OWNER TO minhtruongnguyen;
 -- Name: OrdersDetails; Type: TABLE; Schema: public; Owner: minhtruongnguyen
 --
 
-CREATE TABLE public."OrdersDetails" (
+CREATE TABLE IF NOT EXISTS public."OrdersDetails" (
     "orderDetailsID" integer NOT NULL,
     "orderID" integer,
     "productID" integer,
@@ -70,12 +78,13 @@ ALTER TABLE public."OrdersDetails" OWNER TO minhtruongnguyen;
 -- Name: Products; Type: TABLE; Schema: public; Owner: minhtruongnguyen
 --
 
-CREATE TABLE public."Products" (
+CREATE TABLE IF NOT EXISTS public."Products" (
     "productID" integer NOT NULL,
     "productName" character varying(100),
     brand character varying(50),
     price numeric(10,2),
     quantity integer,
+    image_url VARCHAR(255), 
     "listingDate" date
 );
 
@@ -86,7 +95,7 @@ ALTER TABLE public."Products" OWNER TO minhtruongnguyen;
 -- Name: Reviews; Type: TABLE; Schema: public; Owner: minhtruongnguyen
 --
 
-CREATE TABLE public."Reviews" (
+CREATE TABLE IF NOT EXISTS public."Reviews" (
     "reviewID" integer NOT NULL,
     "userID" integer,
     "productID" integer,
@@ -102,9 +111,9 @@ ALTER TABLE public."Reviews" OWNER TO minhtruongnguyen;
 -- Name: UserAddresses; Type: TABLE; Schema: public; Owner: minhtruongnguyen
 --
 
-CREATE TABLE public."UserAddresses" (
+CREATE TABLE IF NOT EXISTS public."UserAddresses" (
     "userID" integer NOT NULL,
-    "addressID" integer NOT NULL
+    "addrID" integer NOT NULL
 );
 
 
@@ -114,11 +123,12 @@ ALTER TABLE public."UserAddresses" OWNER TO minhtruongnguyen;
 -- Name: Users; Type: TABLE; Schema: public; Owner: minhtruongnguyen
 --
 
-CREATE TABLE public."Users" (
+CREATE TABLE IF NOT EXISTS public."Users" (
     "userID" integer NOT NULL,
     "userName" character varying(100),
     "addressID" integer,
     email character varying(100),
+    "password" character varying(100),
     "phoneNumber" character varying(100)
 );
 
@@ -170,7 +180,7 @@ ALTER TABLE ONLY public."Reviews"
 --
 
 ALTER TABLE ONLY public."UserAddresses"
-    ADD CONSTRAINT "UserAddresses_pkey" PRIMARY KEY ("userID", "addressID");
+    ADD CONSTRAINT "UserAddresses_pkey" PRIMARY KEY ("userID", "addrID");
 
 
 --
@@ -234,7 +244,7 @@ ALTER TABLE ONLY public."Reviews"
 --
 
 ALTER TABLE ONLY public."UserAddresses"
-    ADD CONSTRAINT "UserAddresses_addressID_fkey" FOREIGN KEY ("addressID") REFERENCES public."Addresses"("addrID");
+    ADD CONSTRAINT "UserAddresses_addressID_fkey" FOREIGN KEY ("addrID") REFERENCES public."Addresses"("addrID");
 
 
 --
