@@ -21,9 +21,7 @@ export default function Products() {
       try {
         const res = await fetch("http://localhost:8080/api/products");
         const data: product_t[] = await res.json();
-        setProducts(
-          data.map((p) => ({ ...p, productID: String(p.productID) }))
-        ); // Enforce string productID
+        setProducts(data);
       } catch (err) {
         console.error("Error fetching products:", err);
       }

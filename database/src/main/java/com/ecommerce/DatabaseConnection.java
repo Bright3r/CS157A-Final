@@ -5,13 +5,16 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
     
+	// Singleton connection instance
+	private static Connection conn;
+	
     // Database credentials
     private static final String URL = "jdbc:postgresql://localhost:5432/ecommerce";
     private static final String USERNAME = "admin";
     private static final String PASSWORD = "admin";
 
-    // Method to get a database connection
-    public static Connection getConnection() {
+    // Method to establish a database connection
+    private static Connection establishConnection() {
         try {
             // Load the PostgreSQL JDBC driver
             Class.forName("org.postgresql.Driver");
@@ -32,17 +35,19 @@ public class DatabaseConnection {
         
         return null;
     }
-    public static void main(String[] args) {
-        // Try to establish a connection using try-with-resources
-        try (Connection conn = getConnection()) {
-            if (conn != null) {
-                System.out.println("Connection established successfully!");
-            } else {
-                System.out.println("Failed to establish connection.");
-            }
-        } catch (SQLException e) {
-            System.out.println("Error closing connection.");
-            e.printStackTrace();
+    
+    // Method to get the singleton database connection
+    public static Connection getConnection() {
+    	return conn;
+    }
+    
+    public static void initialize() {
+        // Try to establish a connection
+    	conn = establishConnection();
+        if (conn != null) {
+            System.out.println("Connection established successfully!");
+        } else {
+            System.out.println("Failed to establish connection.");
         }
     }
 }

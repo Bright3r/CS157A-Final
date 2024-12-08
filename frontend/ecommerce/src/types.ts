@@ -26,6 +26,7 @@ type product_t = {
     price: number;
     quantity: number;
     rating: number;
+    imageUrl: string;
     listingDate: string;
 };  
 

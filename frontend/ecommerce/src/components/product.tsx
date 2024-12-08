@@ -1,18 +1,10 @@
+import "../types";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Modal from "./modal";
 import styles from "@/styles/Product.module.css";
 
-export type product_t = {
-  productID: string;
-  productName: string;
-  brand: string;
-  price: number;
-  rating: number;
-  imageUrl: string;
-  quantity: number;
-  listingDate: string;
-};
+
 
 export default function Product({
   productID,
