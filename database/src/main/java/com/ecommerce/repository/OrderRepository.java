@@ -1,11 +1,15 @@
 package com.ecommerce.repository;
 
 import com.ecommerce.model.Order;
+import com.ecommerce.model.Review;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +19,19 @@ public class OrderRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    private Order buildOrder(ResultSet rs) throws SQLException {
+		Order curr = new Order();
+		
+		// Set fields of Order to match database order
+	    curr.setOrderID(rs.getInt("orderID"));
+	    curr.setUser(null);
+	    curr.setNumProductsOrdered(rs.getInt("numProductsOrdered"));
+	    curr.setDateOrdered(rs.getDate("dateOrdered"));
+	    curr.setShippingAddress(null);
+		
+		return curr;
+    }
+    
     // Insert a new order
     public int saveOrder(Order order) {
         String sql = "INSERT INTO Orders (userID, numProductsOrdered, dateOrdered, shippingAddressID) VALUES (?, ?, ?, ?)";

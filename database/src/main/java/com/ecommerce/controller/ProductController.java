@@ -28,7 +28,7 @@ public class ProductController {
     }
 
     // Get product by ID
-    @GetMapping("/{id}")
+    @GetMapping("/products/{id}")
     public Product getProductById(@PathVariable Integer id) {
         return productService.getProductById(id).orElse(null);  // Return null if not found
     }

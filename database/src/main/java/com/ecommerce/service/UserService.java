@@ -12,15 +12,14 @@ import java.util.Optional;
 public class UserService {
 
     @Autowired
-    private static UserRepository userRepository;
+    private UserRepository userRepository;
     
     public boolean handleForgotPassword(String email) {
-       
-    	
         return true; 
-    	}
+    }
 
     public void sendResetPasswordEmail(String email) {
+    	
     }
     
     

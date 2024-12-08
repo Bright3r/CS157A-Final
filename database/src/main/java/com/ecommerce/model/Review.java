@@ -5,8 +5,8 @@ import java.util.Date;
 public class Review {
 
     private Integer reviewID;
-    private Integer userID;  
-    private Integer productID; 
+    private User user;  
+    private Product product; 
     private Integer rating;
     private String reviewComment;
     private Date datePosted;
@@ -14,9 +14,9 @@ public class Review {
     public Review() {
     }
 
-    public Review(Integer userID, Integer productID, Integer rating, String reviewComment, Date datePosted) {
-        this.userID = userID;
-        this.productID = productID;
+    public Review(User user, Product product, Integer rating, String reviewComment, Date datePosted) {
+        this.user = user;
+        this.product = product;
         this.rating = rating;
         this.reviewComment = reviewComment;
         this.datePosted = datePosted;
@@ -30,20 +30,20 @@ public class Review {
         this.reviewID = reviewID;
     }
 
-    public Integer getUserID() {
-        return userID;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserID(Integer userID) {
-        this.userID = userID;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Integer getProductID() {
-        return productID;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductID(Integer productID) {
-        this.productID = productID;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Integer getRating() {
@@ -74,8 +74,8 @@ public class Review {
     public String toString() {
         return "Review{" +
                 "reviewID=" + reviewID +
-                ", userID=" + userID +
-                ", productID=" + productID +
+                ", user=" + user +
+                ", product=" + product +
                 ", rating=" + rating +
                 ", reviewComment='" + reviewComment + '\'' +
                 ", datePosted=" + datePosted +

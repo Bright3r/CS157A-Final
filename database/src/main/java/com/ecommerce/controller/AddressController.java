@@ -1,14 +1,22 @@
 package com.ecommerce.controller;
 
-import com.ecommerce.model.Address;
-import com.ecommerce.service.AddressService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ecommerce.model.Address;
+import com.ecommerce.service.AddressService;
+
 @RestController
-@RequestMapping("/addresses")
+@RequestMapping("/api/address")
 public class AddressController {
 
     @Autowired
@@ -24,6 +32,18 @@ public class AddressController {
     @PostMapping("/users/{userId}/addresses")
     public Address addAddress(@PathVariable Integer userId, @RequestBody Address address) {
         return addressService.addAddress(userId, address);
+    }
+    
+    // Get all addresses
+    @GetMapping
+    public List<Address> getAllAddresses() {
+        return addressService.getAllAddresses();
+    }
+    
+    // Get address by addrID
+    @GetMapping("/{addrID}")
+    public Address getAddressByID(@PathVariable Integer addrID) {
+    	return addressService.getAddressById(addrID).orElse(null);
     }
 
     // Update an existing address

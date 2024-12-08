@@ -1,13 +1,13 @@
 package com.ecommerce.model;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
 
 public class Order {
 
     private Integer orderID;
     private User user;
     private Integer numProductsOrdered;
-    private LocalDateTime dateOrdered;
+    private Date dateOrdered;
     private Address shippingAddress;
 
     public Order() {}
@@ -16,7 +16,7 @@ public class Order {
         this.user = user;
         this.numProductsOrdered = numProductsOrdered;
         this.shippingAddress = shippingAddress;
-        this.dateOrdered = LocalDateTime.now();
+        this.dateOrdered = new Date(1);
     }
 
     public Integer getOrderID() {
@@ -43,11 +43,11 @@ public class Order {
         this.numProductsOrdered = numProductsOrdered;
     }
 
-    public LocalDateTime getDateOrdered() {
+    public Date getDateOrdered() {
         return dateOrdered;
     }
 
-    public void setDateOrdered(LocalDateTime dateOrdered) {
+    public void setDateOrdered(Date dateOrdered) {
         this.dateOrdered = dateOrdered;
     }
 

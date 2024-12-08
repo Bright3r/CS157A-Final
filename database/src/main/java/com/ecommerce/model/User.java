@@ -4,7 +4,7 @@ public class User {
 
     private Integer userID;
     private String userName;
-    private Integer addressID;  
+    private Address address; 
     private String password;
     private String email;
     private String phoneNumber;
@@ -28,12 +28,12 @@ public class User {
         this.userName = userName;
     }
 
-    public Integer getAddressID() {
-        return addressID;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAddressID(Integer addressID) {
-        this.addressID = addressID;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public String getPassword() {
@@ -65,7 +65,7 @@ public class User {
         return "User{" +
                 "userID=" + userID +
                 ", userName='" + userName + '\'' +
-                ", addressID=" + addressID +
+                ", address=" + address +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +

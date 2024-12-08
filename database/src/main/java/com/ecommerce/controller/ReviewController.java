@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class ReviewController {
 
     @Autowired
@@ -28,7 +30,7 @@ public class ReviewController {
     // Get review by ID
     @GetMapping("/reviews/{id}")
     public Review getReviewById(@PathVariable Integer id) {
-        return reviewService.getReviewById(id);
+        return reviewService.getReviewById(id).orElse(null);
     }
 
     // Get reviews by product ID

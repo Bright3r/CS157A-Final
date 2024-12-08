@@ -1,28 +1,44 @@
 package com.ecommerce.controller;
 
-import com.ecommerce.model.ApiResponse;
-import com.ecommerce.model.LoginRequest;
-import com.ecommerce.model.RegisterRequest;
-import com.ecommerce.model.User;
-import com.ecommerce.service.UserService;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
+import com.ecommerce.model.ApiResponse;
+import com.ecommerce.model.LoginRequest;
+import com.ecommerce.model.User;
+import com.ecommerce.service.UserService;
+
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
+    // Get all users
+    @GetMapping
+    public List<User> getAllUsers() {
+    	return userService.getAllUsers();
+    }
+    
     // Get a user by ID
     @GetMapping("/{id}")
     public Optional<User> getUserById(@PathVariable Integer id) {
         return userService.getUserById(id);
     }
+    
     @GetMapping("/findByUserName")
     public ResponseEntity<User> getUserByUserName(@RequestParam String userName) {
         Optional<User> user = userService.findByUserName(userName);
@@ -34,6 +50,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+    
     @PostMapping("/register")
     public ResponseEntity<ApiResponse> registerUser(@RequestBody User registerRequest) {
         // Check if the provided data is valid

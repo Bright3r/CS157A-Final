@@ -1,31 +1,26 @@
 package com.ecommerce.service;
 
-import com.ecommerce.model.Address;
-import com.ecommerce.model.User;
-import com.ecommerce.repository.AddressRepository;
-import com.ecommerce.repository.UserRepository;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.ecommerce.model.Address;
+import com.ecommerce.repository.AddressRepository;
 
 @Service
 public class AddressService {
 
     @Autowired
     private AddressRepository addressRepository;
-    
-    @Autowired
-    private UserRepository userRepository;
-
+	
     public List<Address> getAllAddresses() {
-    	return null;
+    	return addressRepository.findAll();
     }
 
-    public Optional<Address> getAddressById(Integer addressId) {
-    	return null;
+    public Optional<Address> getAddressById(Integer addrID) {
+    	return addressRepository.getAddressById(addrID);
     }
 
     public Address addAddress(Address address) {
