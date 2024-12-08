@@ -29,7 +29,7 @@ public class AddressController {
     // Update an existing address
     @PutMapping("/{addrID}")
     public Address updateAddress(@PathVariable Integer addrID, @RequestBody Address updatedAddress) {
-        return addressService.updateAddress(addrID, updatedAddress);
+        return null;
     }
 
     // Delete an address

@@ -1,25 +1,25 @@
 -- seed.sql
 
 -- Inserting products
-INSERT INTO "Products" ("productID", "productName", "brand", "price", "quantity", "listingDate", "image_url") VALUES
-(1, 'Iphone 15', 'Apple', 800.00, 50, '2024-11-01', NULL),
-(2, 'Airpods Pro', 'Apple', 125.00, 200, '2024-11-02', NULL),
-(3, 'Surface Pro', 'Microsoft', 1299.99, 30, '2024-10-20', NULL),
-(4, 'Gaming Console', 'Nintendo', 499.99, 100, '2024-10-01', NULL),
-(5, 'Smartwatch', 'Apple', 259.99, 150, '2024-11-25', NULL),
-(6, '4K TV', 'Sony', 899.99, 20, '2024-10-05', NULL),
-(7, 'Bluetooth Speaker', 'Bose', 59.99, 300, '2024-10-18', NULL),
-(8, 'Electric Kettle', 'HomeTech', 29.99, 50, '2024-10-22', NULL),
-(9, 'Vacuum Cleaner', 'Roborock', 899.94, 40, '2024-10-08', NULL),
-(10, 'Fitness Tracker', 'FitGear', 99.99, 120, '2024-10-27', NULL),
-(11, 'DSLR Camera', 'Canon', 799.99, 15, '2024-10-03', NULL),
-(12, 'Wireless Router', 'NetGear', 129.99, 80, '2024-11-17', NULL),
-(13, 'Gaming Headset', 'Razer', 69.99, 150, '2024-11-28', NULL),
-(14, 'External Hard Drive', 'StorageBrand', 89.99, 60, '2024-11-29', NULL),
-(15, 'Smart Home Hub', 'Google', 149.99, 70, '2024-11-10', NULL);
+INSERT INTO public.Products (productID, productName, brand, price, quantity, listingDate, image_url,rating) VALUES
+(1, 'Iphone 15', 'Apple', 800.00, 50, '2024-11-01', '/images/iphone15.jpg',4.5),
+(2, 'Airpods Pro', 'Apple', 125.00, 200, '2024-11-02', '/images/AirpodsPro.jpg',4.8),
+(3, 'Surface Pro', 'Microsoft', 1299.99, 30, '2024-10-20', '/images/SurfacePro.jpg',3.6),
+(4, 'Gaming Console', 'Nintendo', 499.99, 100, '2024-10-01', '/images/nintendo.jpg',4.9),
+(5, 'Smartwatch', 'Apple', 259.99, 150, '2024-11-25', '/images/SmartWatch.jpg',3.6),
+(6, '4K TV', 'Sony', 899.99, 20, '2024-10-05', '/images/SonyTV.jpg', 5.0),
+(7, 'Bluetooth Speaker', 'Bose', 59.99, 300, '2024-10-18', '/images/BoseSpeaker.jpg', 4.2),
+(8, 'Electric Kettle', 'HomeTech', 29.99, 50, '2024-10-22', '/images/Kettle.jpg', 2.3),
+(9, 'Vacuum Cleaner', 'Roborock', 899.94, 40, '2024-10-08', '/images/Roborock.jpg', 3.5),
+(10, 'Fitness Tracker', 'FitGear', 99.99, 120, '2024-10-27', '/images/FitGear.jpg', 3.6),
+(11, 'DSLR Camera', 'Canon', 799.99, 15, '2024-10-03', '/images/Canon.jpg', 4.5),
+(12, 'Wireless Router', 'NetGear', 129.99, 80, '2024-11-17', '/images/NetGear.jpg', 3.9),
+(13, 'Gaming Headset', 'Razer', 69.99, 150, '2024-11-28', '/images/Razer.jpg', 4.0),
+(14, 'External Hard Drive', 'StorageBrand', 89.99, 60, '2024-11-29', '/images/StorageBrand.jpg', 1.2),
+(15, 'Smart Home Hub', 'Google', 149.99, 70, '2024-11-10', '/images/Google.jpg', 3.5);
 
 -- Inserting users
-INSERT INTO "Users" ("userID", "userName", "addressID", "email", "phoneNumber", "password") VALUES
+INSERT INTO public.Users (userID, userName, addressID, email, phoneNumber, password) VALUES
 (1, 'alice_smith', 1, 'alice.smith@gmail.com', '123-456-7890', 'password123'),
 (2, 'bob_johnson', 2, 'bob.johnson@gmail.com', '234-567-8901', 'password456'),
 (3, 'charlie_brown', 3, 'charlie.brown@gmail.com', '345-678-9012', 'password789'),
@@ -38,7 +38,7 @@ INSERT INTO "Users" ("userID", "userName", "addressID", "email", "phoneNumber", 
 
 
 -- Inserting addresses
-INSERT INTO "Addresses" ("addrID", "country", "state", "city", "street", "houseNumber", "zipcode") VALUES
+INSERT INTO public.Addresses (addrID, country, state, city, street, houseNumber, zipcode) VALUES
 (1, 'USA', 'CA', 'San Francisco', 'Market St', '1234', '94103'),
 (2, 'USA', 'NY', 'New York', 'Broadway', '5678', '10001'),
 (3, 'USA', 'TX', 'Austin', 'Congress Ave', '9101', '73301'),
@@ -56,7 +56,7 @@ INSERT INTO "Addresses" ("addrID", "country", "state", "city", "street", "houseN
 (15, 'Canada', 'NS', 'Halifax', 'Barrington St', '2425', 'B3J3K1');
 
 -- Inserting orders
-INSERT INTO "Orders" ("orderID", "userID", "numProductsOrdered", "dateOrdered", "shippingAddressID") VALUES
+INSERT INTO public.Orders (orderID, userID, numProductsOrdered, dateOrdered, shippingAddressID) VALUES
 (1, 1, 3, '2024-11-03', 1), -- After 'Iphone 15' listed on '2024-11-01'
 (2, 2, 2, '2024-11-04', 2), -- After 'Airpods Pro' listed on '2024-11-02'
 (3, 3, 1, '2024-10-21', 3), -- After 'Surface Pro' listed on '2024-10-20'
@@ -74,7 +74,7 @@ INSERT INTO "Orders" ("orderID", "userID", "numProductsOrdered", "dateOrdered", 
 (15, 15, 1, '2024-11-11', 15); -- After 'Smart Home Hub' listed on '2024-11-10'
 
 -- Inserting OrdersDetails
-INSERT INTO "OrdersDetails" ("orderDetailsID", "orderID", "productID", "quantityOrdered") VALUES
+INSERT INTO public.OrdersDetails (orderDetailsID, orderID, productID, quantityOrdered) VALUES
 (1, 1, 1, 2),
 (2, 2, 2, 1),
 (3, 3, 3, 1),
@@ -92,7 +92,7 @@ INSERT INTO "OrdersDetails" ("orderDetailsID", "orderID", "productID", "quantity
 (15, 15, 15, 2);
 
 -- Inserting Reviews
-INSERT INTO "Reviews" ("reviewID", "userID", "productID", "rating", "reviewComment", "datePosted") VALUES
+INSERT INTO public.Reviews (reviewID, userID, productID, rating, reviewComment, datePosted) VALUES
 (1, 1, 1, 5, 'Amazing phone! Totally worth the price.', '2024-11-05'), -- iPhone 15
 (2, 2, 2, 4, 'Great sound quality but a bit pricey.', '2024-11-06'), -- Airpods Pro
 (3, 3, 3, 5, 'Perfect for work and entertainment.', '2024-10-25'), -- Surface Pro
@@ -110,7 +110,7 @@ INSERT INTO "Reviews" ("reviewID", "userID", "productID", "rating", "reviewComme
 (15, 15, 15, 5, 'Perfect hub for my smart home setup.', '2024-11-12'); -- Smart Home Hub
 
 -- Inserting UserAddress
-INSERT INTO "UserAddresses" ("userID", "addrID") VALUES
+INSERT INTO public.UserAddresses (userID, addrID) VALUES
 (1, 1),  -- User 1 linked to Address 1
 (2, 2),  -- User 2 linked to Address 2
 (3, 3),  -- User 3 linked to Address 3

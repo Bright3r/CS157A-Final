@@ -1,30 +1,24 @@
 package com.ecommerce.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
-import java.util.Date;
-import javax.persistence.Table;
-@Entity
-@Table(name = "orders")
+import java.time.LocalDateTime;
+
 public class Order {
 
-    @Id
     private Integer orderID;
-
-    @ManyToOne
-    @JoinColumn(name = "userID")
     private User user;
-
     private Integer numProductsOrdered;
-    private Date dateOrdered;
-
-    @ManyToOne
-    @JoinColumn(name = "shippingAddressID")
+    private LocalDateTime dateOrdered;
     private Address shippingAddress;
 
-    // Getters and setters
+    public Order() {}
+
+    public Order(User user, Integer numProductsOrdered, Address shippingAddress) {
+        this.user = user;
+        this.numProductsOrdered = numProductsOrdered;
+        this.shippingAddress = shippingAddress;
+        this.dateOrdered = LocalDateTime.now();
+    }
+
     public Integer getOrderID() {
         return orderID;
     }
@@ -49,11 +43,11 @@ public class Order {
         this.numProductsOrdered = numProductsOrdered;
     }
 
-    public Date getDateOrdered() {
+    public LocalDateTime getDateOrdered() {
         return dateOrdered;
     }
 
-    public void setDateOrdered(Date dateOrdered) {
+    public void setDateOrdered(LocalDateTime dateOrdered) {
         this.dateOrdered = dateOrdered;
     }
 

@@ -1,6 +1,8 @@
 package com.ecommerce.controller;
 
+import com.ecommerce.model.ApiResponse;
 import com.ecommerce.model.LoginRequest;
+import com.ecommerce.model.RegisterRequest;
 import com.ecommerce.model.User;
 import com.ecommerce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +34,31 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-    // Register a new user
     @PostMapping("/register")
-    public User registerUser(@RequestBody User user) {
-        return userService.registerUser(user);
+    public ResponseEntity<ApiResponse> registerUser(@RequestBody User registerRequest) {
+        // Check if the provided data is valid
+        if (registerRequest.getUserName() == null || registerRequest.getUserName().isEmpty() ||
+            registerRequest.getEmail() == null || registerRequest.getEmail().isEmpty() ||
+            registerRequest.getPassword() == null || registerRequest.getPassword().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse("Missing required fields.", false));
+        }
+
+        try {
+            User user = new User();
+            user.setUserName(registerRequest.getUserName());
+            user.setEmail(registerRequest.getEmail());
+            user.setPassword(registerRequest.getPassword());
+
+            userService.registerUser(user);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse("User registered successfully", true));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                 .body(new ApiResponse("An error occurred: " + e.getMessage(), false));
+        }
     }
+
+
 
     // Update user details
     @PutMapping("/{userID}")

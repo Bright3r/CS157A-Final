@@ -36,7 +36,7 @@ public class OrderDetailsController {
 
     @PutMapping("/orderdetails/{id}")
     public OrderDetails updateOrderDetails(@PathVariable Integer id, @RequestBody OrderDetails orderDetails) {
-        orderDetails.setOrderDetailsID(id); // Ensure the correct ID is set before saving
+        orderDetails.setOrderDetailID(id); // Ensure the correct ID is set before saving
         return orderDetailsService.updateOrderDetails(orderDetails);
     }
 

@@ -22,13 +22,16 @@ public class DatabaseConnection {
             System.out.println("PostgreSQL JDBC driver not found.");
             e.printStackTrace();
         } catch (SQLException e) {
+            // Print detailed SQL error information
             System.out.println("Connection failed.");
             e.printStackTrace();
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("Error Code: " + e.getErrorCode());
+            System.out.println("Message: " + e.getMessage());
         }
         
         return null;
     }
-
     public static void main(String[] args) {
         // Try to establish a connection using try-with-resources
         try (Connection conn = getConnection()) {

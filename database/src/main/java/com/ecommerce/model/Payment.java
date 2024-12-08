@@ -13,7 +13,6 @@ public class Payment {
     private String paymentStatus;
     private Date paymentDate;
 
-    // Constructors
     public Payment() {
     }
 
@@ -22,11 +21,10 @@ public class Payment {
         this.orderId = orderId;
         this.amount = amount;
         this.paymentMethod = paymentMethod;
-        this.paymentStatus = "Pending";
-        this.paymentDate = new Date();
+        this.paymentStatus = "Pending";  
+        this.paymentDate = new Date();  
     }
 
-    // Getters and Setters
     public Integer getPaymentId() {
         return paymentId;
     }

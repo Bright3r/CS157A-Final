@@ -1,21 +1,17 @@
 package com.ecommerce.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-@Entity
 public class Category {
-	@Id
+
     private Integer categoryId;
     private String categoryName;
 
-    // Constructor
     public Category(Integer categoryId, String categoryName) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
     }
 
-    // Getters and Setters
+    public Category() {}
+
     public Integer getCategoryId() {
         return categoryId;
     }

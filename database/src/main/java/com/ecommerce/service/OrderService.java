@@ -14,23 +14,23 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
+    // Save a new order
+    public int createOrder(Order order) {
+        return orderRepository.saveOrder(order);
+    }
+
+    // Get an order by ID
+    public Optional<Order> getOrderById(Integer orderID) {
+        return orderRepository.findById(orderID);
+    }
+
+    // Get all orders
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
     }
 
-    public Optional<Order> getOrderById(Integer orderId) {
-        return orderRepository.findById(orderId);
-    }
-
-    public Order addOrder(Order order) {
-        return orderRepository.save(order);
-    }
-
-    public Order updateOrder(Order order) {
-        return orderRepository.save(order);
-    }
-
-    public void deleteOrder(Integer orderId) {
-        orderRepository.deleteById(orderId);
+    // Delete an order by ID
+    public int deleteOrder(Integer orderID) {
+        return orderRepository.deleteById(orderID);
     }
 }

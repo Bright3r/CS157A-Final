@@ -1,33 +1,24 @@
 package com.ecommerce.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-@Entity
 public class Address {
-
-    @Id
-    private Integer addrID;
-
+    private int addrID;
     private String country;
     private String state;
     private String city;
     private String street;
     private String houseNumber;
     private String zipcode;
+    private int userID;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-    
-    // Getters and setters
-    public Integer getAddrID() {
+    // Default constructor
+    public Address() {}
+
+    // Getters and Setters
+    public int getAddrID() {
         return addrID;
     }
 
-    public void setAddrID(Integer addrID) {
+    public void setAddrID(int addrID) {
         this.addrID = addrID;
     }
 
@@ -78,11 +69,12 @@ public class Address {
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
     }
-    public User getUser() {
-        return user;
+
+    public int getUserID() {
+        return userID;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 }

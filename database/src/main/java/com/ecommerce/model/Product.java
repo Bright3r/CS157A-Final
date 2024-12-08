@@ -1,25 +1,30 @@
 package com.ecommerce.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.util.Date;
 
-@Entity
 public class Product {
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer productID;
 
+    private Integer productID;
     private String productName;
     private String brand;
     private Double price;
     private Integer quantity;
     private Date listingDate;
     private String imageUrl;
-    
-    // Getters and setters
+    private Double rating;
+
+    public Product() {
+    }
+
+    public Product(String productName, String brand, Double price, Integer quantity, Date listingDate, String imageUrl) {
+        this.productName = productName;
+        this.brand = brand;
+        this.price = price;
+        this.quantity = quantity;
+        this.listingDate = listingDate;
+        this.imageUrl = imageUrl;
+    }
+
     public Integer getProductID() {
         return productID;
     }
@@ -67,11 +72,32 @@ public class Product {
     public void setListingDate(Date listingDate) {
         this.listingDate = listingDate;
     }
+
     public String getImageUrl() {
         return imageUrl;
     }
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productID=" + productID +
+                ", productName='" + productName + '\'' +
+                ", brand='" + brand + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", listingDate=" + listingDate +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", rating='" + rating + '\'' +
+                '}';
     }
 }

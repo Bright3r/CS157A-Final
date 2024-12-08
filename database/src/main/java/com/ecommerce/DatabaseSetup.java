@@ -36,7 +36,6 @@ public class DatabaseSetup {
             String line;
             StringBuilder sql = new StringBuilder();
 
-            sql.append("SET search_path TO sales, public;\n");
 
             System.out.println("Reading SQL file: " + filePath);
 

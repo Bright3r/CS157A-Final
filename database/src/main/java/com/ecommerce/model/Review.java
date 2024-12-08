@@ -1,29 +1,27 @@
 package com.ecommerce.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
 import java.util.Date;
 
-@Entity
 public class Review {
-    @Id
+
     private Integer reviewID;
-
-    @ManyToOne
-    @JoinColumn(name = "userID")
-    private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
-
+    private Integer userID;  
+    private Integer productID; 
     private Integer rating;
     private String reviewComment;
     private Date datePosted;
 
-    // Getters and setters
+    public Review() {
+    }
+
+    public Review(Integer userID, Integer productID, Integer rating, String reviewComment, Date datePosted) {
+        this.userID = userID;
+        this.productID = productID;
+        this.rating = rating;
+        this.reviewComment = reviewComment;
+        this.datePosted = datePosted;
+    }
+
     public Integer getReviewID() {
         return reviewID;
     }
@@ -32,20 +30,20 @@ public class Review {
         this.reviewID = reviewID;
     }
 
-    public User getUser() {
-        return user;
+    public Integer getUserID() {
+        return userID;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserID(Integer userID) {
+        this.userID = userID;
     }
 
-    public Product getProduct() {
-        return product;
+    public Integer getProductID() {
+        return productID;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProductID(Integer productID) {
+        this.productID = productID;
     }
 
     public Integer getRating() {
@@ -70,5 +68,17 @@ public class Review {
 
     public void setDatePosted(Date datePosted) {
         this.datePosted = datePosted;
+    }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "reviewID=" + reviewID +
+                ", userID=" + userID +
+                ", productID=" + productID +
+                ", rating=" + rating +
+                ", reviewComment='" + reviewComment + '\'' +
+                ", datePosted=" + datePosted +
+                '}';
     }
 }

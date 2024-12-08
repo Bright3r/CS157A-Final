@@ -19,32 +19,38 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
+    // Get all reviews
     @GetMapping("/reviews")
     public List<Review> getAllReviews() {
         return reviewService.getAllReviews();
     }
 
+    // Get review by ID
     @GetMapping("/reviews/{id}")
     public Review getReviewById(@PathVariable Integer id) {
-        return reviewService.getReviewById(id).orElse(null);
+        return reviewService.getReviewById(id);
     }
 
+    // Get reviews by product ID
     @GetMapping("/reviews/product/{productId}")
     public List<Review> getReviewsByProductId(@PathVariable Integer productId) {
         return reviewService.getReviewsByProductId(productId);
     }
 
+    // Add new review
     @PostMapping("/reviews")
-    public Review addReview(@RequestBody Review review) {
-        return reviewService.addReview(review);
+    public void addReview(@RequestBody Review review) {
+        reviewService.addReview(review);
     }
 
+    // Update a review
     @PutMapping("/reviews/{id}")
-    public Review updateReview(@PathVariable Integer id, @RequestBody Review review) {
-        review.setReviewID(id); // Ensure the correct ID is set before saving
-        return reviewService.updateReview(review);
+    public void updateReview(@PathVariable Integer id, @RequestBody Review review) {
+        review.setReviewID(id);  // Ensure the correct ID is set before updating
+        reviewService.updateReview(review);
     }
 
+    // Delete review by ID
     @DeleteMapping("/reviews/{id}")
     public void deleteReview(@PathVariable Integer id) {
         reviewService.deleteReview(id);

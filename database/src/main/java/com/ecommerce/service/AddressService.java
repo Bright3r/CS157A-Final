@@ -21,48 +21,28 @@ public class AddressService {
     private UserRepository userRepository;
 
     public List<Address> getAllAddresses() {
-        return addressRepository.findAll();
+    	return null;
     }
 
     public Optional<Address> getAddressById(Integer addressId) {
-        return addressRepository.findById(addressId);
+    	return null;
     }
 
     public Address addAddress(Address address) {
-        return addressRepository.save(address);
+    	return null;
     }
 
     public Address updateAddress(Address address) {
-        return addressRepository.save(address);
+    	return null;
     }
 
     public void deleteAddress(Integer addressId) {
-        addressRepository.deleteById(addressId);
+       
     }
     public List<Address> getAddressesByUserId(Integer userId) {
-        return addressRepository.findByUserId(userId); 
+    	return null;
     }
     public Address addAddress(Integer userId, Address address) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-
-        address.setUser(user);
-
-        return addressRepository.save(address);
-    }
-    public Address updateAddress(Integer addrID, Address updatedAddress) {
-        Address address = addressRepository.findById(addrID).orElse(null);
-
-        if (address != null) {
-            address.setCountry(updatedAddress.getCountry());
-            address.setState(updatedAddress.getState());
-            address.setCity(updatedAddress.getCity());
-            address.setStreet(updatedAddress.getStreet());
-            address.setHouseNumber(updatedAddress.getHouseNumber());
-            address.setZipcode(updatedAddress.getZipcode());
-
-            return addressRepository.save(address);
-        } else {
-            return null;
-        }
+    	return null;
     }
 }

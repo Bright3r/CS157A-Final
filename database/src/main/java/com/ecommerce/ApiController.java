@@ -20,7 +20,7 @@ public class ApiController {
         return "{\"message\": \"Hello from Spring Boot!\"}";
     }
 
-    @GetMapping("/api/products")
+    @GetMapping("/api/products//all")
     public List<Product> getProducts() {
         return productService.getAllProducts();
     }

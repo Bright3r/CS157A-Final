@@ -1,20 +1,31 @@
-import "../../types"
-import Product from "@/components/product";
 import { useEffect, useState } from "react";
+import Product from "@/components/product";
 import styles from "./Products.module.css";
 
+type product_t = {
+  productID: string;
+  productName: string;
+  brand: string;
+  price: number;
+  rating: number;
+  imageUrl: string;
+  quantity: number;
+  listingDate: string;
+};
+
 export default function Products() {
-  let [products, setProducts] = useState<product_t[]>([]);
+  const [products, setProducts] = useState<product_t[]>([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const req = await fetch('http://localhost:3000/products.json');
-        const data = await req.json();
-
-        setProducts(data);
-      } catch (error) {
-        console.error("Error fetching products: ", error);
+        const res = await fetch("http://localhost:8080/api/products");
+        const data: product_t[] = await res.json();
+        setProducts(
+          data.map((p) => ({ ...p, productID: String(p.productID) }))
+        ); // Enforce string productID
+      } catch (err) {
+        console.error("Error fetching products:", err);
       }
     };
 
@@ -23,9 +34,11 @@ export default function Products() {
 
   return (
     <>
-      <h1 className={styles.header}> Products </h1>
+      <h1 className={styles.header}>Products</h1>
       <div className={styles.productList}>
-        {products.map((product) => <Product key={product.productID} {...product} />)}
+        {products.map((product) => (
+          <Product key={product.productID} {...product} />
+        ))}
       </div>
     </>
   );

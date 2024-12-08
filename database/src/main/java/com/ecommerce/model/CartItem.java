@@ -1,34 +1,22 @@
 package com.ecommerce.model;
 
-import javax.persistence.*;
-
-@Entity
 public class CartItem {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
+    private Integer userID; 
     private Integer productID;
     private Integer quantity;
     private Double price;
 
-    // Default constructor
     public CartItem() {}
 
-    // Constructor with parameters
-    public CartItem(User user, Integer productID, Integer quantity, Double price) {
-        this.user = user;
+    public CartItem(Integer userID, Integer productID, Integer quantity, Double price) {
+        this.userID = userID;
         this.productID = productID;
         this.quantity = quantity;
         this.price = price;
     }
 
-    // Getters and setters
     public Integer getId() {
         return id;
     }
@@ -37,12 +25,12 @@ public class CartItem {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public Integer getUserID() {
+        return userID;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserID(Integer userID) {
+        this.userID = userID;
     }
 
     public Integer getProductID() {

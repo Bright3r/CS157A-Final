@@ -5,10 +5,12 @@ export default function Login() {
     <div className={styles.container}>
       <div className={styles.formContainer}>
         <h1 className={styles.heading}>LOGIN</h1>
-        
+
         <form className={styles.form}>
           <div className={styles.inputGroup}>
-            <label htmlFor="username" className={styles.label}>Username</label>
+            <label htmlFor="username" className={styles.label}>
+              Username
+            </label>
             <input
               type="text"
               id="username"
@@ -19,7 +21,9 @@ export default function Login() {
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="password" className={styles.label}>Password</label>
+            <label htmlFor="password" className={styles.label}>
+              Password
+            </label>
             <input
               type="password"
               id="password"
@@ -29,12 +33,18 @@ export default function Login() {
             />
           </div>
 
-          <button type="submit" className={styles.button}>Login</button>
+          <button type="submit" className={styles.button}>
+            Login
+          </button>
         </form>
 
         <div className={styles.links}>
-          <a href="/forgot-password" className={styles.link}>Forgot Password?</a>
-          <a href="/signup" className={styles.link}>Create an Account</a>
+          <a href="/forgot-password" className={styles.link}>
+            Forgot Password?
+          </a>
+          <a href="/signup" className={styles.link}>
+            Create an Account
+          </a>
         </div>
       </div>
     </div>

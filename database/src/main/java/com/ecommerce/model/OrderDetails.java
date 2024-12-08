@@ -1,56 +1,51 @@
 package com.ecommerce.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
-
-@Entity
 public class OrderDetails {
 
-    @Id
-    private Integer orderDetailsID;
-
-    @ManyToOne
-    @JoinColumn(name = "orderID")
-    private Order order;
-
-    @ManyToOne
-    @JoinColumn(name = "productID")
-    private Product product;
-
-    private Integer quantityOrdered;
+    private Integer orderDetailID;
+    private Integer orderID;
+    private Integer productID;
+    private Integer quantity;
+    private Double price;
 
     // Getters and setters
-    public Integer getOrderDetailsID() {
-        return orderDetailsID;
+    public Integer getOrderDetailID() {
+        return orderDetailID;
     }
 
-    public void setOrderDetailsID(Integer orderDetailsID) {
-        this.orderDetailsID = orderDetailsID;
+    public void setOrderDetailID(Integer orderDetailID) {
+        this.orderDetailID = orderDetailID;
     }
 
-    public Order getOrder() {
-        return order;
+    public Integer getOrderID() {
+        return orderID;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setOrderID(Integer orderID) {
+        this.orderID = orderID;
     }
 
-    public Product getProduct() {
-        return product;
+    public Integer getProductID() {
+        return productID;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProductID(Integer productID) {
+        this.productID = productID;
     }
 
-    public Integer getQuantityOrdered() {
-        return quantityOrdered;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setQuantityOrdered(Integer quantityOrdered) {
-        this.quantityOrdered = quantityOrdered;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }

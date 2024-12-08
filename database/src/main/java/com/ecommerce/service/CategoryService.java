@@ -14,27 +14,22 @@ public class CategoryService {
     private CategoryRepository categoryRepository;
 
     public Category addCategory(Category category) {
-        return categoryRepository.save(category);
+    	return null;
     }
 
     public Category updateCategory(Integer categoryId, Category category) {
-        if (categoryRepository.existsById(categoryId)) {
-            category.setCategoryId(categoryId);  
-            return categoryRepository.save(category);  
-        } else {
-            return null;  
-        }
+    	return null;
     }
 
     public void deleteCategory(Integer categoryId) {
-        categoryRepository.deleteById(categoryId);
+        
     }
 
     public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
+    	return null;
     }
 
     public Category getCategoryById(Integer categoryId) {
-        return categoryRepository.findById(categoryId).orElse(null);
+    	return null;
     }
 }

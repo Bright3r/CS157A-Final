@@ -1,29 +1,17 @@
 package com.ecommerce.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
-import java.io.Serializable;
-@Entity
-@IdClass(UserAddress.class)
-public class UserAddress implements Serializable  {
+public class UserAddress {
 
-    @Id
     private Integer userID;
-    @Id
     private Integer addressID;
+    private User user;  
+    private Address address; 
+    private String street;
+    private String city;
 
-    @ManyToOne
-    @JoinColumn(name = "userID", insertable = false, updatable = false)
-    private User user;
+    public UserAddress() {
+    }
 
-    @ManyToOne
-    @JoinColumn(name = "addressID", insertable = false, updatable = false)
-    private Address address;
-
-    // Getters and setters
     public Integer getUserID() {
         return userID;
     }
@@ -43,7 +31,21 @@ public class UserAddress implements Serializable  {
     public User getUser() {
         return user;
     }
+    public String getStreet() {
+        return street;
+    }
 
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
     public void setUser(User user) {
         this.user = user;
     }
@@ -54,5 +56,15 @@ public class UserAddress implements Serializable  {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "UserAddress{" +
+                "userID=" + userID +
+                ", addressID=" + addressID +
+                ", user=" + user +
+                ", address=" + address +
+                '}';
     }
 }

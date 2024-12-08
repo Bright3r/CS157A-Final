@@ -15,22 +15,22 @@ public class OrderDetailsService {
     private OrderDetailsRepository orderDetailsRepository;
 
     public List<OrderDetails> getAllOrderDetails() {
-        return orderDetailsRepository.findAll();
+        return null;
     }
 
     public Optional<OrderDetails> getOrderDetailsById(Integer orderDetailsId) {
-        return orderDetailsRepository.findById(orderDetailsId);
+    	return null;
     }
 
     public OrderDetails addOrderDetails(OrderDetails orderDetails) {
-        return orderDetailsRepository.save(orderDetails);
+    	return null;
     }
 
     public OrderDetails updateOrderDetails(OrderDetails orderDetails) {
-        return orderDetailsRepository.save(orderDetails);
+    	return null;
     }
 
     public void deleteOrderDetails(Integer orderDetailsId) {
-        orderDetailsRepository.deleteById(orderDetailsId);
+    	
     }
 }

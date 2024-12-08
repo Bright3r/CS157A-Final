@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ReviewService {
@@ -14,27 +13,33 @@ public class ReviewService {
     @Autowired
     private ReviewRepository reviewRepository;
 
+    // Get all reviews
     public List<Review> getAllReviews() {
         return reviewRepository.findAll();
     }
 
-    public Optional<Review> getReviewById(Integer reviewId) {
-        return reviewRepository.findById(reviewId);
+    // Get review by ID
+    public Review getReviewById(Integer reviewID) {
+        return reviewRepository.findById(reviewID);
     }
 
+    // Get reviews by product ID
     public List<Review> getReviewsByProductId(Integer productId) {
         return reviewRepository.findByProductId(productId);
     }
 
-    public Review addReview(Review review) {
-        return reviewRepository.save(review);
+    // Add a new review
+    public void addReview(Review review) {
+        reviewRepository.saveReview(review);
     }
 
-    public Review updateReview(Review review) {
-        return reviewRepository.save(review);
+    // Update a review
+    public void updateReview(Review review) {
+        reviewRepository.updateReview(review);
     }
 
-    public void deleteReview(Integer reviewId) {
-        reviewRepository.deleteById(reviewId);
+    // Delete a review
+    public void deleteReview(Integer reviewID) {
+        reviewRepository.deleteReview(reviewID);
     }
 }

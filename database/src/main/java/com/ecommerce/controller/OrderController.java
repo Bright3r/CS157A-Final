@@ -3,45 +3,52 @@ package com.ecommerce.controller;
 import com.ecommerce.model.Order;
 import com.ecommerce.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
+@RequestMapping("/api/orders")
 public class OrderController {
 
     @Autowired
     private OrderService orderService;
 
-    @GetMapping("/orders")
-    public List<Order> getAllOrders() {
-        return orderService.getAllOrders();
+    // Create a new order
+    @PostMapping
+    public ResponseEntity<String> createOrder(@RequestBody Order order) {
+        int result = orderService.createOrder(order);
+        if (result > 0) {
+            return ResponseEntity.ok("Order created successfully");
+        } else {
+            return ResponseEntity.status(500).body("Failed to create order");
+        }
     }
 
-    @GetMapping("/orders/{id}")
-    public Order getOrderById(@PathVariable Integer id) {
-        return orderService.getOrderById(id).orElse(null);
+    // Get an order by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Order> getOrder(@PathVariable Integer id) {
+        Optional<Order> order = orderService.getOrderById(id);
+        return order.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/orders")
-    public Order addOrder(@RequestBody Order order) {
-        return orderService.addOrder(order);
+    // Get all orders
+    @GetMapping
+    public ResponseEntity<List<Order>> getAllOrders() {
+        List<Order> orders = orderService.getAllOrders();
+        return ResponseEntity.ok(orders);
     }
 
-    @PutMapping("/orders/{id}")
-    public Order updateOrder(@PathVariable Integer id, @RequestBody Order order) {
-        order.setOrderID(id); // Ensure the correct ID is set before saving
-        return orderService.updateOrder(order);
-    }
-
-    @DeleteMapping("/orders/{id}")
-    public void deleteOrder(@PathVariable Integer id) {
-        orderService.deleteOrder(id);
+    // Delete an order by ID
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteOrder(@PathVariable Integer id) {
+        int result = orderService.deleteOrder(id);
+        if (result > 0) {
+            return ResponseEntity.ok("Order deleted successfully");
+        } else {
+            return ResponseEntity.status(500).body("Failed to delete order");
+        }
     }
 }
