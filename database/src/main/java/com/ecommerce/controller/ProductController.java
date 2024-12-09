@@ -60,4 +60,22 @@ public class ProductController {
     public List<Product> searchProducts(@RequestParam String productName) {
     	return productService.searchProducts(productName);
     }
+    
+    // Filter products by category
+    @GetMapping("/products/filter")
+    public List<Product> filterProductsByCategory(@RequestParam String category) {
+    	return productService.filterProductsByCategory(category);
+    }
+    
+    // Get products sorted by descending price
+    @GetMapping("/products/sort/price")
+    public List<Product> getProductsSortedByPrice() {
+    	return productService.getProductsSortedByPrice();
+    }
+    
+    // Get products sorted by descending rating
+    @GetMapping("/products/sort/rating")
+    public List<Product> getProductsSortedByRating() {
+    	return productService.getProductsSortedByRating();
+    }
 }

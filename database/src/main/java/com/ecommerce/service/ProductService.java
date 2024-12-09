@@ -43,4 +43,19 @@ public class ProductService {
     public List<Product> searchProducts(String search) {
     	return productRepository.getProductsByName(search);
     }
+    
+    // Filter products by category
+    public List<Product> filterProductsByCategory(String category) {
+    	return productRepository.getProductsByCategory(category);
+    }
+    
+    // Get products sorted by price
+    public List<Product> getProductsSortedByPrice() {
+    	return productRepository.getProductsSortedByPrice();
+    }
+    
+    // Get products sorted by rating
+    public List<Product> getProductsSortedByRating() {
+    	return productRepository.getProductsSortedByRating();
+    }
 }

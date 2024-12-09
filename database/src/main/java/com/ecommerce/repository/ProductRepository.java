@@ -186,4 +186,86 @@ public class ProductRepository {
         
         return results;
     }
+    
+    // Search for products by category
+    public List<Product> getProductsByCategory(String category) {
+    	// Get Singleton Database Connection
+    	Connection conn = DatabaseConnection.getConnection();
+    	List<Product> results = new ArrayList<>();
+    	
+    	// Query for any products with the same category (case insensitive)
+        String sql = "SELECT * FROM Products WHERE UPPER(category) LIKE ?";
+        try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+	        // Add wildcard characters to the search string for partial matching
+			String productCategory = "%" + category + "%";
+	        pstmt.setString(1, productCategory.toUpperCase());
+			
+			// Execute query
+			ResultSet rs = pstmt.executeQuery();
+			
+			// Add each matching product to result list
+			while (rs.next()) {
+				Product prod = buildProduct(rs);
+				results.add(prod);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+        
+        return results;
+    }
+    
+    // Sort products by price
+    public List<Product> getProductsSortedByPrice() {
+    	// Get Singleton Database Connection
+    	Connection conn = DatabaseConnection.getConnection();
+    	List<Product> results = new ArrayList<>();
+    	
+    	// Query for any products in descending order
+        String sql = "SELECT * FROM Products ORDER BY price DESC";
+        try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			// Execute query
+			ResultSet rs = pstmt.executeQuery();
+			
+			// Add each product to result list
+			while (rs.next()) {
+				Product prod = buildProduct(rs);
+				results.add(prod);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+        
+        return results;
+    }
+    
+    // Sort products by price
+    public List<Product> getProductsSortedByRating() {
+    	// Get Singleton Database Connection
+    	Connection conn = DatabaseConnection.getConnection();
+    	List<Product> results = new ArrayList<>();
+    	
+    	// Query for any products in descending order
+        String sql = "SELECT * FROM Products ORDER BY rating DESC";
+        try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			// Execute query
+			ResultSet rs = pstmt.executeQuery();
+			
+			// Add each product to result list
+			while (rs.next()) {
+				Product prod = buildProduct(rs);
+				results.add(prod);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+        
+        return results;
+    }
 }
