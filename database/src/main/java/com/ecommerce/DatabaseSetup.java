@@ -10,8 +10,6 @@ import java.sql.Statement;
 
 public class DatabaseSetup {
     public static void main(String[] args) {
-    	System.out.println("Current working directory: " + System.getProperty("user.dir"));
-
         String url = "jdbc:postgresql://localhost:5432/ecommerce";
         String username = "admin";  
         String password = "admin";  

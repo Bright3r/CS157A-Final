@@ -28,6 +28,7 @@ type product_t = {
     rating: number;
     imageUrl: string;
     listingDate: string;
+    category: string;
 };  
 
 type review_t = {

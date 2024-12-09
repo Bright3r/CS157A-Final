@@ -76,3 +76,39 @@ margin-bottom: 20px;
 font-size: 16px;
 margin-bottom: 8px;
 }
+.header {
+font-size: 2rem;
+font-weight: bold;
+margin-bottom: 20px;
+}
+
+.searchFilterContainer {
+display: flex;
+flex-direction: column;
+align-items: center; 
+justify-content: center; 
+margin-bottom: 10px;
+min-height: 10vh; 
+}
+
+.searchInput {
+width: 30%; 
+padding: 10px;
+margin-bottom: 20px; 
+font-size: 16px;
+border-radius: 5px;
+border: 1px solid #ddd;
+}
+
+.filters {
+display: flex;
+gap: 15px;
+justify-content: center; 
+}
+
+.filterSelect {
+padding: 8px;
+font-size: 14px;
+border-radius: 5px;
+border: 1px solid #ddd;
+}

@@ -4,17 +4,8 @@ import { useRouter } from "next/router";
 import Modal from "./modal";
 import styles from "@/styles/Product.module.css";
 
-
-
 export default function Product(props: product_t) {
-  const {
-    productID,
-    productName,
-    brand,
-    price,
-    rating,
-    imageUrl
-  } = props;
+  const { productID, productName, brand, price, rating, imageUrl ,category} = props;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
@@ -52,12 +43,7 @@ export default function Product(props: product_t) {
         </button>
       </div>
 
-      {isModalOpen && (
-        <Modal
-          product={props}
-          closeModal={closeModal}
-        />
-      )}
+      {isModalOpen && <Modal product={props} closeModal={closeModal} />}
     </>
   );
 }

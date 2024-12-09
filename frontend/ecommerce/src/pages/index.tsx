@@ -1,50 +1,32 @@
+import { useRouter } from "next/router"; // Assuming you're using Next.js for routing
 import styles from "./Home.module.css";
 
-export default function Login() {
+export default function Home() {
+  const router = useRouter();
+
+  // Redirect to login page
+  const handleLoginRedirect = () => {
+    router.push("/login");
+  };
+
+  // Redirect to signup page
+  const handleSignupRedirect = () => {
+    router.push("/signup");
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
-        <h1 className={styles.heading}>LOGIN</h1>
+        <h1 className={styles.heading}>Welcome to Ecommerce</h1>
 
-        <form className={styles.form}>
-          <div className={styles.inputGroup}>
-            <label htmlFor="username" className={styles.label}>
-              Username
-            </label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              placeholder="Enter your username"
-              className={styles.input}
-            />
-          </div>
-
-          <div className={styles.inputGroup}>
-            <label htmlFor="password" className={styles.label}>
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Enter your password"
-              className={styles.input}
-            />
-          </div>
-
-          <button type="submit" className={styles.button}>
-            Login
+        <div className={styles.buttonContainer}>
+          <button onClick={handleLoginRedirect} className={styles.button}>
+            Login here
           </button>
-        </form>
 
-        <div className={styles.links}>
-          <a href="/forgot-password" className={styles.link}>
-            Forgot Password?
-          </a>
-          <a href="/signup" className={styles.link}>
-            Create an Account
-          </a>
+          <button onClick={handleSignupRedirect} className={styles.button}>
+            New user? Sign Up
+          </button>
         </div>
       </div>
     </div>

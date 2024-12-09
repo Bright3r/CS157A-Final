@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS public.orders (
     numProductsOrdered integer,
     dateOrdered date,
     shippingAddressID integer,
-    total numeric(10,2)
+    totalCost numeric(10,2)
 );
 
 CREATE TABLE IF NOT EXISTS public.ordersDetails (

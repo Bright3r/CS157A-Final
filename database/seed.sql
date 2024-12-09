@@ -1,22 +1,23 @@
 -- seed.sql
 
 -- Inserting products
-INSERT INTO public.Products (productID, productName, brand, price, quantity, listingDate, image_url,rating) VALUES
-(1, 'Iphone 15', 'Apple', 800.00, 50, '2024-11-01', '/images/iphone15.jpg',4.5),
-(2, 'Airpods Pro', 'Apple', 125.00, 200, '2024-11-02', '/images/AirpodsPro.jpg',4.8),
-(3, 'Surface Pro', 'Microsoft', 1299.99, 30, '2024-10-20', '/images/SurfacePro.jpg',3.6),
-(4, 'Gaming Console', 'Nintendo', 499.99, 100, '2024-10-01', '/images/nintendo.jpg',4.9),
-(5, 'Smartwatch', 'Apple', 259.99, 150, '2024-11-25', '/images/SmartWatch.jpg',3.6),
-(6, '4K TV', 'Sony', 899.99, 20, '2024-10-05', '/images/SonyTV.jpg', 5.0),
-(7, 'Bluetooth Speaker', 'Bose', 59.99, 300, '2024-10-18', '/images/BoseSpeaker.jpg', 4.2),
-(8, 'Electric Kettle', 'HomeTech', 29.99, 50, '2024-10-22', '/images/Kettle.jpg', 2.3),
-(9, 'Vacuum Cleaner', 'Roborock', 899.94, 40, '2024-10-08', '/images/Roborock.jpg', 3.5),
-(10, 'Fitness Tracker', 'FitGear', 99.99, 120, '2024-10-27', '/images/FitGear.jpg', 3.6),
-(11, 'DSLR Camera', 'Canon', 799.99, 15, '2024-10-03', '/images/Canon.jpg', 4.5),
-(12, 'Wireless Router', 'NetGear', 129.99, 80, '2024-11-17', '/images/NetGear.jpg', 3.9),
-(13, 'Gaming Headset', 'Razer', 69.99, 150, '2024-11-28', '/images/Razer.jpg', 4.0),
-(14, 'External Hard Drive', 'StorageBrand', 89.99, 60, '2024-11-29', '/images/StorageBrand.jpg', 1.2),
-(15, 'Smart Home Hub', 'Google', 149.99, 70, '2024-11-10', '/images/Google.jpg', 3.5);
+INSERT INTO public.Products (productID, productName, brand, price, quantity, listingDate, image_url, rating, category) VALUES
+(1, 'Iphone 15', 'Apple', 800.00, 50, '2024-11-01', '/images/iphone15.jpg', 4.5, 'Smartphones'),
+(2, 'Airpods Pro', 'Apple', 125.00, 200, '2024-11-02', '/images/AirpodsPro.jpg', 4.8, 'Headphones'),
+(3, 'Surface Pro', 'Microsoft', 1299.99, 30, '2024-10-20', '/images/SurfacePro.jpg', 3.6, 'Computers'),
+(4, 'Gaming Console', 'Nintendo', 499.99, 100, '2024-10-01', '/images/nintendo.jpg', 4.9, 'Gaming'),
+(5, 'Smartwatch', 'Apple', 259.99, 150, '2024-11-25', '/images/SmartWatch.jpg', 3.6, 'Wearables'),
+(6, '4K TV', 'Sony', 899.99, 20, '2024-10-05', '/images/SonyTV.jpg', 5.0, 'Electronics'),
+(7, 'Bluetooth Speaker', 'Bose', 59.99, 300, '2024-10-18', '/images/BoseSpeaker.jpg', 4.2, 'Headphones'),
+(8, 'Electric Kettle', 'HomeTech', 29.99, 50, '2024-10-22', '/images/Kettle.jpg', 2.3, 'Home Appliances'),
+(9, 'Vacuum Cleaner', 'Roborock', 899.94, 40, '2024-10-08', '/images/Roborock.jpg', 3.5, 'Home Appliances'),
+(10, 'Fitness Tracker', 'FitGear', 99.99, 120, '2024-10-27', '/images/FitGear.jpg', 3.6, 'Smartwatch'),
+(11, 'DSLR Camera', 'Canon', 799.99, 15, '2024-10-03', '/images/Canon.jpg', 4.5, 'Electronics'),
+(12, 'Wireless Router', 'NetGear', 129.99, 80, '2024-11-17', '/images/NetGear.jpg', 3.9, 'Electronics'),
+(13, 'Gaming Headset', 'Razer', 69.99, 150, '2024-11-28', '/images/Razer.jpg', 4.0, 'Gaming'),
+(14, 'External Hard Drive', 'StorageBrand', 89.99, 60, '2024-11-29', '/images/StorageBrand.jpg', 1.2, 'Storage'),
+(15, 'Smart Home Hub', 'Google', 149.99, 70, '2024-11-10', '/images/Google.jpg', 3.5, 'Smart Home');
+
 
 -- Inserting users
 INSERT INTO public.Users (userName, addressID, email, phoneNumber, password) VALUES
@@ -56,22 +57,22 @@ INSERT INTO public.Addresses (country, state, city, street, houseNumber, zipcode
 ('Canada', 'NS', 'Halifax', 'Barrington St', '2425', 'B3J3K1');
 
 -- Inserting orders
-INSERT INTO public.Orders (userID, numProductsOrdered, dateOrdered, shippingAddressID) VALUES
-(1, 3, '2024-11-03', 1), -- After 'Iphone 15' listed on '2024-11-01'
-(2, 2, '2024-11-04', 2), -- After 'Airpods Pro' listed on '2024-11-02'
-(3, 1, '2024-10-21', 3), -- After 'Surface Pro' listed on '2024-10-20'
-(4, 4, '2024-10-02', 4), -- After 'Gaming Console' listed on '2024-10-01'
-(5, 1, '2024-11-26', 5), -- After 'Smartwatch' listed on '2024-11-25'
-(6, 2, '2024-10-06', 6), -- After '4K TV' listed on '2024-10-05'
-(7, 1, '2024-10-19', 7), -- After 'Bluetooth Speaker' listed on '2024-10-18'
-(8, 1, '2024-10-23', 8), -- After 'Electric Kettle' listed on '2024-10-22'
-(9, 3, '2024-10-09', 9), -- After 'Vacuum Cleaner' listed on '2024-10-08'
-(10, 1, '2024-10-28', 10), -- After 'Fitness Tracker' listed on '2024-10-27'
-(11, 2, '2024-10-04', 11), -- After 'DSLR Camera' listed on '2024-10-03'
-(12, 1, '2024-11-18', 12), -- After 'Wireless Router' listed on '2024-11-17'
-(13, 1, '2024-11-29', 13), -- After 'Gaming Headset' listed on '2024-11-28'
-(14, 1, '2024-11-30', 14), -- After 'External Hard Drive' listed on '2024-11-29'
-(15, 1, '2024-11-11', 15); -- After 'Smart Home Hub' listed on '2024-11-10'
+INSERT INTO public.Orders (userID, numProductsOrdered, dateOrdered, shippingAddressID, totalCost) VALUES
+(1, 3, '2024-11-03', 1, 2400), -- After 'Iphone 15' listed on '2024-11-01'
+(2, 2, '2024-11-04', 2, 250), -- After 'Airpods Pro' listed on '2024-11-02'
+(3, 1, '2024-10-21', 3, 499.99), -- After 'Surface Pro' listed on '2024-10-20'
+(4, 4, '2024-10-02', 4, 899.99), -- After 'Gaming Console' listed on '2024-10-01'
+(5, 1, '2024-11-26', 5, 2000), -- After 'Smartwatch' listed on '2024-11-25'
+(6, 2, '2024-10-06', 6, 1800), -- After '4K TV' listed on '2024-10-05'
+(7, 1, '2024-10-19', 7, 60), -- After 'Bluetooth Speaker' listed on '2024-10-18'
+(8, 1, '2024-10-23', 8, 30), -- After 'Electric Kettle' listed on '2024-10-22'
+(9, 3, '2024-10-09', 9, 2660), -- After 'Vacuum Cleaner' listed on '2024-10-08'
+(10, 1, '2024-10-28', 10, 100), -- After 'Fitness Tracker' listed on '2024-10-27'
+(11, 2, '2024-10-04', 11, 1600), -- After 'DSLR Camera' listed on '2024-10-03'
+(12, 1, '2024-11-18', 12, 130), -- After 'Wireless Router' listed on '2024-11-17'
+(13, 1, '2024-11-29', 13, 70), -- After 'Gaming Headset' listed on '2024-11-28'
+(14, 1, '2024-11-30', 14, 90), -- After 'External Hard Drive' listed on '2024-11-29'
+(15, 1, '2024-11-11', 15, 150); -- After 'Smart Home Hub' listed on '2024-11-10'
 
 -- Inserting OrdersDetails
 INSERT INTO public.OrdersDetails (orderID, productID, quantityOrdered) VALUES
