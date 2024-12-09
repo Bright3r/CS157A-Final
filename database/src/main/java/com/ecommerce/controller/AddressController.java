@@ -35,19 +35,19 @@ public class AddressController {
     }
     
     // Add a new address
-    @PostMapping("/create")
+    @PostMapping
     public int addAddress(@RequestBody Address address) {
         return addressService.addAddress(address);
     }
 
     // Update an existing address
-    @PutMapping("/update")
+    @PutMapping
     public int updateAddress(@RequestBody Address updatedAddress) {
         return addressService.updateAddress(updatedAddress);
     }
 
     // Delete an address
-    @DeleteMapping("/delete/{addressID}")
+    @DeleteMapping("/{addressID}")
     public void deleteAddress(@PathVariable Integer addressID) {
         addressService.deleteAddress(addressID);
     }

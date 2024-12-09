@@ -1,22 +1,15 @@
 import { useState } from "react";
 import InputField from "../../components/inputField";
 import styles from "./Signup.module.css";
+import axios from "axios";
+import { useRouter } from "next/router";
 
-// Define types for each field's state
-interface SignUpFormData {
-  userName: string;
-  email: string;
-  country: string;
-  state: string;
-  city: string;
-  street: string;
-  houseNumber: string;
-  zipcode: string;
-  phoneNumber: string;
-  password: string;
-  confirmPassword: string;
-  error: string;
-}
+
+// Response fields for creating new user
+interface APIResponse {
+  message: string;
+  success: Boolean;
+};
 
 export default function SignUp() {
   // Initialize state with types
@@ -33,6 +26,8 @@ export default function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
 
+  const router = useRouter();
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -45,39 +40,42 @@ export default function SignUp() {
     // Clear previous errors
     setError("");
 
-    // Create a user object with form data
-    const userData = {
-      userName,
-      email,
-      password,
+    // Create an address object with form data
+    const userAddr: address_t = {
+      addrID: -1, // Doesn't matter, included for type compatibility
       country,
       state,
       city,
       street,
       houseNumber,
-      zipcode,
+      zipcode
+    }
+
+    // Create a user object with form data
+    const userData: user_t = {
+      userID: -1, // Doesn't matter, included for type compatibility
+      userName,
+      email,
+      password,
       phoneNumber,
+      address: userAddr,
     };
 
     try {
-      const response = await fetch("http://localhost:8080/api/auth/register", {
-        method: "POST",
+      const res = await axios.post<APIResponse>("http://localhost:8080/api/user/register", userData, {
         headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
+          'Content-Type': 'application/json',
+        }
       });
 
-      console.log("Response Status:", response.status);
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Response Data:", data);
+      console.log("Response Status:", res.status);
+      if (res.data.success) {
+        console.log("Response Data:", res.data);
         alert("Signup successful. Please login!");
-        window.location.href = "/login";
+        router.push("/login");
       } else {
-        const data = await response.json();
-        console.log("Error Response Data:", data);
-        setError(data.message || "An error occurred during signup.");
+        console.log("Error Response Data:", res.data);
+        setError(res.data.message || "An error occurred during signup.");
       }
     } catch (error) {
       console.error("Fetch Error:", error); // Log the error to the console

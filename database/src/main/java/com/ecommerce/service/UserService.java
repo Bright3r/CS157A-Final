@@ -31,7 +31,7 @@ public class UserService {
         return userRepository.findById(userId);  
     }
 
-    public Optional<User> findByUserName(String userName) {
+    public Optional<User> getUserByUserName(String userName) {
         return userRepository.findByUserName(userName); 
     }
 
@@ -56,7 +56,6 @@ public class UserService {
     public boolean authenticate(String username, String password) {
         Optional<User> optionalUser = userRepository.findByUserName(username);
         optionalUser.ifPresent(user -> System.out.println("Found user: " + user.getUserName() + ", Password: " + user.getPassword()));
-        return optionalUser.map(user -> user.getPassword().equals(password))
-                           .orElse(false);
+        return optionalUser.map(user -> user.getPassword().equals(password)).orElse(false);
     }
 }

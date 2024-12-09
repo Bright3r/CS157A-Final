@@ -82,28 +82,33 @@ public class AddressRepository {
     }
 
     // Method to save an Address
-    public int saveAddress(Address address) {
+    public Optional<Address> saveAddress(Address address) {
     	// Get Singleton Database Connection
     	Connection conn = DatabaseConnection.getConnection();
     	
-        String sql = "INSERT INTO Addresses (addrID, country, state, city, street, houseNumber, zipcode) "
-        			+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Addresses (country, state, city, street, houseNumber, zipcode) "
+        			+ "VALUES (?, ?, ?, ?, ?, ?) RETURNING addrID";
     	try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-    		pstmt.setInt(1, address.getAddrID());
-    		pstmt.setString(2, address.getCountry());
-    		pstmt.setString(3, address.getState());
-    		pstmt.setString(4, address.getCity());
-    		pstmt.setString(5, address.getStreet());
-    		pstmt.setString(6, address.getHouseNumber());
-    		pstmt.setString(7, address.getZipcode());
+    		pstmt.setString(1, address.getCountry());
+    		pstmt.setString(2, address.getState());
+    		pstmt.setString(3, address.getCity());
+    		pstmt.setString(4, address.getStreet());
+    		pstmt.setString(5, address.getHouseNumber());
+    		pstmt.setString(6, address.getZipcode());
     		
     		// Execute Query
-    		return pstmt.executeUpdate();
+    		ResultSet rs = pstmt.executeQuery();
+    		if (rs.next()) {
+    			// Return the added address if it exists
+    			int addrID = rs.getInt("addrID");
+    			return getAddressById(addrID);
+    		}
     	} catch (SQLException e) {
     		e.printStackTrace();
     	}
 
-    	return 0;
+    	// Return empty if we failed to add the address
+    	return Optional.empty();
     }
 
     // Method to update an Address

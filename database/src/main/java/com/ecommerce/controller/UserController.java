@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ecommerce.model.Address;
 import com.ecommerce.model.ApiResponse;
 import com.ecommerce.model.LoginRequest;
 import com.ecommerce.model.User;
+import com.ecommerce.service.AddressService;
 import com.ecommerce.service.UserService;
 
 @RestController
@@ -26,6 +28,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private AddressService addressService;
 
     // Get all users
     @GetMapping
@@ -42,7 +47,7 @@ public class UserController {
     // Get a user by username
     @GetMapping("/username")
     public ResponseEntity<User> getUserByUserName(@RequestParam String userName) {
-        Optional<User> user = userService.findByUserName(userName);
+        Optional<User> user = userService.getUserByUserName(userName);
         if (user.isPresent()) {
             System.out.println("User found: " + user.get());
             return ResponseEntity.ok(user.get());
@@ -62,11 +67,29 @@ public class UserController {
         }
 
         try {
+        	// Check if username is taken
+        	User foundUser = userService.getUserByUserName(registerRequest.getUserName()).orElse(null);
+        	if (foundUser != null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse("Username is taken", false));
+        	}
+        	
+        	// Construct a new user to add to database
             User user = new User();
             user.setUserName(registerRequest.getUserName());
             user.setEmail(registerRequest.getEmail());
             user.setPassword(registerRequest.getPassword());
+            
+            // Add address to database
+            Optional<Address> userAddr = addressService.addAddress(registerRequest.getAddress());
+            if (userAddr.isEmpty()) {
+            	// Failed to create address
+            	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse("Failed to add address to database", false));
+            }
+            
+        	// Set user address to new database entry
+            user.setAddress(userAddr.get());
 
+            // Add user to database
             userService.addUser(user);
 
             return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse("User registered successfully", true));

@@ -19,77 +19,77 @@ INSERT INTO public.Products (productID, productName, brand, price, quantity, lis
 (15, 'Smart Home Hub', 'Google', 149.99, 70, '2024-11-10', '/images/Google.jpg', 3.5);
 
 -- Inserting users
-INSERT INTO public.Users (userID, userName, addressID, email, phoneNumber, password) VALUES
-(1, 'alice_smith', 1, 'alice.smith@gmail.com', '123-456-7890', 'password123'),
-(2, 'bob_johnson', 2, 'bob.johnson@gmail.com', '234-567-8901', 'password456'),
-(3, 'charlie_brown', 3, 'charlie.brown@gmail.com', '345-678-9012', 'password789'),
-(4, 'diana_prince', 4, 'diana.prince@gmail.com', '456-789-0123', 'password101'),
-(5, 'eve_davis', 5, 'eve.davis@gmail.com', '567-890-1234', 'password202'),
-(6, 'frank_wright', 6, 'frank.wright@gmail.com', '678-901-2345', 'password303'),
-(7, 'grace_hall', 7, 'grace.hall@gmail.com', '789-012-3456', 'password404'),
-(8, 'henry_wilson', 8, 'henry.wilson@gmail.com', '890-123-4567', 'password505'),
-(9, 'ivy_adams', 9, 'ivy.adams@gmail.com', '901-234-5678', 'password606'),
-(10, 'jack_white', 10, 'jack.white@gmail.com', '012-345-6789', 'password707'),
-(11, 'karen_black', 11, 'karen.black@gmail.com', '111-222-3333', 'password808'),
-(12, 'leo_green', 12, 'leo.green@gmail.com', '222-333-4444', 'password909'),
-(13, 'mia_blue', 13, 'mia.blue@gmail.com', '333-444-5555', 'password010'),
-(14, 'nina_red', 14, 'nina.red@gmail.com', '444-555-6666', 'password111'),
-(15, 'oscar_yellow', 15, 'oscar.yellow@gmail.com', '555-666-7777', 'password121');
+INSERT INTO public.Users (userName, addressID, email, phoneNumber, password) VALUES
+('alice_smith', 1, 'alice.smith@gmail.com', '123-456-7890', 'password123'),
+('bob_johnson', 2, 'bob.johnson@gmail.com', '234-567-8901', 'password456'),
+('charlie_brown', 3, 'charlie.brown@gmail.com', '345-678-9012', 'password789'),
+('diana_prince', 4, 'diana.prince@gmail.com', '456-789-0123', 'password101'),
+('eve_davis', 5, 'eve.davis@gmail.com', '567-890-1234', 'password202'),
+('frank_wright', 6, 'frank.wright@gmail.com', '678-901-2345', 'password303'),
+('grace_hall', 7, 'grace.hall@gmail.com', '789-012-3456', 'password404'),
+('henry_wilson', 8, 'henry.wilson@gmail.com', '890-123-4567', 'password505'),
+('ivy_adams', 9, 'ivy.adams@gmail.com', '901-234-5678', 'password606'),
+('jack_white', 10, 'jack.white@gmail.com', '012-345-6789', 'password707'),
+('karen_black', 11, 'karen.black@gmail.com', '111-222-3333', 'password808'),
+('leo_green', 12, 'leo.green@gmail.com', '222-333-4444', 'password909'),
+('mia_blue', 13, 'mia.blue@gmail.com', '333-444-5555', 'password010'),
+('nina_red', 14, 'nina.red@gmail.com', '444-555-6666', 'password111'),
+('oscar_yellow', 15, 'oscar.yellow@gmail.com', '555-666-7777', 'password121');
 
 
 -- Inserting addresses
-INSERT INTO public.Addresses (addrID, country, state, city, street, houseNumber, zipcode) VALUES
-(1, 'USA', 'CA', 'San Francisco', 'Market St', '1234', '94103'),
-(2, 'USA', 'NY', 'New York', 'Broadway', '5678', '10001'),
-(3, 'USA', 'TX', 'Austin', 'Congress Ave', '9101', '73301'),
-(4, 'USA', 'WA', 'Seattle', 'Pine St', '1122', '98101'),
-(5, 'USA', 'IL', 'Chicago', 'Michigan Ave', '3344', '60601'),
-(6, 'USA', 'CA', 'Los Angeles', 'Sunset Blvd', '5566', '90001'),
-(7, 'USA', 'FL', 'Miami', 'Ocean Dr', '7788', '33101'),
-(8, 'USA', 'NV', 'Las Vegas', 'Fremont St', '9900', '89101'),
-(9, 'USA', 'MA', 'Boston', 'Boylston St', '1213', '02101'),
-(10, 'USA', 'CO', 'Denver', '16th St', '1415', '80201'),
-(11, 'Canada', 'ON', 'Toronto', 'Yonge St', '1617', 'M5E1E3'),
-(12, 'Canada', 'BC', 'Vancouver', 'Granville St', '1819', 'V6C1A5'),
-(13, 'Canada', 'QC', 'Montreal', 'Saint-Catherine', '2021', 'H2X1Z7'),
-(14, 'Canada', 'AB', 'Calgary', 'MacLeod Tr', '2223', 'T2G5E1'),
-(15, 'Canada', 'NS', 'Halifax', 'Barrington St', '2425', 'B3J3K1');
+INSERT INTO public.Addresses (country, state, city, street, houseNumber, zipcode) VALUES
+('USA', 'CA', 'San Francisco', 'Market St', '1234', '94103'),
+('USA', 'NY', 'New York', 'Broadway', '5678', '10001'),
+('USA', 'TX', 'Austin', 'Congress Ave', '9101', '73301'),
+('USA', 'WA', 'Seattle', 'Pine St', '1122', '98101'),
+('USA', 'IL', 'Chicago', 'Michigan Ave', '3344', '60601'),
+('USA', 'CA', 'Los Angeles', 'Sunset Blvd', '5566', '90001'),
+('USA', 'FL', 'Miami', 'Ocean Dr', '7788', '33101'),
+('USA', 'NV', 'Las Vegas', 'Fremont St', '9900', '89101'),
+('USA', 'MA', 'Boston', 'Boylston St', '1213', '02101'),
+('USA', 'CO', 'Denver', '16th St', '1415', '80201'),
+('Canada', 'ON', 'Toronto', 'Yonge St', '1617', 'M5E1E3'),
+('Canada', 'BC', 'Vancouver', 'Granville St', '1819', 'V6C1A5'),
+('Canada', 'QC', 'Montreal', 'Saint-Catherine', '2021', 'H2X1Z7'),
+('Canada', 'AB', 'Calgary', 'MacLeod Tr', '2223', 'T2G5E1'),
+('Canada', 'NS', 'Halifax', 'Barrington St', '2425', 'B3J3K1');
 
 -- Inserting orders
-INSERT INTO public.Orders (orderID, userID, numProductsOrdered, dateOrdered, shippingAddressID) VALUES
-(1, 1, 3, '2024-11-03', 1), -- After 'Iphone 15' listed on '2024-11-01'
-(2, 2, 2, '2024-11-04', 2), -- After 'Airpods Pro' listed on '2024-11-02'
-(3, 3, 1, '2024-10-21', 3), -- After 'Surface Pro' listed on '2024-10-20'
-(4, 4, 4, '2024-10-02', 4), -- After 'Gaming Console' listed on '2024-10-01'
-(5, 5, 1, '2024-11-26', 5), -- After 'Smartwatch' listed on '2024-11-25'
-(6, 6, 2, '2024-10-06', 6), -- After '4K TV' listed on '2024-10-05'
-(7, 7, 1, '2024-10-19', 7), -- After 'Bluetooth Speaker' listed on '2024-10-18'
-(8, 8, 1, '2024-10-23', 8), -- After 'Electric Kettle' listed on '2024-10-22'
-(9, 9, 3, '2024-10-09', 9), -- After 'Vacuum Cleaner' listed on '2024-10-08'
-(10, 10, 1, '2024-10-28', 10), -- After 'Fitness Tracker' listed on '2024-10-27'
-(11, 11, 2, '2024-10-04', 11), -- After 'DSLR Camera' listed on '2024-10-03'
-(12, 12, 1, '2024-11-18', 12), -- After 'Wireless Router' listed on '2024-11-17'
-(13, 13, 1, '2024-11-29', 13), -- After 'Gaming Headset' listed on '2024-11-28'
-(14, 14, 1, '2024-11-30', 14), -- After 'External Hard Drive' listed on '2024-11-29'
-(15, 15, 1, '2024-11-11', 15); -- After 'Smart Home Hub' listed on '2024-11-10'
+INSERT INTO public.Orders (userID, numProductsOrdered, dateOrdered, shippingAddressID) VALUES
+(1, 3, '2024-11-03', 1), -- After 'Iphone 15' listed on '2024-11-01'
+(2, 2, '2024-11-04', 2), -- After 'Airpods Pro' listed on '2024-11-02'
+(3, 1, '2024-10-21', 3), -- After 'Surface Pro' listed on '2024-10-20'
+(4, 4, '2024-10-02', 4), -- After 'Gaming Console' listed on '2024-10-01'
+(5, 1, '2024-11-26', 5), -- After 'Smartwatch' listed on '2024-11-25'
+(6, 2, '2024-10-06', 6), -- After '4K TV' listed on '2024-10-05'
+(7, 1, '2024-10-19', 7), -- After 'Bluetooth Speaker' listed on '2024-10-18'
+(8, 1, '2024-10-23', 8), -- After 'Electric Kettle' listed on '2024-10-22'
+(9, 3, '2024-10-09', 9), -- After 'Vacuum Cleaner' listed on '2024-10-08'
+(10, 1, '2024-10-28', 10), -- After 'Fitness Tracker' listed on '2024-10-27'
+(11, 2, '2024-10-04', 11), -- After 'DSLR Camera' listed on '2024-10-03'
+(12, 1, '2024-11-18', 12), -- After 'Wireless Router' listed on '2024-11-17'
+(13, 1, '2024-11-29', 13), -- After 'Gaming Headset' listed on '2024-11-28'
+(14, 1, '2024-11-30', 14), -- After 'External Hard Drive' listed on '2024-11-29'
+(15, 1, '2024-11-11', 15); -- After 'Smart Home Hub' listed on '2024-11-10'
 
 -- Inserting OrdersDetails
-INSERT INTO public.OrdersDetails (orderDetailsID, orderID, productID, quantityOrdered) VALUES
-(1, 1, 1, 2),
-(2, 2, 2, 1),
-(3, 3, 3, 1),
-(4, 4, 4, 2),
-(5, 5, 5, 1),
-(6, 6, 6, 3),
-(7, 7, 7, 2),
-(8, 8, 8, 1),
-(9, 9, 9, 1),
-(10, 10, 10, 2),
-(11, 11, 11, 3),
-(12, 12, 12, 2),
-(13, 13, 13, 1),
-(14, 14, 14, 1),
-(15, 15, 15, 2);
+INSERT INTO public.OrdersDetails (orderID, productID, quantityOrdered) VALUES
+(1, 1, 2),
+(2, 2, 1),
+(3, 3, 1),
+(4, 4, 2),
+(5, 5, 1),
+(6, 6, 3),
+(7, 7, 2),
+(8, 8, 1),
+(9, 9, 1),
+(10, 10, 2),
+(11, 11, 3),
+(12, 12, 2),
+(13, 13, 1),
+(14, 14, 1),
+(15, 15, 2);
 
 -- Inserting Reviews
 INSERT INTO public.Reviews (userID, productID, rating, reviewComment, datePosted) VALUES

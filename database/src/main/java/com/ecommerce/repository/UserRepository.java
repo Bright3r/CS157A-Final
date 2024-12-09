@@ -121,16 +121,15 @@ public class  UserRepository {
     	// Get Singleton Database Connection
     	Connection conn = DatabaseConnection.getConnection();
     	
-        String sql = "INSERT INTO Users (userID, userName, addressID, email, password, phoneNumber) "
-        			+ "VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Users (userName, addressID, email, password, phoneNumber) "
+        			+ "VALUES (?, ?, ?, ?, ?)";
         try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, user.getUserID());
-			pstmt.setString(2, user.getUserName());
-			pstmt.setInt(3, user.getAddress().getAddrID());
-			pstmt.setString(4, user.getEmail());
-			pstmt.setString(5, user.getPassword());
-			pstmt.setString(6, user.getPhoneNumber());
+			pstmt.setString(1, user.getUserName());
+			pstmt.setInt(2, user.getAddress().getAddrID());
+			pstmt.setString(3, user.getEmail());
+			pstmt.setString(4, user.getPassword());
+			pstmt.setString(5, user.getPhoneNumber());
 			
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {

@@ -33,6 +33,9 @@ export default function Navbar() {
         {isLoggedIn() && (
           <>
             <li>
+              <strong>Hello, { user?.userName }</strong>
+            </li>
+            <li>
               <Link href="/orders">Orders</Link>
             </li>
             <li>

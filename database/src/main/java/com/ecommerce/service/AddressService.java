@@ -23,7 +23,7 @@ public class AddressService {
     	return addressRepository.getAddressById(addrID);
     }
 
-    public int addAddress(Address address) {
+    public Optional<Address> addAddress(Address address) {
     	return addressRepository.saveAddress(address);
     }
 

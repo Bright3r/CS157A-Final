@@ -15,8 +15,8 @@ type user_t = {
     userName: string;
     email: string;
     phoneNumber: string;
-
-    adress: address_t;
+    password: string;
+    address: address_t;
 };
 
 type product_t = {
