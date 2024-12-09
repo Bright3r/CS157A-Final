@@ -92,22 +92,22 @@ INSERT INTO public.OrdersDetails (orderDetailsID, orderID, productID, quantityOr
 (15, 15, 15, 2);
 
 -- Inserting Reviews
-INSERT INTO public.Reviews (reviewID, userID, productID, rating, reviewComment, datePosted) VALUES
-(1, 1, 1, 5, 'Amazing phone! Totally worth the price.', '2024-11-05'), -- iPhone 15
-(2, 2, 2, 4, 'Great sound quality but a bit pricey.', '2024-11-06'), -- Airpods Pro
-(3, 3, 3, 5, 'Perfect for work and entertainment.', '2024-10-25'), -- Surface Pro
-(4, 4, 4, 4, 'Fun and engaging gaming console.', '2024-10-10'), -- Gaming Console
-(5, 5, 5, 5, 'Stylish and functional smartwatch.', '2024-11-30'), -- Smartwatch
-(6, 6, 6, 4, 'Excellent TV with sharp picture quality.', '2024-10-08'), -- 4K TV
-(7, 7, 7, 5, 'Great bass and volume for its size.', '2024-10-20'), -- Bluetooth Speaker
-(8, 8, 8, 4, 'Heats water quickly and looks sleek.', '2024-10-24'), -- Electric Kettle
-(9, 9, 9, 5, 'Best vacuum cleaner I have ever used.', '2024-10-15'), -- Vacuum Cleaner
-(10, 10, 10, 5, 'Great tracker for workouts and steps.', '2024-10-30'), -- Fitness Tracker
-(11, 11, 11, 5, 'Fantastic camera for beginners and pros.', '2024-10-06'), -- DSLR Camera
-(12, 12, 12, 4, 'Reliable router with excellent range.', '2024-11-19'), -- Wireless Router
-(13, 13, 13, 4, 'Good headset but could be more durable.', '2024-11-30'), -- Gaming Headset
-(14, 14, 14, 5, 'Plenty of storage space, highly portable.', '2024-12-01'), -- External Hard Drive
-(15, 15, 15, 5, 'Perfect hub for my smart home setup.', '2024-11-12'); -- Smart Home Hub
+INSERT INTO public.Reviews (userID, productID, rating, reviewComment, datePosted) VALUES
+(1, 1, 5, 'Amazing phone! Totally worth the price.', '2024-11-05'), -- iPhone 15
+(2, 2, 4, 'Great sound quality but a bit pricey.', '2024-11-06'), -- Airpods Pro
+(3, 3, 5, 'Perfect for work and entertainment.', '2024-10-25'), -- Surface Pro
+(4, 4, 4, 'Fun and engaging gaming console.', '2024-10-10'), -- Gaming Console
+(5, 5, 5, 'Stylish and functional smartwatch.', '2024-11-30'), -- Smartwatch
+(6, 6, 4, 'Excellent TV with sharp picture quality.', '2024-10-08'), -- 4K TV
+(7, 7, 5, 'Great bass and volume for its size.', '2024-10-20'), -- Bluetooth Speaker
+(8, 8, 4, 'Heats water quickly and looks sleek.', '2024-10-24'), -- Electric Kettle
+(9, 9, 5, 'Best vacuum cleaner I have ever used.', '2024-10-15'), -- Vacuum Cleaner
+(10, 10, 5, 'Great tracker for workouts and steps.', '2024-10-30'), -- Fitness Tracker
+(11, 11, 5, 'Fantastic camera for beginners and pros.', '2024-10-06'), -- DSLR Camera
+(12, 12, 4, 'Reliable router with excellent range.', '2024-11-19'), -- Wireless Router
+(13, 13, 4, 'Good headset but could be more durable.', '2024-11-30'), -- Gaming Headset
+(14, 14, 5, 'Plenty of storage space, highly portable.', '2024-12-01'), -- External Hard Drive
+(15, 15, 5, 'Perfect hub for my smart home setup.', '2024-11-12'); -- Smart Home Hub
 
 -- Inserting UserAddress
 INSERT INTO public.UserAddresses (userID, addrID) VALUES

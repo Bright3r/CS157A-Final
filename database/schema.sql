@@ -37,7 +37,7 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE IF NOT EXISTS public.addresses (
-    addrID integer NOT NULL,
+    addrID SERIAL NOT NULL,
     country character varying(100),
     state character varying(100),
     city character varying(100),
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS public.addresses (
 --
 
 CREATE TABLE IF NOT EXISTS public.orders (
-    orderID integer NOT NULL,
+    orderID SERIAL NOT NULL,
     userID integer,
     numProductsOrdered integer,
     dateOrdered date,
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS public.orders (
 --
 
 CREATE TABLE IF NOT EXISTS public.ordersDetails (
-    orderDetailsID integer NOT NULL,
+    orderDetailsID SERIAL NOT NULL,
     orderID integer,
     productID integer,
     quantityOrdered integer
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS public.ordersDetails (
 --
 
 CREATE TABLE IF NOT EXISTS public.products (
-    productID integer NOT NULL,
+    productID SERIAL NOT NULL,
     productName character varying(100) NOT NULL,
     brand character varying(50),
     price numeric(10,2) NOT NULL,
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS public.products (
 --
 
 CREATE TABLE IF NOT EXISTS public.reviews(
-    reviewID integer NOT NULL,
+    reviewID SERIAL NOT NULL,
     userID integer,
     productID integer,
     rating integer,

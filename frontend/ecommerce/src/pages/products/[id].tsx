@@ -2,19 +2,21 @@ import "../../types"
 import Product from "@/components/product";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import styles from "./Products.module.css";
 import Review from "@/components/review";
 import axios from "axios";
+import { useUser } from "../../context/UserContext";
+import styles from "./Products.module.css";
 
 export default function ProductDetails() {
   let [product, setProduct] = useState<product_t | null>(null);
   let [reviews, setReviews] = useState<review_t[]>([]);
   let [reviewText, setReviewText] = useState<string>("");
-  let [rating, setRating] = useState<number>(1); // default rating set to 1
+  let [rating, setRating] = useState<number>(5);
   let [error, setError] = useState<string>("");
 
   const router = useRouter();
   const { id } = router.query;
+  const { user } = useUser();
 
   useEffect(() => {
     const fetchProduct = async (prodID) => {
@@ -42,8 +44,19 @@ export default function ProductDetails() {
     }
   }, [id]);
 
+
   const handleReviewSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!product) {
+      setError("Must be a valid product.");
+      return;
+    }
+
+    if (!user) {
+      setError("Must be logged in.");
+      return;
+    }
 
     if (!reviewText.trim()) {
       setError("Review text is required.");
@@ -57,22 +70,36 @@ export default function ProductDetails() {
 
     setError(""); // Clear any previous errors
 
-    const newReview = { text: reviewText, rating };
-
+    const newReview: review_t = {
+      reviewID: -1,  // Does not matter, just needed for type compatibility
+      user, 
+      product, 
+      rating, 
+      reviewComment: reviewText,
+      datePosted: new Date()
+    }
+  
     try {
-      const response = await axios.post("http://localhost:8080/api/reviews", newReview);
-      setReviews([response.data, ...reviews]); // Add new review to the top
+      const response = await axios.post("http://localhost:8080/api/reviews", newReview, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+
+      console.log(newReview.rating);
+      setReviews([...reviews, newReview]); // Add new review to the top
       setReviewText(""); // Clear review text
-      setRating(1); // Reset rating to 1
+      setRating(5); // Reset rating to 5
     } catch (error) {
       console.error("Error submitting review:", error);
       setError("There was an issue submitting your review.");
     }
   };
 
+
   return (
     <>
-        <h1 className={styles.header}> Products </h1>
+        <h1 className={styles.header}> {product?.brand} {product?.productName} </h1>
         {product ? (
             <Product key={product.productID} {...product} />
         ) : (

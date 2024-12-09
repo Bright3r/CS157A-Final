@@ -34,7 +34,7 @@ type review_t = {
     reviewID: number;
     reviewComment: string;
     datePosted: Date;
-
+    rating: number;
     product: product_t;
     user: user_t;
 };

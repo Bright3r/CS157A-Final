@@ -30,8 +30,8 @@ public class ReviewService {
     }
 
     // Add a new review
-    public void addReview(Review review) {
-        reviewRepository.saveReview(review);
+    public int addReview(Review review) {
+        return reviewRepository.saveReview(review);
     }
 
     // Update a review

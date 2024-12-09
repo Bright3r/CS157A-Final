@@ -132,25 +132,27 @@ public class ReviewRepository {
 
     // Insert a new review
     public int saveReview(Review review) {
-    	// Get Singleton Database Connection
-    	Connection conn = DatabaseConnection.getConnection();
+        // Get Singleton Database Connection
+        Connection conn = DatabaseConnection.getConnection();
         
-    	String sql = "INSERT INTO Reviews (userID, productID, rating, reviewComment, datePosted) VALUES (?, ?, ?, ?, ?)";
-    	try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-    		pstmt.setInt(1, review.getUser().getUserID());
-    		pstmt.setInt(2, review.getProduct().getProductID());
-    		pstmt.setDouble(3, review.getRating());
-    		pstmt.setString(4, review.getReviewComment());
-    		pstmt.setDate(5, review.getDatePosted());
-    		
-    		// Execute Query
-    		return pstmt.executeUpdate();
-    	} catch (SQLException e) {
-    		e.printStackTrace();
-    	}
+        // SQL query with the RETURNING clause to get the generated reviewID
+        String sql = "INSERT INTO Reviews (userID, productID, rating, reviewComment, datePosted) " +
+                     "VALUES (?, ?, ?, ?, ?) RETURNING reviewID";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, review.getUser().getUserID());
+            pstmt.setInt(2, review.getProduct().getProductID());
+            pstmt.setInt(3, review.getRating());
+            pstmt.setString(4, review.getReviewComment());
+            pstmt.setDate(5, review.getDatePosted());
 
-    	return 0;
+            return pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0; // Return 0 in case of an error
     }
+
     
     // Update a review
     public int updateReview(Review review) {
@@ -162,7 +164,7 @@ public class ReviewRepository {
     	try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
     		pstmt.setInt(1, review.getUser().getUserID());
     		pstmt.setInt(2, review.getProduct().getProductID());
-    		pstmt.setDouble(3, review.getRating());
+    		pstmt.setInt(3, review.getRating());
     		pstmt.setString(4, review.getReviewComment());
     		pstmt.setDate(5, review.getDatePosted());
     		pstmt.setInt(6, review.getReviewID());
