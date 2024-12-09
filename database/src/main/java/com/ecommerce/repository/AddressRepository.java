@@ -26,10 +26,33 @@ public class AddressRepository {
         address.setStreet(rs.getString("street"));
         address.setHouseNumber(rs.getString("houseNumber"));
         address.setZipcode(rs.getString("zipcode"));
-//        address.setUserID(rs.getInt("user_id"));
         return address;
     }
 
+    // Method to fetch all Addresses
+    public List<Address> findAll() {
+       	// Get Singleton Database Connection
+    	Connection conn = DatabaseConnection.getConnection();
+		List<Address> addresses = new ArrayList<>();
+		
+    	try {
+    		// Query for all addresses in database
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Addresses");
+			while (rs.next()) {
+				// Create a Address object for each row in the ResultSet
+				Address curr = buildAddress(rs);
+				addresses.add(curr);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	
+    	// Return a list of every address
+    	return addresses;
+    }
+    
     // Method to get an Address by its ID
     public Optional<Address> getAddressById(int addrID) {
     	// Get Singleton Database Connection
@@ -58,61 +81,71 @@ public class AddressRepository {
     	return Optional.ofNullable(address);
     }
 
-//    // Method to save an Address
-//    public void saveAddress(Address address) {
-//        String sql = "INSERT INTO Addresses (country, state, city, street, houseNumber, zipcode, user_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
-//        jdbcTemplate.update(sql,
-//                address.getCountry(),
-//                address.getState(),
-//                address.getCity(),
-//                address.getStreet(),
-//                address.getHouseNumber(),
-//                address.getZipcode(),
-//                address.getUserID());
-//    }
-//
-//    // Method to update an Address
-//    public void updateAddress(Address address) {
-//        String sql = "UPDATE Addresses SET country = ?, state = ?, city = ?, street = ?, houseNumber = ?, zipcode = ?, user_id = ? WHERE addrID = ?";
-//        jdbcTemplate.update(sql,
-//                address.getCountry(),
-//                address.getState(),
-//                address.getCity(),
-//                address.getStreet(),
-//                address.getHouseNumber(),
-//                address.getZipcode(),
-//                address.getUserID(),
-//                address.getAddrID());
-//    }
-//
-//    // Method to delete an Address
-//    public void deleteAddress(int addrID) {
-//        String sql = "DELETE FROM Addresses WHERE addrID = ?";
-//        jdbcTemplate.update(sql, addrID);
-//    }
-
-    // Method to fetch all Addresses
-    public List<Address> findAll() {
-    	System.out.println("HIT");
-       	// Get Singleton Database Connection
+    // Method to save an Address
+    public int saveAddress(Address address) {
+    	// Get Singleton Database Connection
     	Connection conn = DatabaseConnection.getConnection();
-		List<Address> addresses = new ArrayList<>();
-		
-    	try {
-    		// Query for all addresses in database
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Addresses");
-			while (rs.next()) {
-				// Create a Address object for each row in the ResultSet
-				Address curr = buildAddress(rs);
-				addresses.add(curr);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
     	
-    	// Return a list of every address
-    	return addresses;
+        String sql = "INSERT INTO Addresses (addrID, country, state, city, street, houseNumber, zipcode) "
+        			+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
+    	try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    		pstmt.setInt(1, address.getAddrID());
+    		pstmt.setString(2, address.getCountry());
+    		pstmt.setString(3, address.getState());
+    		pstmt.setString(4, address.getCity());
+    		pstmt.setString(5, address.getStreet());
+    		pstmt.setString(6, address.getHouseNumber());
+    		pstmt.setString(7, address.getZipcode());
+    		
+    		// Execute Query
+    		return pstmt.executeUpdate();
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}
+
+    	return 0;
+    }
+
+    // Method to update an Address
+    public int updateAddress(Address address) {
+    	// Get Singleton Database Connection
+    	Connection conn = DatabaseConnection.getConnection();
+    	
+    	String sql = "UPDATE Addresses SET country = ?, state = ?, city = ?, street = ?, "
+    				+ "houseNumber = ?, zipcode = ? WHERE addrID = ?";
+    	try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    		pstmt.setString(1, address.getCountry());
+    		pstmt.setString(2, address.getState());
+    		pstmt.setString(3, address.getCity());
+    		pstmt.setString(4, address.getStreet());
+    		pstmt.setString(5, address.getHouseNumber());
+    		pstmt.setString(6, address.getZipcode());
+    		pstmt.setInt(7, address.getAddrID());
+    		
+    		// Execute Query
+    		return pstmt.executeUpdate();
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}
+
+    	return 0;
+    }
+
+    // Method to delete an Address
+    public int deleteAddress(int addrID) {
+    	// Get Singleton Database Connection
+    	Connection conn = DatabaseConnection.getConnection();
+    	
+        String sql = "DELETE FROM Addresses WHERE addrID = ?";
+    	try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    		pstmt.setInt(1, addrID);
+    		
+    		// Execute Query
+    		return pstmt.executeUpdate();
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}
+
+    	return 0;
     }
 }

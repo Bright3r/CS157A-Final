@@ -17,7 +17,8 @@ public class AuthService {
         loginRequest.setUsername(username);
         loginRequest.setPassword(password);
 
-        User user = userRepository.authenticateUser(loginRequest);
+        User user = null;
+//        User user = userRepository.authenticateUser(loginRequest);
 
         if (user == null) {
             return false;  

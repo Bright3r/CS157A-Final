@@ -21,18 +21,6 @@ public class AddressController {
 
     @Autowired
     private AddressService addressService;
-
-    // Get a list of addresses for a user
-    @GetMapping("/users/{userId}/addresses")
-    public List<Address> getAddressesByUserId(@PathVariable Integer userId) {
-        return addressService.getAddressesByUserId(userId);
-    }
-
-    // Add a new address for a user
-    @PostMapping("/users/{userId}/addresses")
-    public Address addAddress(@PathVariable Integer userId, @RequestBody Address address) {
-        return addressService.addAddress(userId, address);
-    }
     
     // Get all addresses
     @GetMapping
@@ -45,16 +33,22 @@ public class AddressController {
     public Address getAddressByID(@PathVariable Integer addrID) {
     	return addressService.getAddressById(addrID).orElse(null);
     }
+    
+    // Add a new address
+    @PostMapping("/create")
+    public int addAddress(@RequestBody Address address) {
+        return addressService.addAddress(address);
+    }
 
     // Update an existing address
-    @PutMapping("/{addrID}")
-    public Address updateAddress(@PathVariable Integer addrID, @RequestBody Address updatedAddress) {
-        return null;
+    @PutMapping("/update")
+    public int updateAddress(@RequestBody Address updatedAddress) {
+        return addressService.updateAddress(updatedAddress);
     }
 
     // Delete an address
-    @DeleteMapping("/{addressId}")
-    public void deleteAddress(@PathVariable Integer addressId) {
-        addressService.deleteAddress(addressId);
+    @DeleteMapping("/delete/{addressID}")
+    public void deleteAddress(@PathVariable Integer addressID) {
+        addressService.deleteAddress(addressID);
     }
 }

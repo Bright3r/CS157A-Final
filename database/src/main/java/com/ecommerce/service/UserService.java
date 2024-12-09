@@ -35,35 +35,16 @@ public class UserService {
         return userRepository.findByUserName(userName); 
     }
 
-    public User addUser(User user) {
+    public int addUser(User user) {
         return userRepository.save(user);  
     }
 
-    public User updateUser(User user) {
-        return userRepository.save(user); 
+    public int updateUser(User user) {
+        return userRepository.update(user); 
     }
 
     public void deleteUser(Integer userId) {
         userRepository.deleteById(userId);  
-    }
-
-    public User registerUser(User user) {
-        if (userRepository.existsByEmail(user.getEmail())) {
-            throw new RuntimeException("User with this email already exists");
-        }
-
-        return userRepository.save(user);
-    }
-
-    public User updateUserDetails(Integer userID, User updatedUser) {
-        User existingUser = userRepository.findById(userID)
-                                          .orElseThrow(() -> new RuntimeException("User not found"));
-
-        existingUser.setUserName(updatedUser.getUserName());
-        existingUser.setEmail(updatedUser.getEmail());
-        existingUser.setPhoneNumber(updatedUser.getPhoneNumber());
-
-        return userRepository.save(existingUser);
     }
 
     public User loginUser(String username, String password) {

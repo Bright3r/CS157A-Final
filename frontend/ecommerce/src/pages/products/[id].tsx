@@ -15,12 +15,12 @@ export default function ProductDetails() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const req = await fetch('http://localhost:3000/products.json');
-        const data: product_t[] = await req.json();
+        const req = await fetch(`http://localhost:8080/api/products/${id}`);
+        const data: product_t = await req.json();
+        console.log("Product: ", data);
 
-        const pageProduct = data.find((product) => product.productID === Number(id));
-        if (pageProduct) {
-            setProduct(pageProduct);
+        if (product && product !== undefined) {
+          setProduct(data);
         }
       } catch (error) {
         console.error("Error fetching products: ", error);
@@ -29,12 +29,13 @@ export default function ProductDetails() {
 
     const fetchReviews = async () => {
       try {
-        const req = await fetch('http://localhost:3000/reviews.json');
+        const req = await fetch(`http://localhost:8080/api/reviews/${id}`);
         const data: review_t[] = await req.json();
+        console.log("Review: ", data);
 
-        const pageReviews = data.filter((review) => review.product.productID === Number(id));
-        pageReviews.forEach((review) => review.datePosted = new Date(review.datePosted));
-        setReviews(pageReviews);
+        if (data && data !== undefined) {
+          setReviews(data);
+        }
       } catch (error) {
         console.error("Error fetching reviews: ", error);
       }
@@ -49,9 +50,9 @@ export default function ProductDetails() {
         <h1 className={styles.header}> Products </h1>
         {product ?
             <Product key={product.productID} {...product} /> :
-            <p>Could not find product.</p>
+            <h1 className={styles.header}>Could not find product.</h1>
         }
-        {reviews.map((review) => <Review key={review.reviewID} {...review} />)}
+        {reviews.length > 0 && reviews.map((review) => <Review key={review.reviewID} {...review} />)}
     </>
   );
 }

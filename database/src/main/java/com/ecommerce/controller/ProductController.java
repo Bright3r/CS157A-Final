@@ -34,7 +34,7 @@ public class ProductController {
     }
 
     // Add new product
-    @PostMapping("/addProducts")
+    @PostMapping("/products")
     public Product addProduct(@RequestBody Product product) {
         productService.updateProduct(product);  // Call service to add product
         return product;  // Return the product after insertion

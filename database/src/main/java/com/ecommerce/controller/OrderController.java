@@ -16,6 +16,20 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    // Get all orders
+    @GetMapping
+    public ResponseEntity<List<Order>> getAllOrders() {
+        List<Order> orders = orderService.getAllOrders();
+        return ResponseEntity.ok(orders);
+    }
+    
+    // Get an order by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Order> getOrder(@PathVariable Integer id) {
+        Optional<Order> order = orderService.getOrderById(id);
+        return order.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
     // Create a new order
     @PostMapping
     public ResponseEntity<String> createOrder(@RequestBody Order order) {
@@ -26,21 +40,7 @@ public class OrderController {
             return ResponseEntity.status(500).body("Failed to create order");
         }
     }
-
-    // Get an order by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Order> getOrder(@PathVariable Integer id) {
-        Optional<Order> order = orderService.getOrderById(id);
-        return order.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
-    // Get all orders
-    @GetMapping
-    public ResponseEntity<List<Order>> getAllOrders() {
-        List<Order> orders = orderService.getAllOrders();
-        return ResponseEntity.ok(orders);
-    }
-
+    
     // Delete an order by ID
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOrder(@PathVariable Integer id) {

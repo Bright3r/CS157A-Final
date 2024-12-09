@@ -14,19 +14,24 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
-    // Save a new order
-    public int createOrder(Order order) {
-        return orderRepository.saveOrder(order);
+    // Get all orders
+    public List<Order> getAllOrders() {
+        return orderRepository.findAll();
     }
-
+    
     // Get an order by ID
     public Optional<Order> getOrderById(Integer orderID) {
         return orderRepository.findById(orderID);
     }
-
-    // Get all orders
-    public List<Order> getAllOrders() {
-        return orderRepository.findAll();
+    
+    // Get orders for a user
+    public List<Order> getOrdersByUserID(Integer userID) {
+    	return orderRepository.findOrdersByUser(userID);
+    }
+    
+    // Save a new order
+    public int createOrder(Order order) {
+        return orderRepository.saveOrder(order);
     }
 
     // Delete an order by ID

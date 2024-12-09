@@ -23,21 +23,16 @@ public class AddressService {
     	return addressRepository.getAddressById(addrID);
     }
 
-    public Address addAddress(Address address) {
-    	return null;
+    public int addAddress(Address address) {
+    	return addressRepository.saveAddress(address);
     }
 
-    public Address updateAddress(Address address) {
-    	return null;
+    public int updateAddress(Address address) {
+    	return addressRepository.updateAddress(address);
     }
 
-    public void deleteAddress(Integer addressId) {
-       
+    public int deleteAddress(Integer addressID) {
+       return addressRepository.deleteAddress(addressID);
     }
-    public List<Address> getAddressesByUserId(Integer userId) {
-    	return null;
-    }
-    public Address addAddress(Integer userId, Address address) {
-    	return null;
-    }
+    
 }

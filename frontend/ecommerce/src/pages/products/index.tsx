@@ -1,17 +1,8 @@
+import "../../types";
 import { useEffect, useState } from "react";
 import Product from "@/components/product";
 import styles from "./Products.module.css";
 
-type product_t = {
-  productID: string;
-  productName: string;
-  brand: string;
-  price: number;
-  rating: number;
-  imageUrl: string;
-  quantity: number;
-  listingDate: string;
-};
 
 export default function Products() {
   const [products, setProducts] = useState<product_t[]>([]);

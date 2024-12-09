@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.ecommerce.DatabaseConnection;
@@ -18,16 +16,6 @@ import com.ecommerce.model.Product;
 
 @Repository
 public class ProductRepository {
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
-    // Insert a new product
-    public int saveProduct(Product product) {
-        String sql = "INSERT INTO Products (productName, brand, price, quantity, listingDate, imageUrl) VALUES (?, ?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, product.getProductName(), product.getBrand(), product.getPrice(), 
-                                   product.getQuantity(), product.getListingDate(), product.getImageUrl());
-    }
     
     // Builds a product for the current row of the ResultSet
     // Throws an SQLException if the ResultSet does not contain expected Product data
@@ -45,6 +33,30 @@ public class ProductRepository {
 		curr.setRating(rs.getDouble("rating"));
 		
 		return curr;
+    }
+    
+    // Find all products in the database
+    public List<Product> findAll() {
+    	// Get Singleton Database Connection
+    	Connection conn = DatabaseConnection.getConnection();
+		List<Product> products = new ArrayList<>();
+		
+    	try {
+    		// Query for all products in database
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Products");
+			while (rs.next()) {
+				// Create a Product object for each row in the ResultSet
+				Product curr = buildProduct(rs);
+				products.add(curr);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	
+    	// Return a list of every product
+    	return products;
     }
 
     // Find a product by ID
@@ -74,41 +86,71 @@ public class ProductRepository {
     	// Otherwise return null
     	return Optional.ofNullable(product);
     }
-
-    // Find all products in the database
-    public List<Product> findAll() {
+    
+    // Insert a new product
+    public int saveProduct(Product product) {
     	// Get Singleton Database Connection
     	Connection conn = DatabaseConnection.getConnection();
-		List<Product> products = new ArrayList<>();
-		
-    	try {
-    		// Query for all products in database
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Products");
-			while (rs.next()) {
-				// Create a Product object for each row in the ResultSet
-				Product curr = buildProduct(rs);
-				products.add(curr);
-			}
+    	
+        String sql = "INSERT INTO Products (productName, brand, price, quantity, listingDate, imageUrl) "
+        			+ "VALUES (?, ?, ?, ?, ?, ?)";
+        try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, product.getProductName());
+			pstmt.setString(2, product.getBrand());
+			pstmt.setDouble(3, product.getPrice());
+			pstmt.setInt(4, product.getQuantity());
+			pstmt.setDate(5, product.getListingDate());
+			pstmt.setString(6, product.getImageUrl());
 			
+			return pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-    	
-    	// Return a list of every product
-    	return products;
+        
+        return 0;
     }
 
     // Update a product
     public int updateProduct(Product product) {
-        String sql = "UPDATE Products SET productName = ?, brand = ?, price = ?, quantity = ?, listingDate = ?, imageUrl = ? WHERE productID = ?";
-        return jdbcTemplate.update(sql, product.getProductName(), product.getBrand(), product.getPrice(), 
-                                   product.getQuantity(), product.getListingDate(), product.getImageUrl(), product.getProductID());
+    	// Get Singleton Database Connection
+    	Connection conn = DatabaseConnection.getConnection();
+    	
+        String sql = "UPDATE Products SET productName = ?, brand = ?, price = ?, "
+        		+ "quantity = ?, listingDate = ?, imageUrl = ? WHERE productID = ?";
+        try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, product.getProductName());
+			pstmt.setString(2, product.getBrand());
+			pstmt.setDouble(3, product.getPrice());
+			pstmt.setInt(4, product.getQuantity());
+			pstmt.setDate(5, product.getListingDate());
+			pstmt.setString(6, product.getImageUrl());
+			pstmt.setInt(7, product.getProductID());
+			
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+        
+        return 0;
     }
 
     // Delete a product by ID
     public int deleteById(Integer productID) {
+    	// Get Singleton Database Connection
+    	Connection conn = DatabaseConnection.getConnection();
+    	
         String sql = "DELETE FROM Products WHERE productID = ?";
-        return jdbcTemplate.update(sql, productID);
+        try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, productID);
+			
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+        
+        return 0;
     }
 }

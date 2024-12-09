@@ -5,19 +5,16 @@ import styles from "./Orders.module.css";
 
 
 export default function Orders() {
-  let [products, setProducts] = useState<product_t[]>([]);
   let [orders, setOrders] = useState<order_t[]>([]);
-  let [reviews, setReviews] = useState<review_t[]>([]);
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const req = await fetch('http://localhost:3000/orders.json');
-        const data = await req.json();
+        const req = await fetch('http://localhost:8080/api/orders');
+        const data: order_t[] = await req.json();
 
-        let cleanedData: order_t[] = data;
-        cleanedData.forEach((order) => order.dateOrdered = new Date(order.dateOrdered));
-        setOrders(cleanedData);
+        console.log(data);
+        setOrders(data);
       } catch (error) {
         console.error("Error fetching orders: ", error);
       }

@@ -4,15 +4,15 @@ public class CartItem {
 
     private Integer id;
     private Integer userID; 
-    private Integer productID;
+    private Product product;
     private Integer quantity;
     private Double price;
 
     public CartItem() {}
 
-    public CartItem(Integer userID, Integer productID, Integer quantity, Double price) {
+    public CartItem(Integer userID, Product product, Integer quantity, Double price) {
         this.userID = userID;
-        this.productID = productID;
+        this.product = product;
         this.quantity = quantity;
         this.price = price;
     }
@@ -33,12 +33,12 @@ public class CartItem {
         this.userID = userID;
     }
 
-    public Integer getProductID() {
-        return productID;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductID(Integer productID) {
-        this.productID = productID;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Integer getQuantity() {

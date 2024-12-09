@@ -1,11 +1,13 @@
 package com.ecommerce.model;
 
 import java.sql.Date;
+import java.util.List;
 
 public class Order {
 
     private Integer orderID;
     private User user;
+    private List<CartItem> products;
     private Integer numProductsOrdered;
     private Date dateOrdered;
     private Address shippingAddress;
@@ -33,6 +35,14 @@ public class Order {
 
     public void setUser(User user) {
         this.user = user;
+    }
+    
+    public List<CartItem> getProducts() {
+    	return products;
+    }
+    
+    public void setProducts(List<CartItem> products) {
+    	this.products = products;
     }
 
     public Integer getNumProductsOrdered() {

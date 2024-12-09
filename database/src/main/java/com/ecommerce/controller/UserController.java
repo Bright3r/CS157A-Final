@@ -39,7 +39,8 @@ public class UserController {
         return userService.getUserById(id);
     }
     
-    @GetMapping("/findByUserName")
+    // Get a user by username
+    @GetMapping("/username")
     public ResponseEntity<User> getUserByUserName(@RequestParam String userName) {
         Optional<User> user = userService.findByUserName(userName);
         if (user.isPresent()) {
@@ -66,7 +67,7 @@ public class UserController {
             user.setEmail(registerRequest.getEmail());
             user.setPassword(registerRequest.getPassword());
 
-            userService.registerUser(user);
+            userService.addUser(user);
 
             return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse("User registered successfully", true));
         } catch (Exception e) {
@@ -79,8 +80,8 @@ public class UserController {
 
     // Update user details
     @PutMapping("/{userID}")
-    public User updateUser(@PathVariable Integer userID, @RequestBody User updatedUser) {
-        return userService.updateUserDetails(userID, updatedUser);
+    public int updateUser(@PathVariable Integer userID, @RequestBody User updatedUser) {
+        return userService.updateUser(updatedUser);
     }
 
     @PostMapping("/api/users/login")
