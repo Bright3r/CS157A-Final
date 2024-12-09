@@ -81,15 +81,12 @@ public class OrderRepository {
 
     			// Get ordered quantity of this product
     			int quantityOrdered = rs.getInt("quantityOrdered");
-    			curr.setQuantity(quantityOrdered);
+    			curr.setQuantityOrdered(quantityOrdered);
     			
     			// Query for ordered product
     			int productID = rs.getInt("productID");
     			Product product = productService.getProductById(productID).orElse(null);
     			curr.setProduct(product);
-    			
-    			// Calculate price of cart item
-    			curr.setPrice(product.getPrice() * quantityOrdered);
     			
     			products.add(curr);
     		}
@@ -169,8 +166,7 @@ public class OrderRepository {
 				// Create an Order object for each row in the ResultSet
 				Order curr = buildOrder(rs);
 				orders.add(curr);
-			}
-			
+			}	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -178,6 +174,83 @@ public class OrderRepository {
     	// Return a list of user's orders
     	return orders;
     }
+    
+    // Insert a new order
+    public int saveOrder(Order order) {
+    	// Get Singleton Database Connection
+    	Connection conn = DatabaseConnection.getConnection();
+		
+    	try {
+        	// Create a transaction for order
+    		conn.setAutoCommit(false);
+    		
+    		// Make sure user is in database
+    		Optional<User> orderUser = userService.getUserById(order.getUser().getUserID());
+    		if (orderUser.isEmpty()) {
+    			// Submitted user not found
+    			throw new RuntimeException("Could not find order user");
+    		}
+    		    		
+    		// Insert the order into the Orders table
+    		//
+        	String orderSQL = "INSERT INTO Orders (userID, numProductsOrdered, dateOrdered, shippingAddressID) VALUES (?, ?, ?, ?) RETURNING orderID";
+    		PreparedStatement pstmt = conn.prepareStatement(orderSQL);
+    		pstmt.setInt(1, order.getUser().getUserID());
+    		pstmt.setInt(2, order.getNumProductsOrdered());
+    		pstmt.setDate(3, order.getDateOrdered());
+    		// Set shipping address to this user's stored address
+    		pstmt.setInt(4, orderUser.get().getAddress().getAddrID());
+    		
+    		// Add order to database
+    		ResultSet rs = pstmt.executeQuery();
+    		if (!rs.next()) {
+    			// Failed to add order
+    			throw new RuntimeException("Failed to add order");
+    		}
+    		
+    		// Get orderID of added order
+    		int orderID = rs.getInt("orderID");
+    		
+
+    		// Insert each Cart Item into the OrdersDetails table
+    		//
+    		List<CartItem> items = order.getProducts();
+    		String orderDetailSQL = "INSERT INTO OrdersDetails (orderID, productID, quantityOrdered) VALUES (?, ?, ?) RETURNING orderDetailsID";
+    	    PreparedStatement detailsPstmt = conn.prepareStatement(orderDetailSQL);
+    		for (CartItem item : items) {
+    			System.out.println("Cart Item Product: " + item.getProduct().getProductName());
+    			System.out.println("Cart Item Qty: " + item.getQuantityOrdered());
+    			
+    			detailsPstmt.setInt(1, orderID);
+    			detailsPstmt.setInt(2, item.getProduct().getProductID());
+    			detailsPstmt.setInt(3, item.getQuantityOrdered());
+    			
+    			// Add OrderDetail to database
+    			ResultSet rs2 = detailsPstmt.executeQuery();
+    			if (!rs2.next()) {
+    				throw new RuntimeException("Failed to add order detail");
+    			}
+    		}
+    		
+    		// Commit Transaction
+    		conn.commit();
+    		conn.setAutoCommit(true);
+    		return 1;
+		} catch (Exception e) {
+			// Try to rollback transaction if anything fails
+			try {
+				conn.rollback();
+				conn.setAutoCommit(true);
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		
+			e.printStackTrace();
+		}
+    	
+    	return 0;	// Return 0 if failed to create order
+    }
+
 
     // Delete an order by ID
     public int deleteById(Integer orderID) {
@@ -187,27 +260,6 @@ public class OrderRepository {
         String sql = "DELETE FROM Orders WHERE orderID = ?";
     	try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
     		pstmt.setInt(1, orderID);
-    		
-    		return pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-    	
-    	return 0;
-    }
-    
-    // Insert a new order
-    public int saveOrder(Order order) {
-    	// Get Singleton Database Connection
-    	Connection conn = DatabaseConnection.getConnection();
-		
-    	String sql = "INSERT INTO Orders (userID, numProductsOrdered, dateOrdered, shippingAddressID) VALUES (?, ?, ?, ?)";
-    	try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-    		pstmt.setInt(1, order.getUser().getUserID());
-    		pstmt.setInt(2, order.getNumProductsOrdered());
-    		pstmt.setDate(3, order.getDateOrdered());
-    		pstmt.setInt(4, order.getShippingAddress().getAddrID());
     		
     		return pstmt.executeUpdate();
 		} catch (SQLException e) {

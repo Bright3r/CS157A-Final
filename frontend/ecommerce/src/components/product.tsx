@@ -6,14 +6,16 @@ import styles from "@/styles/Product.module.css";
 
 
 
-export default function Product({
-  productID,
-  productName,
-  brand,
-  price,
-  rating,
-  imageUrl,
-}: product_t) {
+export default function Product(props: product_t) {
+  const {
+    productID,
+    productName,
+    brand,
+    price,
+    rating,
+    imageUrl
+  } = props;
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 
@@ -52,15 +54,7 @@ export default function Product({
 
       {isModalOpen && (
         <Modal
-          product={{
-            productID: Number(productID),
-            productName,
-            brand,
-            price,
-            rating,
-            quantity: 1, // Optional, pass relevant quantity
-            listingDate: new Date().toISOString(), // Optional default
-          }}
+          product={props}
           closeModal={closeModal}
         />
       )}

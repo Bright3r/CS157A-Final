@@ -41,16 +41,14 @@ type review_t = {
 
 type order_t = {
     orderID: number;
+    user: user_t;
+    products: cart_product_t[];
     numProductsOrdered: number;
     dateOrdered: Date;
-    total: number;
-
-    products: product_t[];
     shippingAddress: address_t;
-    user: user_t;
 };
 
 type cart_product_t = {
     product: product_t;
-    purchaseQuantity: number;
+    quantityOrdered: number;
 }
