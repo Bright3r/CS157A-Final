@@ -1,11 +1,22 @@
 import { useState } from "react";
 import axios from "../axiosConfig";
+import { useRouter } from "next/router";
 import styles from "./Login.module.css";
+import { useUser } from "../../context/UserContext";
+
+
+interface LoginRequest {
+  username: string;
+  password: string;
+}
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const router = useRouter();
+  const { setUser } = useUser();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -13,14 +24,25 @@ export default function Login() {
       setErrorMessage("Please enter both username and password");
       return;
     }
+
     try {
-      const response = await axios.post("/api/login", {
+      const loginData: LoginRequest = {
         username,
         password,
+      };
+
+      // Send the POST request
+      const response = await axios.post('http://localhost:8080/api/user/login', loginData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
+
       if (response.status === 200) {
-        alert("Login successful");
-        window.location.href = "/dashboard";
+        console.log("Login successful");
+        setUser(response.data);
+        console.log(response.data);
+        router.push("/products");
       }
     } catch (error) {
       setErrorMessage("Invalid username or password");
@@ -30,7 +52,7 @@ export default function Login() {
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
-        <h1 className={styles.heading}>LOGIN</h1>
+        <h1 className={styles.heading}>Login</h1>
 
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.inputGroup}>

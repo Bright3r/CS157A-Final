@@ -84,14 +84,15 @@ public class UserController {
         return userService.updateUser(updatedUser);
     }
 
-    @PostMapping("/api/users/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+    @PostMapping("/login")
+    public ResponseEntity<Object> login(@RequestBody LoginRequest loginRequest) {
     	try {
             System.out.println("Received login request for username: " + loginRequest.getUsername());
             System.out.println("Password: " + loginRequest.getPassword());
             User user = userService.loginUser(loginRequest.getUsername(), loginRequest.getPassword());
-            return ResponseEntity.ok("Login successful");
+            return ResponseEntity.ok(user);
         } catch (RuntimeException e) {
+        	System.out.println(e.getMessage());
             return ResponseEntity.status(401).body("Invalid username or password");
         }
     }

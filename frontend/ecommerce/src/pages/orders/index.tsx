@@ -2,6 +2,7 @@ import "../../types"
 import Order from "@/components/order";
 import { useEffect, useState } from "react";
 import styles from "./Orders.module.css";
+import axios from "axios";
 
 
 export default function Orders() {
@@ -10,11 +11,8 @@ export default function Orders() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const req = await fetch('http://localhost:8080/api/orders');
-        const data: order_t[] = await req.json();
-
-        console.log(data);
-        setOrders(data);
+        const res = await axios.get<order_t[]>('http://localhost:8080/api/orders');
+        setOrders(res.data);
       } catch (error) {
         console.error("Error fetching orders: ", error);
       }

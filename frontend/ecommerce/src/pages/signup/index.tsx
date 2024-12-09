@@ -1,12 +1,37 @@
 import { useState } from "react";
+import InputField from "../../components/inputField";
 import styles from "./Signup.module.css";
 
+// Define types for each field's state
+interface SignUpFormData {
+  userName: string;
+  email: string;
+  country: string;
+  state: string;
+  city: string;
+  street: string;
+  houseNumber: string;
+  zipcode: string;
+  phoneNumber: string;
+  password: string;
+  confirmPassword: string;
+  error: string;
+}
+
 export default function SignUp() {
-  const [userName, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
+  // Initialize state with types
+  const [userName, setUserName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [country, setCountry] = useState<string>("");
+  const [state, setState] = useState<string>("");
+  const [city, setCity] = useState<string>("");
+  const [street, setStreet] = useState<string>("");
+  const [houseNumber, setHouseNumber] = useState<string>("");
+  const [zipcode, setZipcode] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,6 +50,13 @@ export default function SignUp() {
       userName,
       email,
       password,
+      country,
+      state,
+      city,
+      street,
+      houseNumber,
+      zipcode,
+      phoneNumber,
     };
 
     try {
@@ -58,69 +90,83 @@ export default function SignUp() {
       <div className={styles.formContainer}>
         <h1 className={styles.heading}>Sign Up</h1>
         <form className={styles.form} onSubmit={handleSubmit}>
-          <div className={styles.inputGroup}>
-            <label htmlFor="username" className={styles.label}>
-              Username
-            </label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              placeholder="Enter your username"
-              className={styles.input}
-              value={userName}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className={styles.inputGroup}>
-            <label htmlFor="email" className={styles.label}>
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Enter your email"
-              className={styles.input}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className={styles.inputGroup}>
-            <label htmlFor="password" className={styles.label}>
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Enter your password"
-              className={styles.input}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className={styles.inputGroup}>
-            <label htmlFor="confirmPassword" className={styles.label}>
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              placeholder="Confirm your password"
-              className={styles.input}
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-          </div>
+          <InputField
+            id="username"
+            label="Username"
+            value={userName}
+            onChange={setUserName}
+            placeholder="Enter your username"
+          />
+          <InputField
+            id="email"
+            label="Email"
+            value={email}
+            onChange={setEmail}
+            placeholder="Enter your email"
+          />
+          <InputField
+            id="phoneNumber"
+            label="Phone Number"
+            value={phoneNumber}
+            onChange={setPhoneNumber}
+            placeholder="Enter your phone number"
+          />
+          <InputField
+            id="country"
+            label="Country"
+            value={country}
+            onChange={setCountry}
+            placeholder="Enter your country"
+          />
+          <InputField
+            id="state"
+            label="State"
+            value={state}
+            onChange={setState}
+            placeholder="Enter your state"
+          />
+          <InputField
+            id="city"
+            label="City"
+            value={city}
+            onChange={setCity}
+            placeholder="Enter your city"
+          />
+          <InputField
+            id="street"
+            label="Street"
+            value={street}
+            onChange={setStreet}
+            placeholder="Enter your street"
+          />
+          <InputField
+            id="houseNumber"
+            label="House Number"
+            value={houseNumber}
+            onChange={setHouseNumber}
+            placeholder="Enter your house number"
+          />
+          <InputField
+            id="zipcode"
+            label="Zip Code"
+            value={zipcode}
+            onChange={setZipcode}
+            placeholder="Enter your zip code"
+          />
+          <InputField
+            id="password"
+            label="Password"
+            value={password}
+            onChange={setPassword}
+            placeholder="Enter your password"
+          />
+          <InputField
+            id="confirm-password"
+            label="Confirm Password"
+            value={confirmPassword}
+            onChange={setConfirmPassword}
+            placeholder="Confirm password"
+          />
 
           {error && <div className={styles.error}>{error}</div>}
 

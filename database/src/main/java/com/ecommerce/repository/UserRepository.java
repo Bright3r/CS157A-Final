@@ -102,15 +102,16 @@ public class  UserRepository {
     		// Execute Query
     		ResultSet rs = pstmt.executeQuery();
     		
-    		// Only one row since userID is primary key
+    		// Only one row since userName is unique
     		// So build user from the first row of ResultSet
-    		rs.next();
-    		user = buildUser(rs);
+    		if (rs.next()) {
+        		user = buildUser(rs);	
+    		}
     	} catch (SQLException e) {
     		e.printStackTrace();
     	}
     	
-    	// Return the User if userID was in database,
+    	// Return the User if userName was in database,
     	// Otherwise return null
     	return Optional.ofNullable(user);
     }

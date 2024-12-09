@@ -17,7 +17,7 @@ export default function Review(props: review_t) {
                 <span className={styles.label}>Comment:</span> {reviewComment}
             </p>
             <p className={styles.reviewDetail}>
-                <span className={styles.label}>Date:</span> {datePosted.toDateString()}
+                <span className={styles.label}>Date:</span> {datePosted.toString()}
             </p>
         </div>
     );
