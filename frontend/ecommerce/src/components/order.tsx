@@ -2,11 +2,11 @@ import "../types";
 import styles from "@/styles/Order.module.css";
 
 export default function Order(
-        { numProductsOrdered, dateOrdered, products, shippingAddress, user }: order_t) 
+        { orderID, numProductsOrdered, dateOrdered, products, shippingAddress, user }: order_t) 
     {
 
     return (
-        <div className={styles.orderCard}>
+        <div key={orderID} className={styles.orderCard}>
             <h2 className={styles.orderTitle}>Order Summary</h2>
             {products.map((cartItem) =>
                 <>
