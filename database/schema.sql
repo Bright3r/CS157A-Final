@@ -32,10 +32,6 @@ SET default_tablespace = '';
 
 SET default_table_access_method = heap;
 
---
--- Name: Addresses; Type: TABLE; Schema: public; Owner: minhtruongnguyen
---
-
 CREATE TABLE IF NOT EXISTS public.addresses (
     addrID SERIAL NOT NULL,
     country character varying(100),
@@ -46,25 +42,14 @@ CREATE TABLE IF NOT EXISTS public.addresses (
     zipcode character varying(100)
 );
 
-
-
---
--- Name: Orders; Type: TABLE; Schema: public; Owner: minhtruongnguyen
---
-
 CREATE TABLE IF NOT EXISTS public.orders (
     orderID SERIAL NOT NULL,
     userID integer,
     numProductsOrdered integer,
     dateOrdered date,
-    shippingAddressID integer
+    shippingAddressID integer,
+    total numeric(10,2)
 );
-
-
-
---
--- Name: OrdersDetails; Type: TABLE; Schema: public; Owner: minhtruongnguyen
---
 
 CREATE TABLE IF NOT EXISTS public.ordersDetails (
     orderDetailsID SERIAL NOT NULL,
@@ -72,12 +57,6 @@ CREATE TABLE IF NOT EXISTS public.ordersDetails (
     productID integer,
     quantityOrdered integer
 );
-
-
-
---
--- Name: Products; Type: TABLE; Schema: public; Owner: minhtruongnguyen
---
 
 CREATE TABLE IF NOT EXISTS public.products (
     productID SERIAL NOT NULL,
@@ -87,14 +66,9 @@ CREATE TABLE IF NOT EXISTS public.products (
     quantity integer,
     image_url VARCHAR(255), 
     listingDate date,
-    rating FLOAT
+    rating FLOAT,
+    category VARCHAR(100)
 );
-
-
-
---
--- Name: Reviews; Type: TABLE; Schema: public; Owner: minhtruongnguyen
---
 
 CREATE TABLE IF NOT EXISTS public.reviews(
     reviewID SERIAL NOT NULL,
@@ -105,22 +79,10 @@ CREATE TABLE IF NOT EXISTS public.reviews(
     datePosted date
 );
 
-
-
---
--- Name: UserAddresses; Type: TABLE; Schema: public; Owner: minhtruongnguyen
---
-
 CREATE TABLE IF NOT EXISTS public.userAddresses (
     userID SERIAL NOT NULL,
     addrID integer NOT NULL
 );
-
-
-
---
--- Name: Users; Type: TABLE; Schema: public; Owner: minhtruongnguyen
---
 
 CREATE TABLE IF NOT EXISTS public.users (
     userID SERIAL,
@@ -131,128 +93,47 @@ CREATE TABLE IF NOT EXISTS public.users (
     phoneNumber character varying(100)
 );
 
-
-
---
--- Name: Addresses Addresses_pkey; Type: CONSTRAINT; Schema: public; Owner: minhtruongnguyen
---
-
 ALTER TABLE public.addresses
     ADD CONSTRAINT addresses_pkey PRIMARY KEY (addrID);
-
-
---
--- Name: OrdersDetails OrdersDetails_pkey; Type: CONSTRAINT; Schema: public; Owner: minhtruongnguyen
---
 
 ALTER TABLE public.ordersDetails
     ADD CONSTRAINT ordersDetails_pkey PRIMARY KEY (orderDetailsID);
 
-
---
--- Name: Orders Orders_pkey; Type: CONSTRAINT; Schema: public; Owner: minhtruongnguyen
---
-
 ALTER TABLE public.orders
     ADD CONSTRAINT orders_pkey PRIMARY KEY (orderID);
-
-
---
--- Name: Products Products_pkey; Type: CONSTRAINT; Schema: public; Owner: minhtruongnguyen
---
 
 ALTER TABLE public.products
     ADD CONSTRAINT products_pkey PRIMARY KEY (productID);
 
-
---
--- Name: Reviews Reviews_pkey; Type: CONSTRAINT; Schema: public; Owner: minhtruongnguyen
---
-
 ALTER TABLE public.reviews
     ADD CONSTRAINT reviews_pkey PRIMARY KEY (reviewID);
-
-
---
--- Name: UserAddresses UserAddresses_pkey; Type: CONSTRAINT; Schema: public; Owner: minhtruongnguyen
---
 
 ALTER TABLE public.userAddresses
     ADD CONSTRAINT userAddresses_pkey PRIMARY KEY (userID, addrID);
 
-
---
--- Name: Users Users_pkey; Type: CONSTRAINT; Schema: public; Owner: minhtruongnguyen
---
-
 ALTER TABLE public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (userID);
-
-
---
--- Name: OrdersDetails OrdersDetails_orderID_fkey; Type: FK CONSTRAINT; Schema: public; Owner: minhtruongnguyen
---
 
 ALTER TABLE public.ordersDetails
     ADD CONSTRAINT ordersDetails_orderID_fkey FOREIGN KEY (orderID) REFERENCES public.orders(orderID);
 
-
---
--- Name: OrdersDetails OrdersDetails_productID_fkey; Type: FK CONSTRAINT; Schema: public; Owner: minhtruongnguyen
---
-
 ALTER TABLE public.ordersDetails
     ADD CONSTRAINT ordersDetails_productID_fkey FOREIGN KEY (productID) REFERENCES public.products(productID);
-
-
---
--- Name: Orders Orders_shippingAddressID_fkey; Type: FK CONSTRAINT; Schema: public; Owner: minhtruongnguyen
---
 
 ALTER TABLE public.orders
     ADD CONSTRAINT orders_shippingAddressID_fkey FOREIGN KEY (shippingAddressID) REFERENCES public.addresses(addrID);
 
-
---
--- Name: Orders Orders_userID_fkey; Type: FK CONSTRAINT; Schema: public; Owner: minhtruongnguyen
---
-
 ALTER TABLE public.orders
     ADD CONSTRAINT orders_userID_fkey FOREIGN KEY (userID) REFERENCES public.users(userID);
-
-
---
--- Name: Reviews Reviews_productID_fkey; Type: FK CONSTRAINT; Schema: public; Owner: minhtruongnguyen
---
 
 ALTER TABLE public.reviews
     ADD CONSTRAINT reviews_productID_fkey FOREIGN KEY (productID) REFERENCES public.products(productID);
 
-
---
--- Name: Reviews Reviews_userID_fkey; Type: FK CONSTRAINT; Schema: public; Owner: minhtruongnguyen
---
-
 ALTER TABLE public.reviews
     ADD CONSTRAINT reviews_userID_fkey FOREIGN KEY (userID) REFERENCES public.Users(userID);
-
-
---
--- Name: UserAddresses UserAddresses_addressID_fkey; Type: FK CONSTRAINT; Schema: public; Owner: minhtruongnguyen
---
 
 ALTER TABLE public.userAddresses
     ADD CONSTRAINT userAddresses_addressID_fkey FOREIGN KEY (addrID) REFERENCES public.addresses(addrID);
 
-
---
--- Name: UserAddresses UserAddresses_userID_fkey; Type: FK CONSTRAINT; Schema: public; Owner: minhtruongnguyen
---
-
 ALTER TABLE public.userAddresses
     ADD CONSTRAINT userAddresses_userID_fkey FOREIGN KEY (userID) REFERENCES public.users(userID);
-
-
---
--- PostgreSQL database dump complete
---
