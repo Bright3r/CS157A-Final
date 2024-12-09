@@ -2,11 +2,11 @@ import "../types";
 import styles from "@/styles/Order.module.css";
 
 export default function Order(
-        { numProductsOrdered, dateOrdered, total, products, shippingAddress, user }: order_t) 
+        { orderID, numProductsOrdered, dateOrdered, products, shippingAddress, user }: order_t) 
     {
 
     return (
-        <div className={styles.orderCard}>
+        <div key={orderID} className={styles.orderCard}>
             <h2 className={styles.orderTitle}>Order Summary</h2>
             {products.map((cartItem) =>
                 <>
@@ -17,15 +17,18 @@ export default function Order(
                         <span className={styles.label}>Brand:</span> {cartItem.product.brand}
                     </p>
                     <p className={styles.orderDetail}>
+                        <span className={styles.label}>Qty:</span> {cartItem.quantityOrdered}
+                    </p>
+                    <p className={styles.orderDetail}>
                         <span className={styles.label}>Price:</span> ${cartItem.product.price}
-                    </p> {console.log("Cart Item:", cartItem)}
+                    </p>
                 </>
             )}
-            {/* <p className={styles.orderDetail}>
-                <span className={styles.label}>Order Date:</span> {dateOrdered.toDateString()}
-            </p> */}
             <p className={styles.orderDetail}>
-                <span className={styles.label}>Total:</span> ${total}
+                <span className={styles.label}>Order Date:</span> {dateOrdered.toString()}
+            </p>
+            <p className={styles.orderDetail}>
+                <span className={styles.label}>Total:</span> ${}
             </p>
         </div>
     );

@@ -19,7 +19,7 @@ export default function ProductDetails() {
   const { user } = useUser();
 
   useEffect(() => {
-    const fetchProduct = async (prodID) => {
+    const fetchProduct = async (prodID: number) => {
       try {
         const res = await axios.get<product_t>(`http://localhost:8080/api/products/${prodID}`);
         setProduct(res.data);
@@ -28,7 +28,7 @@ export default function ProductDetails() {
       }
     };
 
-    const fetchReviews = async (prodID) => {
+    const fetchReviews = async (prodID: number) => {
       try {
         const res = await axios.get<review_t[]>(`http://localhost:8080/api/reviews/product/${prodID}`);
         setReviews(res.data);

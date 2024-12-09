@@ -1,8 +1,10 @@
 package com.ecommerce.controller;
 
+import com.ecommerce.model.ApiResponse;
 import com.ecommerce.model.Order;
 import com.ecommerce.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +32,7 @@ public class OrderController {
         return order.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
     
-    // Get an order by user
+    // Get orders by user
     @GetMapping("/user/{userID}")
     public ResponseEntity<List<Order>> getUserOrders(@PathVariable Integer userID) {
     	List<Order> orders = orderService.getOrdersByUserID(userID);
@@ -39,13 +41,13 @@ public class OrderController {
 
     // Create a new order
     @PostMapping
-    public ResponseEntity<String> createOrder(@RequestBody Order order) {
+    public ResponseEntity<ApiResponse> createOrder(@RequestBody Order order) {
+    	System.out.println("Body: " + order);
         int result = orderService.createOrder(order);
         if (result > 0) {
-            return ResponseEntity.ok("Order created successfully");
-        } else {
-            return ResponseEntity.status(500).body("Failed to create order");
+            return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse("Order placed successfully", true));
         }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse("Failed to create order.", false));
     }
     
     // Delete an order by ID

@@ -27,7 +27,10 @@ export default function Modal({ product, closeModal }: ModalProps) {
   // Handle adding product to cart
   const handleAddToCart = () => {
     if (purchaseQuantity > 0 && purchaseQuantity <= quantity) {
-      const cartProduct: cart_product_t = { product, purchaseQuantity };
+      const cartProduct: cart_product_t = { 
+        product, 
+        quantityOrdered: purchaseQuantity,
+      };
       addCartProduct(cartProduct);
       closeModal();
     } else {

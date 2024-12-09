@@ -3,11 +3,10 @@ import { useCart } from "../context/CartContext";
 import { useState } from "react";
 import styles from "@/styles/CartProduct.module.css";
 
-export default function CartProduct({ product, purchaseQuantity }: cart_product_t) {
+export default function CartProduct({ product, quantityOrdered }: cart_product_t) {
     const { productID, productName, brand, price, rating, listingDate } = product;
 
-    let [localQuantity, setLocalQuantity] = useState<number>(purchaseQuantity);
-
+    let [localQuantity, setLocalQuantity] = useState<number>(quantityOrdered);
     const { removeCartProduct, updateCartProduct } = useCart();
 
 
@@ -18,12 +17,20 @@ export default function CartProduct({ product, purchaseQuantity }: cart_product_
     const handleUpdateQuantity = (newQuantity: number) => {
         setLocalQuantity(newQuantity);
 
-        const updatedProduct: cart_product_t = { product, purchaseQuantity: newQuantity };
+        const updatedProduct: cart_product_t = { 
+            product, 
+            quantityOrdered: newQuantity 
+        };
         updateCartProduct(updatedProduct);
     }
 
     return (
         <div className={styles.productCard}>
+            <img
+                src={`http://localhost:8080/${product.imageUrl}`}
+                alt={productName}
+                className={styles.productImage}
+            />
             <h2 className={styles.productTitle}>{productName}</h2>
             <p className={styles.productBrand}>Brand: <strong>{brand}</strong></p>
             <p className={styles.productPrice}>Price: <strong>${price.toFixed(2)}</strong></p>

@@ -36,8 +36,8 @@ public class AddressController {
     
     // Add a new address
     @PostMapping
-    public int addAddress(@RequestBody Address address) {
-        return addressService.addAddress(address);
+    public void addAddress(@RequestBody Address address) {
+        addressService.addAddress(address);
     }
 
     // Update an existing address
