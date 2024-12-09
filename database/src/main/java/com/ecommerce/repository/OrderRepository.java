@@ -176,6 +176,69 @@ public class OrderRepository {
     	return orders;
     }
     
+    // Update the stock information of ordered products
+    private void updateOrderedProducts(Connection conn, Order order, List<CartItem> items) throws SQLException {
+		// Query to update a product's stock quantity by productID
+		String reduceStockSQL = "UPDATE Products SET quantity = ? WHERE productID = ?";
+		PreparedStatement reduceStockPstmt = conn.prepareStatement(reduceStockSQL);
+		
+		// Reduce stock quantity of each product
+		for (CartItem item : items) {
+			// Get item from database
+			int prodID = item.getProduct().getProductID();
+			Product prod = productService.getProductById(prodID).orElse(null);
+			if (prod == null) {
+				throw new RuntimeException("Could not find ordered product");
+			}
+			
+    		// Subtract quantity purchased from product's stock quantity
+			//
+			int newStockQty = prod.getQuantity() - item.getQuantityOrdered();
+			
+			// Check that stock quantity is not negative
+			if (newStockQty < 0) {
+				throw new RuntimeException("Insufficient stock to fulfill order");
+			}
+			
+			// Execute Query
+			// Make sure product's stock quantity is reduced
+			reduceStockPstmt.setInt(1, newStockQty);
+			reduceStockPstmt.setInt(2, prodID);
+			if (reduceStockPstmt.executeUpdate() <= 0) {
+				throw new RuntimeException("Failed to update product's stock quantity");
+			}
+		}
+    }
+    
+    // Calculate the total cost of an order
+    private double calculateTotalCost(Connection conn, Order order, List<CartItem> items) throws SQLException {
+		// Calculate total cost of order
+		double totalCost = 0;
+		for (CartItem item : items) {
+			// Get item from database
+			int prodID = item.getProduct().getProductID();
+			Product prod = productService.getProductById(prodID).orElse(null);
+			if (prod == null) {
+				throw new RuntimeException("Could not find ordered product");
+			}
+			
+			// Get stored cost of item
+			double itemCost = prod.getPrice();
+			
+			// Add cost of item to totalCost
+			//
+			int itemQty = item.getQuantityOrdered();
+			totalCost += (itemCost * itemQty);
+		}
+		
+		// Check that we do not give the customer free money
+		if (totalCost < 0) {
+			throw new RuntimeException("Order cannot have negative cost");
+		}
+		
+		return totalCost;
+    }
+    
     // Insert a new order
     public int saveOrder(Order order) {
     	// Get Singleton Database Connection
@@ -191,29 +254,10 @@ public class OrderRepository {
     			// Submitted user not found
     			throw new RuntimeException("Could not find order user");
     		}
-    		    		
-    		// Calculate total cost of order
-    		//
-    		double totalCost = 0;
+    		
+    		// Update the stock information for each ordered product
     		List<CartItem> items = order.getProducts();
-    		String productQuery = "SELECT * FROM Products WHERE productID = ?";
-    		PreparedStatement productPstmt = conn.prepareStatement(productQuery);
-    		for (CartItem item : items) {
-    			// Get product by productID
-    			int productID = item.getProduct().getProductID();
-    			productPstmt.setInt(1, productID);
-    			
-    			// Execute Query
-    			ResultSet rs = productPstmt.executeQuery();
-    			if (rs.next()) {
-    				// Get stored cost of item
-    				double itemCost = rs.getDouble("price");
-    				
-    				// Add cost of item to totalCost
-    				int itemQty = item.getQuantityOrdered();
-    				totalCost += (itemCost * itemQty);
-    			}
-    		}
+    		updateOrderedProducts(conn, order, items);
     		
     		
     		// Insert the order into the Orders table
@@ -226,6 +270,9 @@ public class OrderRepository {
     		
     		// Set shipping address to this user's stored address
     		pstmt.setInt(4, orderUser.get().getAddress().getAddrID());
+    		
+    		// Set cost to the calculated total cost for the order
+    		double totalCost = calculateTotalCost(conn, order, items);
     		pstmt.setDouble(5, totalCost);
     		
     		// Add order to database

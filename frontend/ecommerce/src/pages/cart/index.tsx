@@ -29,7 +29,8 @@ export default function Cart() {
       products: cartProducts,
       numProductsOrdered: cartProducts.length,
       dateOrdered: new Date(),
-      shippingAddress: user.address
+      shippingAddress: user.address,
+      totalCost: -1 // Doesn't matter, here for type compatibility
     }
 
     try {

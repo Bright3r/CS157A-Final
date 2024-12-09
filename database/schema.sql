@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS public.products (
     productName character varying(100) NOT NULL,
     brand character varying(50),
     price numeric(10,2) NOT NULL,
-    quantity integer,
+    quantity integer CHECK (quantity >= 0), -- Constaint so we do not sell more than we have
     image_url VARCHAR(255), 
     listingDate date,
     rating FLOAT,

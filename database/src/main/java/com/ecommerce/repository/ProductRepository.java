@@ -156,4 +156,34 @@ public class ProductRepository {
         
         return 0;
     }
+    
+    // Search for products by productName
+    public List<Product> getProductsByName(String search) {
+    	// Get Singleton Database Connection
+    	Connection conn = DatabaseConnection.getConnection();
+    	List<Product> results = new ArrayList<>();
+    	
+    	// Query for any products containing the searched word (case insensitive)
+        String sql = "SELECT * FROM Products WHERE UPPER(productName) LIKE ?";
+        try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+	        // Add wildcard characters to the search string for partial matching
+			String productName = "%" + search + "%";
+	        pstmt.setString(1, productName.toUpperCase());
+			
+			// Execute query
+			ResultSet rs = pstmt.executeQuery();
+			
+			// Add each matching product to result list
+			while (rs.next()) {
+				Product prod = buildProduct(rs);
+				results.add(prod);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+        
+        return results;
+    }
 }
