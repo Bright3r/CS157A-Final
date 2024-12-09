@@ -42,6 +42,7 @@ public class OrderRepository {
 	    curr.setOrderID(orderID);
 	    curr.setNumProductsOrdered(rs.getInt("numProductsOrdered"));
 	    curr.setDateOrdered(rs.getDate("dateOrdered"));
+	    curr.setTotalCost(rs.getDouble("totalCost"));
 
 	    // Query for order's user
 	    int userID = rs.getInt("userID");
@@ -191,30 +192,55 @@ public class OrderRepository {
     			throw new RuntimeException("Could not find order user");
     		}
     		    		
+    		// Calculate total cost of order
+    		//
+    		double totalCost = 0;
+    		List<CartItem> items = order.getProducts();
+    		String productQuery = "SELECT * FROM Products WHERE productID = ?";
+    		PreparedStatement productPstmt = conn.prepareStatement(productQuery);
+    		for (CartItem item : items) {
+    			// Get product by productID
+    			int productID = item.getProduct().getProductID();
+    			productPstmt.setInt(1, productID);
+    			
+    			// Execute Query
+    			ResultSet rs = productPstmt.executeQuery();
+    			if (rs.next()) {
+    				// Get stored cost of item
+    				double itemCost = rs.getDouble("price");
+    				
+    				// Add cost of item to totalCost
+    				int itemQty = item.getQuantityOrdered();
+    				totalCost += (itemCost * itemQty);
+    			}
+    		}
+    		
+    		
     		// Insert the order into the Orders table
     		//
-        	String orderSQL = "INSERT INTO Orders (userID, numProductsOrdered, dateOrdered, shippingAddressID) VALUES (?, ?, ?, ?) RETURNING orderID";
+        	String orderSQL = "INSERT INTO Orders (userID, numProductsOrdered, dateOrdered, shippingAddressID, totalCost) VALUES (?, ?, ?, ?, ?) RETURNING orderID";
     		PreparedStatement pstmt = conn.prepareStatement(orderSQL);
     		pstmt.setInt(1, order.getUser().getUserID());
     		pstmt.setInt(2, order.getNumProductsOrdered());
     		pstmt.setDate(3, order.getDateOrdered());
+    		
     		// Set shipping address to this user's stored address
     		pstmt.setInt(4, orderUser.get().getAddress().getAddrID());
+    		pstmt.setDouble(5, totalCost);
     		
     		// Add order to database
-    		ResultSet rs = pstmt.executeQuery();
-    		if (!rs.next()) {
+    		ResultSet rs1 = pstmt.executeQuery();
+    		if (!rs1.next()) {
     			// Failed to add order
     			throw new RuntimeException("Failed to add order");
     		}
     		
     		// Get orderID of added order
-    		int orderID = rs.getInt("orderID");
+    		int orderID = rs1.getInt("orderID");
     		
 
     		// Insert each Cart Item into the OrdersDetails table
     		//
-    		List<CartItem> items = order.getProducts();
     		String orderDetailSQL = "INSERT INTO OrdersDetails (orderID, productID, quantityOrdered) VALUES (?, ?, ?) RETURNING orderDetailsID";
     	    PreparedStatement detailsPstmt = conn.prepareStatement(orderDetailSQL);
     		for (CartItem item : items) {

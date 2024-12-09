@@ -5,7 +5,7 @@ import Modal from "./modal";
 import styles from "@/styles/Product.module.css";
 
 export default function Product(props: product_t) {
-  const { productID, productName, brand, price, rating, imageUrl ,category} = props;
+  const { productID, productName, brand, price, rating, imageUrl, category} = props;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
@@ -28,6 +28,9 @@ export default function Product(props: product_t) {
         <h2 className={styles.productTitle}>{productName}</h2>
         <p className={styles.productBrand}>
           Brand: <strong>{brand}</strong>
+        </p>
+        <p className={styles.productBrand}>
+          Category: <strong>{category}</strong>
         </p>
         <p className={styles.productPrice}>
           Price: <strong>${price.toFixed(2)}</strong>

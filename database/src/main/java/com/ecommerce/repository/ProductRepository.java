@@ -31,6 +31,7 @@ public class ProductRepository {
 		curr.setListingDate(rs.getDate("listingDate"));
 		curr.setImageUrl(rs.getString("image_url"));
 		curr.setRating(rs.getDouble("rating"));
+		curr.setCategory(rs.getString("category"));
 		
 		return curr;
     }
@@ -92,8 +93,8 @@ public class ProductRepository {
     	// Get Singleton Database Connection
     	Connection conn = DatabaseConnection.getConnection();
     	
-        String sql = "INSERT INTO Products (productName, brand, price, quantity, listingDate, imageUrl) "
-        			+ "VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Products (productName, brand, price, quantity, listingDate, imageUrl, category) "
+        			+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, product.getProductName());
@@ -102,6 +103,7 @@ public class ProductRepository {
 			pstmt.setInt(4, product.getQuantity());
 			pstmt.setDate(5, product.getListingDate());
 			pstmt.setString(6, product.getImageUrl());
+			pstmt.setString(7, product.getCategory());
 			
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -117,7 +119,7 @@ public class ProductRepository {
     	Connection conn = DatabaseConnection.getConnection();
     	
         String sql = "UPDATE Products SET productName = ?, brand = ?, price = ?, "
-        		+ "quantity = ?, listingDate = ?, imageUrl = ? WHERE productID = ?";
+        		+ "quantity = ?, listingDate = ?, imageUrl = ?, category = ? WHERE productID = ?";
         try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, product.getProductName());
@@ -126,7 +128,8 @@ public class ProductRepository {
 			pstmt.setInt(4, product.getQuantity());
 			pstmt.setDate(5, product.getListingDate());
 			pstmt.setString(6, product.getImageUrl());
-			pstmt.setInt(7, product.getProductID());
+			pstmt.setString(7, product.getCategory());
+			pstmt.setInt(8, product.getProductID());
 			
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {

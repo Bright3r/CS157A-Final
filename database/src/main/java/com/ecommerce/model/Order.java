@@ -11,14 +11,16 @@ public class Order {
     private Integer numProductsOrdered;
     private Date dateOrdered;
     private Address shippingAddress;
+    private Double totalCost;
 
     public Order() {}
 
-    public Order(User user, Integer numProductsOrdered, Address shippingAddress, Date dateOrdered) {
+    public Order(User user, Integer numProductsOrdered, Address shippingAddress, Date dateOrdered, Double totalCost) {
         this.user = user;
         this.numProductsOrdered = numProductsOrdered;
         this.shippingAddress = shippingAddress;
         this.dateOrdered = dateOrdered;
+        this.totalCost = totalCost;
     }
 
     public Integer getOrderID() {
@@ -67,6 +69,14 @@ public class Order {
 
     public void setShippingAddress(Address shippingAddress) {
         this.shippingAddress = shippingAddress;
+    }
+    
+    public Double getTotalCost() {
+    	return totalCost;
+    }
+    
+    public void setTotalCost(Double totalCost) {
+    	this.totalCost = totalCost;
     }
     
     @Override

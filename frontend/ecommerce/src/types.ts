@@ -47,6 +47,7 @@ type order_t = {
     numProductsOrdered: number;
     dateOrdered: Date;
     shippingAddress: address_t;
+    totalCost: number;
 };
 
 type cart_product_t = {

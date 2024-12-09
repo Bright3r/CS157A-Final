@@ -2,7 +2,7 @@ import "../types";
 import styles from "@/styles/Order.module.css";
 
 export default function Order(
-        { orderID, numProductsOrdered, dateOrdered, products, shippingAddress, user }: order_t) 
+        { orderID, numProductsOrdered, dateOrdered, products, shippingAddress, user, totalCost }: order_t) 
     {
 
     return (
@@ -28,7 +28,7 @@ export default function Order(
                 <span className={styles.label}>Order Date:</span> {dateOrdered.toString()}
             </p>
             <p className={styles.orderDetail}>
-                <span className={styles.label}>Total:</span> ${}
+                <span className={styles.label}>Total:</span> ${totalCost.toFixed(2)}
             </p>
         </div>
     );

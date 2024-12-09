@@ -12,6 +12,7 @@ public class Product {
     private Date listingDate;
     private String imageUrl;
     private Double rating;
+    private String category;
 
     public Product() {
     }
@@ -80,6 +81,7 @@ public class Product {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+    
     public Double getRating() {
         return rating;
     }
@@ -87,6 +89,15 @@ public class Product {
     public void setRating(Double rating) {
         this.rating = rating;
     }
+    
+    public String getCategory() {
+    	return category;
+    }
+    
+    public void setCategory(String category) {
+    	this.category = category;
+    }
+    
     @Override
     public String toString() {
         return "Product{" +
