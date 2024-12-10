@@ -9,7 +9,7 @@ export default function Products() {
   const [filterCategory, setFilterCategory] = useState<string | null>(null);
   const [filterPrice, setFilterPrice] = useState<"asc" | "desc" | null>(null);
   const [filterRating, setFilterRating] = useState<"asc" | "desc" | null>(null);
-
+  //check
   useEffect(() => {
     const fetchProducts = async () => {
       try {
