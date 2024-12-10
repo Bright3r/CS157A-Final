@@ -18,6 +18,7 @@ export default function Orders() {
 
         const userID = user?.userID;
         const res = await axios.get<order_t[]>(`http://localhost:8080/api/orders/user/${userID}`);
+        console.log(res);
         setOrders(res.data);
       } catch (error) {
         console.error("Error fetching orders: ", error);

@@ -53,4 +53,18 @@ public class UserService {
         return optionalUser.filter(user -> UserRepository.matchPasswords(password, user.getPassword()))
                            .orElseThrow(() -> new RuntimeException("Invalid username or password"));
     }
+    
+    // Authenticates the user by password
+    public boolean authenticate(User submittedUser) {
+       	// Get corresponding user from database
+        Optional<User> optionalUser = userRepository.findByUserName(submittedUser.getUserName());
+        
+        // Return false if user doesn't exist
+        if (optionalUser.isEmpty()) {
+        	return false;
+        }
+        
+        // Return whether submitted password matches database
+        return optionalUser.get().getPassword().equals(submittedUser.getPassword());
+    }
 }

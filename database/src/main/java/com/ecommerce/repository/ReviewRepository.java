@@ -130,15 +130,55 @@ public class ReviewRepository {
     	// Return the reviews matching the productID
     	return reviews;
     }
+    
+    // Check if a user has already reviewed a product
+    private boolean userAlreadyReviewedProduct(Connection conn, Review review) throws SQLException {
+    	// Check if user exists in database
+    	int userID = review.getUser().getUserID();
+    	Optional<User> user = userService.getUserById(userID);
+    	if (user.isEmpty()) {
+    		throw new RuntimeException("Invalid user");
+    	}
+    	
+    	// Query for number of reviews a user has left on a product
+    	String query = "SELECT COUNT(*) FROM Reviews WHERE userID = ? AND productID = ?";
+    	try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+    		pstmt.setInt(1, userID);
+    		pstmt.setInt(2, review.getProduct().getProductID());
+    		
+    		// Execute Query
+    		ResultSet rs = pstmt.executeQuery();
+    		if (rs.next()) {
+    			// Check if user has left any reviews on product
+    			int numReviews = rs.getInt(1);
+    			if (numReviews <= 0) {
+    				return false;	// User has not reviewed product
+    			}
+    		}
+    	}
+    	
+    	// User has already reviewed product
+    	return true;
+    }
 
     // Insert a new review
     public int saveReview(Review review) {
         // Get Singleton Database Connection
         Connection conn = DatabaseConnection.getConnection();
         
-        // SQL query with the RETURNING clause to get the generated reviewID
+        // Check if user has already reviewed product
+        try {
+            if (userAlreadyReviewedProduct(conn, review)) {
+            	return 0;
+            }
+        } catch (SQLException e) {
+        	e.printStackTrace();
+        	return 0;
+        }
+        
+        // Query that inserts a new review tuple into the Reviews table
         String sql = "INSERT INTO Reviews (userID, productID, rating, reviewComment, datePosted) " +
-                     "VALUES (?, ?, ?, ?, ?) RETURNING reviewID";
+                     "VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, review.getUser().getUserID());
             pstmt.setInt(2, review.getProduct().getProductID());
