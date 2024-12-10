@@ -4,7 +4,7 @@ import { useState } from "react";
 import styles from "@/styles/CartProduct.module.css";
 
 export default function CartProduct({ product, quantityOrdered }: cart_product_t) {
-    const { productID, productName, brand, price, rating, listingDate } = product;
+    const { productID, productName, brand, price, rating, listingDate, quantity } = product;
 
     let [localQuantity, setLocalQuantity] = useState<number>(quantityOrdered);
     const { removeCartProduct, updateCartProduct } = useCart();
@@ -15,13 +15,15 @@ export default function CartProduct({ product, quantityOrdered }: cart_product_t
     };
 
     const handleUpdateQuantity = (newQuantity: number) => {
-        setLocalQuantity(newQuantity);
+        if (newQuantity > 0 && newQuantity <= quantity) {
+            setLocalQuantity(newQuantity);
 
-        const updatedProduct: cart_product_t = { 
-            product, 
-            quantityOrdered: newQuantity 
-        };
-        updateCartProduct(updatedProduct);
+            const updatedProduct: cart_product_t = { 
+                product, 
+                quantityOrdered: newQuantity 
+            };
+            updateCartProduct(updatedProduct);
+        }
     }
 
     return (
