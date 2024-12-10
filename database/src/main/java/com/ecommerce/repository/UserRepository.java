@@ -1,6 +1,7 @@
 package com.ecommerce.repository;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,17 +11,35 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.ecommerce.DatabaseConnection;
 import com.ecommerce.model.Address;
 import com.ecommerce.model.User;
 import com.ecommerce.service.AddressService;
+
 @Repository
 public class  UserRepository {
 
     @Autowired
     AddressService addressService;
+    
+    private static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    
+    // Returns the hash of a string using the BCrypt algorithm
+    public static String hashPassword(String password) {
+    	String hashedPassword = passwordEncoder.encode(password);
+    	
+    	return hashedPassword;
+    }
+    
+    // Returns whether a raw text password matches a password hash
+    public static boolean matchPasswords(String rawPassword, String hashedPassword) {
+    	System.out.println("Password: " + rawPassword);
+    	System.out.println("Stored Hash: " + hashedPassword);
+    	return passwordEncoder.matches(rawPassword, hashedPassword);
+    }
     
     // Builds a frontend user representation from a database user tuple
     private User buildUser(ResultSet rs) throws SQLException {    	
@@ -45,10 +64,10 @@ public class  UserRepository {
     	Connection conn = DatabaseConnection.getConnection();
 		List<User> users = new ArrayList<>();
 		
-    	try {
-    		// Query for all users in database
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Users");
+		// Query for all users in database;
+		String query = "SELECT * FROM Users";
+    	try (Statement stmt = conn.createStatement()) {
+			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				// Create a User object for each row in the ResultSet
 				User curr = buildUser(rs);
@@ -129,12 +148,17 @@ public class  UserRepository {
         String sql = "INSERT INTO Users (userName, addressID, email, password, phoneNumber) "
         			+ "VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        	// Compute the hash of submitted password
+        	// instead of storing raw passwords
+        	String passwordHash = hashPassword(user.getPassword());
+        	
 			pstmt.setString(1, user.getUserName());
 			pstmt.setInt(2, user.getAddress().getAddrID());
 			pstmt.setString(3, user.getEmail());
-			pstmt.setString(4, user.getPassword());
+			pstmt.setString(4, passwordHash);
 			pstmt.setString(5, user.getPhoneNumber());
 			
+			// Returns a positive integer if successful
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

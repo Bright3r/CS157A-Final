@@ -77,7 +77,7 @@ public class UserController {
             User user = new User();
             user.setUserName(registerRequest.getUserName());
             user.setEmail(registerRequest.getEmail());
-            user.setPassword(registerRequest.getPassword());
+            user.setPassword(registerRequest.getPassword()	);
             
             // Add address to database
             Optional<Address> userAddr = addressService.addAddress(registerRequest.getAddress());
@@ -99,8 +99,6 @@ public class UserController {
         }
     }
 
-
-
     // Update user details
     @PutMapping("/{userID}")
     public int updateUser(@PathVariable Integer userID, @RequestBody User updatedUser) {
@@ -111,9 +109,10 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody LoginRequest loginRequest) {
     	try {
-            System.out.println("Received login request for username: " + loginRequest.getUsername());
-            System.out.println("Password: " + loginRequest.getPassword());
+    		// Try to login user
             User user = userService.loginUser(loginRequest.getUsername(), loginRequest.getPassword());
+            
+            // Return user object if successful
             return ResponseEntity.ok(user);
         } catch (RuntimeException e) {
         	System.out.println(e.getMessage());

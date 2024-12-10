@@ -19,23 +19,23 @@ INSERT INTO public.Products (productID, productName, brand, price, quantity, lis
 (15, 'Smart Home Hub', 'Google', 149.99, 70, '2024-11-10', '/images/Google.jpg', 3.5, 'Smart Home');
 
 
--- Inserting users
+-- Inserting users with hashed passwords
 INSERT INTO public.Users (userName, addressID, email, phoneNumber, password) VALUES
-('alice_smith', 1, 'alice.smith@gmail.com', '123-456-7890', 'password123'),
-('bob_johnson', 2, 'bob.johnson@gmail.com', '234-567-8901', 'password456'),
-('charlie_brown', 3, 'charlie.brown@gmail.com', '345-678-9012', 'password789'),
-('diana_prince', 4, 'diana.prince@gmail.com', '456-789-0123', 'password101'),
-('eve_davis', 5, 'eve.davis@gmail.com', '567-890-1234', 'password202'),
-('frank_wright', 6, 'frank.wright@gmail.com', '678-901-2345', 'password303'),
-('grace_hall', 7, 'grace.hall@gmail.com', '789-012-3456', 'password404'),
-('henry_wilson', 8, 'henry.wilson@gmail.com', '890-123-4567', 'password505'),
-('ivy_adams', 9, 'ivy.adams@gmail.com', '901-234-5678', 'password606'),
-('jack_white', 10, 'jack.white@gmail.com', '012-345-6789', 'password707'),
-('karen_black', 11, 'karen.black@gmail.com', '111-222-3333', 'password808'),
-('leo_green', 12, 'leo.green@gmail.com', '222-333-4444', 'password909'),
-('mia_blue', 13, 'mia.blue@gmail.com', '333-444-5555', 'password010'),
-('nina_red', 14, 'nina.red@gmail.com', '444-555-6666', 'password111'),
-('oscar_yellow', 15, 'oscar.yellow@gmail.com', '555-666-7777', 'password121');
+('alice_smith', 1, 'alice.smith@gmail.com', '123-456-7890', '$2a$10$OYKw2LQvDot5CNCoG1hdDeD3DXmy3AYvE5O8DWU5Tprw2k.e62aci'),
+('bob_johnson', 2, 'bob.johnson@gmail.com', '234-567-8901', '$2a$10$chJEYpkX8WkS/nYV36TubOXP.MP1lgCi7.9tx3gX/pBHeEmicbONe'),
+('charlie_brown', 3, 'charlie.brown@gmail.com', '345-678-9012', '$2a$10$upatvEuc/deL52iInXXZv.3Ld2mSCXY/OWQuGsf2Oqs5WpcSB3js.'),
+('diana_prince', 4, 'diana.prince@gmail.com', '456-789-0123', '$2a$10$fVFmZw4w1plVTX7/5VpTmesD4/pNtf.9TFG2iXwZw910s6R94AEnq'),
+('eve_davis', 5, 'eve.davis@gmail.com', '567-890-1234', '$2a$10$Km3T17I7m8OwLjn7aw2d2.Yxv5HPbpNmr/arnv41JLORMdpry5qyW'),
+('frank_wright', 6, 'frank.wright@gmail.com', '678-901-2345', '$2a$10$p5q4afn3UDBLm0/z2MWPJetl9UDN0ojf6x0qp09ExJgXgq.Fu.6Ou'),
+('grace_hall', 7, 'grace.hall@gmail.com', '789-012-3456', '$2a$10$vNT3RYMW0IPcXRbk93s.S.5bXOAU6dcyZgY6wMQqWa4UO7od.woAm'),
+('henry_wilson', 8, 'henry.wilson@gmail.com', '890-123-4567', '$2a$10$zjD8XETK2DFWp9XQLUZWnOIrm1x6XXTNr2nd.vp9FSJzXvXLR95O6'),
+('ivy_adams', 9, 'ivy.adams@gmail.com', '901-234-5678', '$2a$10$5cm5COFXLP2MssbQeXpzWu6ogRTUOv37oiMYhtLe8uCqx1hQKQDpu'),
+('jack_white', 10, 'jack.white@gmail.com', '012-345-6789', '$2a$10$v5MtHpdoor35DfLyuSvotusp/j/9ytX85TzjYBdVOasq3y1WkLBcK'),
+('karen_black', 11, 'karen.black@gmail.com', '111-222-3333', '$2a$10$4.M0Y0yDfyRqYkWAN.2Y4eNHhrJD/MsMMqSZqrhBuXRgrMyWGgB.e'),
+('leo_green', 12, 'leo.green@gmail.com', '222-333-4444', '$2a$10$jjPyKQIQsHV2AECDZBTUWu5K/M4.uGeRxz5tY7L/N6XJWLlz0HWYW'),
+('mia_blue', 13, 'mia.blue@gmail.com', '333-444-5555', '$2a$10$3M53nE/L0dops99IJPHK1.06IQPd2T.VyTgSERD4RBTiVOyBS.eGa'),
+('nina_red', 14, 'nina.red@gmail.com', '444-555-6666', '$2a$10$pWcczJDXaEJSKnIw8gR1quHLEi8AdOeK4h0CWML3maKvTen6R57le'),
+('oscar_yellow', 15, 'oscar.yellow@gmail.com', '555-666-7777', '$2a$10$udf9vGWbhqOwRakpA1/8R.3UFcRenmTdE.cPRfe9fn2jOJ1seVXpC');
 
 
 -- Inserting addresses

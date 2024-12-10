@@ -27,7 +27,7 @@ export default function CartProduct({ product, quantityOrdered }: cart_product_t
     return (
         <div className={styles.productCard}>
             <img
-                src={`http://localhost:8080/${product.imageUrl}`}
+                src={`http://localhost:8080${product.imageUrl}`}
                 alt={productName}
                 className={styles.productImage}
             />

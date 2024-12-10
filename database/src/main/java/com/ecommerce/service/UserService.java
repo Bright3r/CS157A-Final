@@ -46,8 +46,11 @@ public class UserService {
 
     // Try to login a user by password
     public User loginUser(String username, String password) {
+    	// Get corresponding user from database
         Optional<User> optionalUser = userRepository.findByUserName(username); 
-        return optionalUser.filter(user -> user.getPassword().equals(password))
+        
+        // Return the user object if the submitted password's hash matched the stored password hash
+        return optionalUser.filter(user -> UserRepository.matchPasswords(password, user.getPassword()))
                            .orElseThrow(() -> new RuntimeException("Invalid username or password"));
     }
 }

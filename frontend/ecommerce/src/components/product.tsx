@@ -21,7 +21,7 @@ export default function Product(props: product_t) {
     <>
       <div className={styles.productCard}>
         <img
-          src={`http://localhost:8080/${imageUrl}`}
+          src={`http://localhost:8080${imageUrl}`}
           alt={productName}
           className={styles.productImage}
         />

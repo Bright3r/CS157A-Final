@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS public.users (
     userName character varying(100),
     addressID integer,
     email character varying(100),
-    password character varying(100),
+    password character varying(256),
     phoneNumber character varying(100)
 );
 
