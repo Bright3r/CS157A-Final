@@ -4,16 +4,21 @@ import styles from "@/styles/Review.module.css";
 import axios from "axios";
 import { useRouter } from "next/router";
 
-export default function Review(props: review_t) {
-    const { reviewID, reviewComment,rating, datePosted, product, user: reviewUser } = props;
+interface ReviewProps {
+    review: review_t;
+    refresh: () => void;
+}
+
+export default function Review(props: ReviewProps) {
+    const { reviewID, reviewComment,rating, datePosted, product, user: reviewUser } = props.review;
+    const refresh = props.refresh;
     const { user } = useUser();
     const router = useRouter();
 
     const handleDelete = async () => {
-
         try {
             const res = await axios.delete(`http://localhost:8080/api/reviews/${reviewID}`);
-            router.replace(router.asPath, undefined, { scroll: false });
+            refresh();
         } catch (error) {
             console.error("Failed to delete review: ", error);
             alert("Failed to delete review");

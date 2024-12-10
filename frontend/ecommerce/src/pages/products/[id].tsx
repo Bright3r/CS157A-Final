@@ -18,25 +18,26 @@ export default function ProductDetails() {
   const { id } = router.query;
   const { user } = useUser();
 
-  useEffect(() => {
-    const fetchProduct = async (prodID: number) => {
-      try {
-        const res = await axios.get<product_t>(`http://localhost:8080/api/products/${prodID}`);
-        setProduct(res.data);
-      } catch (error) {
-        console.error("Error fetching products: ", error);
-      }
-    };
-
-    const fetchReviews = async (prodID: number) => {
-      try {
-        const res = await axios.get<review_t[]>(`http://localhost:8080/api/reviews/product/${prodID}`);
-        setReviews(res.data);
-      } catch (error) {
-        console.error("Error fetching reviews: ", error);
-      }
+  const fetchProduct = async (prodID: number) => {
+    try {
+      const res = await axios.get<product_t>(`http://localhost:8080/api/products/${prodID}`);
+      setProduct(res.data);
+    } catch (error) {
+      console.error("Error fetching products: ", error);
     }
+  };
 
+  const fetchReviews = async (prodID: number) => {
+    try {
+      const res = await axios.get<review_t[]>(`http://localhost:8080/api/reviews/product/${prodID}`);
+      setReviews(res.data);
+    } catch (error) {
+      console.error("Error fetching reviews: ", error);
+    }
+  }
+
+
+  useEffect(() => {
     const prodID = Number(id);
     if (prodID) {
       fetchProduct(prodID);
@@ -44,6 +45,11 @@ export default function ProductDetails() {
     }
   }, [id]);
 
+  
+  const refreshReviews = async () => {
+    const prodID = Number(id);
+    await fetchReviews(prodID);
+  }
 
   const handleReviewSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -86,8 +92,9 @@ export default function ProductDetails() {
         }
       });
 
-      console.log(newReview.rating);
-      setReviews([...reviews, newReview]); // Add new review to the top
+      // Refresh new reviews
+      await refreshReviews();
+
       setReviewText(""); // Clear review text
       setRating(5); // Reset rating to 5
     } catch (error) {
@@ -109,7 +116,7 @@ export default function ProductDetails() {
         <div>
           <h1 className={styles.header}>User Reviews</h1>
           {reviews.map((review) => (
-            <Review key={review.reviewID} {...review} />
+            <Review key={review.reviewID} review={review} refresh={refreshReviews}/>
           ))}
         </div>
 

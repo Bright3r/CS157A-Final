@@ -4,6 +4,7 @@ interface UserContextType {
     user: user_t | null;
     setUser: (user: user_t) => void;
     isLoggedIn: () => Boolean;
+    logout: () => void;
 }
 
 const UserContext = createContext<UserContextType | null>(null);
@@ -23,9 +24,13 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return (user !== null);
     }
 
+    const logout = () => {
+        setUser(null);
+    }
+
     return (
         <UserContext.Provider 
-            value={{ user, setUser, isLoggedIn }}
+            value={{ user, setUser, isLoggedIn, logout }}
         >
             {children}
         </UserContext.Provider>

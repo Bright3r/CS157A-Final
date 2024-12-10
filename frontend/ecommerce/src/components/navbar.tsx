@@ -5,7 +5,7 @@ import { useUser } from "../context/UserContext";
 import { useEffect } from "react";
 
 export default function Navbar() {
-  const { user, isLoggedIn } = useUser();
+  const { user, isLoggedIn, logout } = useUser();
 
   useEffect(() => {
 
@@ -34,6 +34,9 @@ export default function Navbar() {
           <>
             <li>
               <strong>Hello, { user?.userName }</strong>
+            </li>
+            <li>
+              <Link href="/login" onClick={() => logout()}>Sign Out</Link>
             </li>
             <li>
               <Link href="/orders">Orders</Link>
