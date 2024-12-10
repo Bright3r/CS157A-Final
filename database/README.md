@@ -1,43 +1,63 @@
-1. Install PostgreSQL
+# Setting Up PostgreSQL for the E-commerce Platform
 
-\*\*For macOS:
+## Installation Guide
 
-- Install Homebrew (Optional):
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+### For macOS:
 
-- Instal PostgreSQL from Homebrew:
-  brew install postgresql
+1. **Install Homebrew (Optional):**
 
-- Start PostgreSQL service:
-  brew services start postgresql
-- Verify installation:
-  psql --version
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-\*\*For Linux:
+2. Install PostgreSQL using Homebrew:
+brew install postgresql
 
-- Update the package list:
-  sudo apt update
+3. Start the PostgreSQL service:
+brew services start postgresql
 
-- Install PostgreSQL
-  sudo apt install postgresql postgresql-contrib
+4. Verify the installation:
+psql --version
 
--Start PostgreSQL:
+### For Linux:
+
+1. Update the package list:
+sudo apt update
+
+2. Install PostgreSQL and additional components:
+sudo apt install postgresql postgresql-contrib
+
+3. Start and enable the PostgreSQL service:
 sudo systemctl start postgresql
 sudo systemctl enable postgresql
 
-- Verify installation:
-  psql --version
+4. Verify the installation:
+psql --version
 
-2. Create Database:
+## Database Setup
 
-- Open the PostgreSQL
-  psql postgres
-
-- Create a database
+1. Create a PostgreSQL user and database:
+Log in to PostgreSQL:
+  psql -h localhost -p 5432
+Run the following SQL commands:
+  CREATE USER admin WITH PASSWORD 'admin';
   CREATE DATABASE ecommerce;
+  GRANT ALL PRIVILEGES ON DATABASE ecommerce TO admin;
 
-- Exit the PostgreSQL
-  \q
+2. Connect to the ecommerce database:
+psql -h localhost -p 5432 -U admin -d ecommerce
 
-3.  Connect to PostgresSQL
-    psql -h localhost -p 5432 -U admin -d ecommerce
+## Running the Application
+
+1. Navigate to the project directory:
+src/main/java/com
+
+2. Run the database setup schema:
+Execute DatabaseSetup.java to initialize the database schema.
+
+3. Start the Spring Boot application:
+Run EcommerceApplication.java using Spring Boot. Ensure the application is running properly.
+
+## Notes
+Make sure PostgreSQL is running before starting the Spring Boot application.
+Verify configuration settings in the application.properties file for Spring Boot to connect to the PostgreSQL database correctly.
+```
