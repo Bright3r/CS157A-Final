@@ -29,9 +29,8 @@ export default function Products() {
         }
 
         url = url.endsWith("&") ? url.slice(0, -1) : url;
-
+        console.log(url);
         const res = await axios.get<product_t[]>(url);
-        console.log(res);
         setProducts(res.data);
       } catch (err) {
         console.error("Error fetching products:", err);
