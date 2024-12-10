@@ -34,6 +34,7 @@ public class OrderRepository {
     @Autowired
     private ProductService productService;
 
+    // Method to build a frontend order object from a database order object
     private Order buildOrder(ResultSet rs) throws SQLException {
 		Order curr = new Order();
 		
@@ -158,6 +159,7 @@ public class OrderRepository {
     	Connection conn = DatabaseConnection.getConnection();
 		List<Order> orders = new ArrayList<>();
 		
+		// Query to get all orders for a user by userID
 		String query = "SELECT * FROM Orders WHERE userID = ?";
     	try (PreparedStatement pstmt = conn.prepareStatement(query)) {
     		pstmt.setInt(1, userID);
@@ -187,6 +189,7 @@ public class OrderRepository {
 			// Get item from database
 			int prodID = item.getProduct().getProductID();
 			Product prod = productService.getProductById(prodID).orElse(null);
+			// Make sure ordered product exists
 			if (prod == null) {
 				throw new RuntimeException("Could not find ordered product");
 			}
@@ -201,9 +204,10 @@ public class OrderRepository {
 			}
 			
 			// Execute Query
-			// Make sure product's stock quantity is reduced
 			reduceStockPstmt.setInt(1, newStockQty);
 			reduceStockPstmt.setInt(2, prodID);
+			
+			// Make sure product's stock quantity is reduced
 			if (reduceStockPstmt.executeUpdate() <= 0) {
 				throw new RuntimeException("Failed to update product's stock quantity");
 			}
@@ -218,6 +222,7 @@ public class OrderRepository {
 			// Get item from database
 			int prodID = item.getProduct().getProductID();
 			Product prod = productService.getProductById(prodID).orElse(null);
+			// Make sure ordered product exists
 			if (prod == null) {
 				throw new RuntimeException("Could not find ordered product");
 			}
@@ -330,6 +335,7 @@ public class OrderRepository {
     	// Get Singleton Database Connection
     	Connection conn = DatabaseConnection.getConnection();
 		
+    	// Query to delete rows from orders table
         String sql = "DELETE FROM Orders WHERE orderID = ?";
     	try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
     		pstmt.setInt(1, orderID);

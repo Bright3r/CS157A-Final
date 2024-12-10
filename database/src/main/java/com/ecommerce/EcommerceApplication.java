@@ -7,7 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class EcommerceApplication {
 
     public static void main(String[] args) {
+    	// Establish JDBC Database Connection
     	DatabaseConnection.initialize();
+    	
+    	// Launch Backend
         SpringApplication.run(EcommerceApplication.class, args);
     }
 }

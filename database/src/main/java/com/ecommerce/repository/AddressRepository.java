@@ -17,6 +17,7 @@ import com.ecommerce.model.Address;
 @Repository
 public class AddressRepository {
 
+	// Create a frontend representation of database address
     public Address buildAddress(ResultSet rs) throws SQLException {
         Address address = new Address();
         address.setAddrID(rs.getInt("addrID"));
@@ -86,6 +87,7 @@ public class AddressRepository {
     	// Get Singleton Database Connection
     	Connection conn = DatabaseConnection.getConnection();
     	
+    	// Query to insert rows into address table
         String sql = "INSERT INTO Addresses (country, state, city, street, houseNumber, zipcode) "
         			+ "VALUES (?, ?, ?, ?, ?, ?) RETURNING addrID";
     	try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -116,6 +118,7 @@ public class AddressRepository {
     	// Get Singleton Database Connection
     	Connection conn = DatabaseConnection.getConnection();
     	
+    	// Query to update rows of address table
     	String sql = "UPDATE Addresses SET country = ?, state = ?, city = ?, street = ?, "
     				+ "houseNumber = ?, zipcode = ? WHERE addrID = ?";
     	try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -141,6 +144,7 @@ public class AddressRepository {
     	// Get Singleton Database Connection
     	Connection conn = DatabaseConnection.getConnection();
     	
+    	// Query to delete row from address table by id
         String sql = "DELETE FROM Addresses WHERE addrID = ?";
     	try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
     		pstmt.setInt(1, addrID);

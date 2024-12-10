@@ -17,8 +17,8 @@ import com.ecommerce.model.Product;
 @Repository
 public class ProductRepository {
     
-    // Builds a product for the current row of the ResultSet
-    // Throws an SQLException if the ResultSet does not contain expected Product data
+    // Method to build a frontend product representation from
+	// database product entry
     private Product buildProduct(ResultSet rs) throws SQLException {
 		Product curr = new Product();
 		
@@ -42,16 +42,16 @@ public class ProductRepository {
     	Connection conn = DatabaseConnection.getConnection();
 		List<Product> products = new ArrayList<>();
 		
-    	try {
-    		// Query for all products in database
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Products");
+		// Query for all products in database
+		String query = "SELECT * FROM Products";
+    	try (Statement stmt = conn.createStatement()) {
+			ResultSet rs = stmt.executeQuery(query);
+			
+			// Create a frontend Product object for each row in the ResultSet
 			while (rs.next()) {
-				// Create a Product object for each row in the ResultSet
 				Product curr = buildProduct(rs);
 				products.add(curr);
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -93,10 +93,10 @@ public class ProductRepository {
     	// Get Singleton Database Connection
     	Connection conn = DatabaseConnection.getConnection();
     	
+    	// Query to insert a new product into products table
         String sql = "INSERT INTO Products (productName, brand, price, quantity, listingDate, imageUrl, category) "
         			+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try {
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, product.getProductName());
 			pstmt.setString(2, product.getBrand());
 			pstmt.setDouble(3, product.getPrice());
@@ -118,10 +118,10 @@ public class ProductRepository {
     	// Get Singleton Database Connection
     	Connection conn = DatabaseConnection.getConnection();
     	
+    	// Query to update attributes of a product in the products table
         String sql = "UPDATE Products SET productName = ?, brand = ?, price = ?, "
         		+ "quantity = ?, listingDate = ?, imageUrl = ?, category = ? WHERE productID = ?";
-        try {
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, product.getProductName());
 			pstmt.setString(2, product.getBrand());
 			pstmt.setDouble(3, product.getPrice());
@@ -144,9 +144,9 @@ public class ProductRepository {
     	// Get Singleton Database Connection
     	Connection conn = DatabaseConnection.getConnection();
     	
+    	// Query to delete a product from products table by id
         String sql = "DELETE FROM Products WHERE productID = ?";
-        try {
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, productID);
 			
 			return pstmt.executeUpdate();
@@ -165,9 +165,7 @@ public class ProductRepository {
     	
     	// Query for any products containing the searched word (case insensitive)
         String sql = "SELECT * FROM Products WHERE UPPER(productName) LIKE ?";
-        try {
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 	        // Add wildcard characters to the search string for partial matching
 			String productName = "%" + search + "%";
 	        pstmt.setString(1, productName.toUpperCase());
@@ -195,9 +193,7 @@ public class ProductRepository {
     	
     	// Query for any products with the same category (case insensitive)
         String sql = "SELECT * FROM Products WHERE UPPER(category) LIKE ?";
-        try {
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 	        // Add wildcard characters to the search string for partial matching
 			String productCategory = "%" + category + "%";
 	        pstmt.setString(1, productCategory.toUpperCase());
@@ -225,9 +221,7 @@ public class ProductRepository {
     	
     	// Query for any products in descending order
         String sql = "SELECT * FROM Products ORDER BY price DESC";
-        try {
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {	
 			// Execute query
 			ResultSet rs = pstmt.executeQuery();
 			
@@ -251,9 +245,7 @@ public class ProductRepository {
     	
     	// Query for any products in descending order
         String sql = "SELECT * FROM Products ORDER BY rating DESC";
-        try {
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			// Execute query
 			ResultSet rs = pstmt.executeQuery();
 			

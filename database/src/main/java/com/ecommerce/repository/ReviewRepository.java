@@ -28,6 +28,7 @@ public class ReviewRepository {
     @Autowired
     private ProductService productService;
     
+    // Build a frontend review representation from database review tuple
     private Review buildReview(ResultSet rs) throws SQLException {
 		Review curr = new Review();
 		
@@ -56,16 +57,16 @@ public class ReviewRepository {
     	Connection conn = DatabaseConnection.getConnection();
 		List<Review> reviews = new ArrayList<>();
 		
-    	try {
-    		// Query for all reviews in database
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Reviews");
+		// Query for all reviews in database
+		String query = "SELECT * FROM Reviews";
+    	try (Statement stmt = conn.createStatement()) {
+			ResultSet rs = stmt.executeQuery(query);
+			
+			// Create a Review object for each row in the ResultSet
 			while (rs.next()) {
-				// Create a Review object for each row in the ResultSet
 				Review curr = buildReview(rs);
 				reviews.add(curr);
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -159,6 +160,7 @@ public class ReviewRepository {
     	// Get Singleton Database Connection
     	Connection conn = DatabaseConnection.getConnection();
     	
+    	// Query to update attributes of a review tuple in database
         String sql = "UPDATE Reviews SET userID = ?, productID = ?, rating = ?, "
         		+ "reviewComment = ?, datePosted = ? WHERE reviewID = ?";
     	try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -183,6 +185,7 @@ public class ReviewRepository {
     	// Get Singleton Database Connection
     	Connection conn = DatabaseConnection.getConnection();
 
+    	// Query to delete a review from reviews table by id
         String sql = "DELETE FROM Reviews WHERE reviewID = ?";
     	try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
     		pstmt.setInt(1, reviewID);

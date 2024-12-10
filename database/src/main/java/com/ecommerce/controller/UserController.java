@@ -107,6 +107,7 @@ public class UserController {
         return userService.updateUser(updatedUser);
     }
 
+    // Log in user by password
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody LoginRequest loginRequest) {
     	try {

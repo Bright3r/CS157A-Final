@@ -22,6 +22,7 @@ public class  UserRepository {
     @Autowired
     AddressService addressService;
     
+    // Builds a frontend user representation from a database user tuple
     private User buildUser(ResultSet rs) throws SQLException {    	
         User user = new User();
         user.setUserID(rs.getInt("userID"));
@@ -38,6 +39,7 @@ public class  UserRepository {
         return user;
     }
     
+    // Method to get all users
     public List<User> findAll() {
     	// Get Singleton Database Connection
     	Connection conn = DatabaseConnection.getConnection();
@@ -61,6 +63,7 @@ public class  UserRepository {
     	return users;
     }
     
+    // Method to get a user by userID
     public Optional<User> findById(Integer userID) {
     	// Get Singleton Database Connection
     	Connection conn = DatabaseConnection.getConnection();
@@ -88,6 +91,7 @@ public class  UserRepository {
     	return Optional.ofNullable(user);
     }
     
+    // Method to get a user by userName
     public Optional<User> findByUserName(String userName) {
     	// Get Singleton Database Connection
     	Connection conn = DatabaseConnection.getConnection();
@@ -116,15 +120,15 @@ public class  UserRepository {
     	return Optional.ofNullable(user);
     }
     
-    // Insert a new user
+    // Insert a new user into database
     public int save(User user) {
     	// Get Singleton Database Connection
     	Connection conn = DatabaseConnection.getConnection();
     	
+    	// Query to create new user tuple in user table
         String sql = "INSERT INTO Users (userName, addressID, email, password, phoneNumber) "
         			+ "VALUES (?, ?, ?, ?, ?)";
-        try {
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, user.getUserName());
 			pstmt.setInt(2, user.getAddress().getAddrID());
 			pstmt.setString(3, user.getEmail());
@@ -144,6 +148,7 @@ public class  UserRepository {
     	// Get Singleton Database Connection
     	Connection conn = DatabaseConnection.getConnection();
     	
+    	// Query to update attributes of a user tuple
     	String sql = "UPDATE Users SET username = ?, email = ?, password = ? WHERE userID = ?";
     	try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
     		pstmt.setString(1, user.getUserName());
@@ -164,6 +169,7 @@ public class  UserRepository {
     	// Get Singleton Database Connection
     	Connection conn = DatabaseConnection.getConnection();
     	
+    	// Query to delete user from users table by id
         String sql = "DELETE FROM users WHERE id = ?";
     	try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
     		pstmt.setInt(1, userID);
@@ -175,28 +181,4 @@ public class  UserRepository {
     	
     	return 0;
     }
-
-    
-    
-//    public User authenticateUser(LoginRequest loginRequest) {
-//        String sql = "SELECT * FROM Users WHERE userName = ? AND password = ?";
-//        try {
-//            // Log the incoming parameters
-//            System.out.println("Authenticating user: " + loginRequest.getUsername() + " with password: " + loginRequest.getPassword());
-//
-//            return jdbcTemplate.queryForObject(sql, (ResultSet rs, int rowNum) -> {
-//                User user = new User();
-//                user.setUserName(rs.getString("userName"));
-//                user.setPassword(rs.getString("password"));
-//                user.setUserID(rs.getInt("userID"));
-//                user.setEmail(rs.getString("email"));
-//                return user;
-//            }, loginRequest.getUsername(), loginRequest.getPassword());
-//        } catch (Exception e) {
-//            // Log the exception
-//            System.out.println("Error during authentication: " + e.getMessage());
-//            return null;
-//        }
-//    }
-
 }

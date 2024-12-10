@@ -16,33 +16,33 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/products")
 public class ProductController {
 
     @Autowired
     private ProductService productService;
     
     // Get all products
-    @GetMapping("/products")
+    @GetMapping
     public List<Product> getAllProducts() {
         return productService.getAllProducts();
     }
 
     // Get product by ID
-    @GetMapping("/products/{id}")
+    @GetMapping("/{id}")
     public Product getProductById(@PathVariable Integer id) {
         return productService.getProductById(id).orElse(null);  // Return null if not found
     }
 
     // Add new product
-    @PostMapping("/products")
+    @PostMapping
     public Product addProduct(@RequestBody Product product) {
         productService.updateProduct(product);  // Call service to add product
         return product;  // Return the product after insertion
     }
 
     // Update existing product
-    @PutMapping("/products/{id}")
+    @PutMapping("/{id}")
     public Product updateProduct(@PathVariable Integer id, @RequestBody Product product) {
         product.setProductID(id);  // Set the ID before updating the product
         productService.updateProduct(product);  // Call service to update product
@@ -50,31 +50,31 @@ public class ProductController {
     }
 
     // Delete product by ID
-    @DeleteMapping("/products/{id}")
+    @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable Integer id) {
         productService.deleteProduct(id);  // Call service to delete product
     }
     
     // Search for products by name
-    @GetMapping("/products/search")
+    @GetMapping("/search")
     public List<Product> searchProducts(@RequestParam String productName) {
     	return productService.searchProducts(productName);
     }
     
     // Filter products by category
-    @GetMapping("/products/filter")
+    @GetMapping("/filter")
     public List<Product> filterProductsByCategory(@RequestParam String category) {
     	return productService.filterProductsByCategory(category);
     }
     
     // Get products sorted by descending price
-    @GetMapping("/products/sort/price")
+    @GetMapping("/sort/price")
     public List<Product> getProductsSortedByPrice() {
     	return productService.getProductsSortedByPrice();
     }
     
     // Get products sorted by descending rating
-    @GetMapping("/products/sort/rating")
+    @GetMapping("/sort/rating")
     public List<Product> getProductsSortedByRating() {
     	return productService.getProductsSortedByRating();
     }

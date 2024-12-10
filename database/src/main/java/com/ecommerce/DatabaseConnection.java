@@ -3,8 +3,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/*
+ * Singleton class to share JDBC database connection throughout the application
+ */
 public class DatabaseConnection {
-    
 	// Singleton connection instance
 	private static Connection conn;
 	
@@ -41,6 +43,7 @@ public class DatabaseConnection {
     	return conn;
     }
     
+    // Method to initialize the JDBC database connection
     public static void initialize() {
         // Try to establish a connection
     	conn = establishConnection();
