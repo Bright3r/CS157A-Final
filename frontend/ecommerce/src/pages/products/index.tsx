@@ -9,27 +9,30 @@ export default function Products() {
   const [filterCategory, setFilterCategory] = useState<string | null>(null);
   const [filterPrice, setFilterPrice] = useState<"asc" | "desc" | null>(null);
   const [filterRating, setFilterRating] = useState<"asc" | "desc" | null>(null);
-  //check
+  
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        let url = "http://localhost:8080/api/products?";
+        let url = "http://localhost:8080/api/products/search-filter-sort/";
 
+        // Check for search by name
         if (searchQuery) {
-          url = `http://localhost:8080/api/products/search?productName=${searchQuery}`;
-        }
-        if (filterCategory) {
-          url = `http://localhost:8080/api/products/filter?category=${filterCategory}`;
-        }
-        if (filterPrice) {
-          url += `sort=price&order=${filterPrice}&`;
-        }
-        if (filterRating) {
-          url += `rating=${filterRating}&`;
+          url += `?productName=${searchQuery}`;
+
+          if (filterCategory || filterPrice || filterRating) {
+            url += "&";
+          }
         }
 
-        url = url.endsWith("&") ? url.slice(0, -1) : url;
-        console.log(url);
+        // Check for filter by category
+        if (filterCategory) {
+          if (!searchQuery) {
+            url += "?"
+          }
+
+          url += `category=${filterCategory}`;
+        }
+
         const res = await axios.get<product_t[]>(url);
         setProducts(res.data);
       } catch (err) {

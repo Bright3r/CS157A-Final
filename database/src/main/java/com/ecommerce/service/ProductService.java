@@ -58,4 +58,9 @@ public class ProductService {
     public List<Product> getProductsSortedByRating() {
     	return productRepository.getProductsSortedByRating();
     }
+    
+    // Method that handles search, filter, and sort logic all at once
+    public List<Product> searchFilterSortProducts(String productName, String category, String sortBy) {
+    	return productRepository.searchFilterSortProducts(productName, category, sortBy);
+    }
 }

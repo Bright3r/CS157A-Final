@@ -78,4 +78,15 @@ public class ProductController {
     public List<Product> getProductsSortedByRating() {
     	return productService.getProductsSortedByRating();
     }
+    
+    // Search, filter, and sort products in a single endpoint
+    @GetMapping("/search-filter-sort")
+    public List<Product> searchFilterSortProducts(
+            @RequestParam(required = false) String productName,
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) String sortBy,
+            @RequestParam(required = false) String sortOrder) {
+
+        return productService.searchFilterSortProducts(productName, category, sortBy);
+    }
 }

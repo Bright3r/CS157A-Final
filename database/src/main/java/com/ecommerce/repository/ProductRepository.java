@@ -260,4 +260,56 @@ public class ProductRepository {
         
         return results;
     }
+    
+    // Search for product by name, then filter by category, then sort by some criteria
+    public List<Product> searchFilterSortProducts(String productName, String category, String sortBy) {
+    	// Get Singleton Database Connection
+    	Connection conn = DatabaseConnection.getConnection();
+    	List<Product> results = new ArrayList<>();
+    	
+    	// Query for all products in database
+        String query = "SELECT * FROM Products";
+        List<String> queryArgs = new ArrayList<>();
+        
+        // only query for products with matching name
+        if (productName != null) {
+        	query += " WHERE UPPER(productName) LIKE ?";
+        	queryArgs.add("%" + productName.toUpperCase() + "%");
+        }
+        
+        // also check that product matches category
+        if (category != null) {
+        	if (productName != null) {
+        		query += " AND";
+        	}
+        	else {
+        		query += " WHERE";
+        	}
+        	
+        	query += " UPPER(category) LIKE ?";
+        	queryArgs.add("%" + category.toUpperCase() + "%");
+        }
+        
+        // Assemble query with arguments
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+        	// Add query arguments to PrepareStatement
+			for (int i = 0; i < queryArgs.size(); i++) {
+				pstmt.setString(i + 1, queryArgs.get(i));
+			}
+			System.out.println(pstmt.toString());
+        	
+			// Execute query
+			ResultSet rs = pstmt.executeQuery();
+			
+			// Add each product to result list
+			while (rs.next()) {
+				Product prod = buildProduct(rs);
+				results.add(prod);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+        
+        return results;
+    }
 }
